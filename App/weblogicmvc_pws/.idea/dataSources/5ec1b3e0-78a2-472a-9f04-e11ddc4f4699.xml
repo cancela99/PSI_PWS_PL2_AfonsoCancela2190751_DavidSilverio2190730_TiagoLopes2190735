@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="webapp@localhost">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.17">
     <root id="1"/>
     <schema id="2" parent="1" name="webapp">
       <Current>1</Current>
-      <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="information_schema"/>
     <schema id="4" parent="1" name="mysql"/>
@@ -16,18 +15,18 @@
     <table id="10" parent="2" name="f1cars"/>
     <column id="11" parent="9" name="id">
       <Position>1</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="12" parent="9" name="name">
       <Position>2</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="13" parent="9" name="ISBN">
       <Position>3</Position>
-      <DataType>varchar(80)|0</DataType>
+      <DataType>varchar(80)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="14" parent="9" name="PRIMARY">
@@ -37,29 +36,29 @@
     </key>
     <column id="15" parent="10" name="id">
       <Position>1</Position>
-      <DataType>int(11) unsigned|0</DataType>
+      <DataType>int(11) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="16" parent="10" name="make">
       <Position>2</Position>
-      <DataType>varchar(191)|0</DataType>
+      <DataType>varchar(191)|0s</DataType>
     </column>
     <column id="17" parent="10" name="engine">
       <Position>3</Position>
-      <DataType>varchar(191)|0</DataType>
+      <DataType>varchar(191)|0s</DataType>
     </column>
     <column id="18" parent="10" name="tires">
       <Position>4</Position>
-      <DataType>int(11) unsigned|0</DataType>
+      <DataType>int(11) unsigned|0s</DataType>
     </column>
     <column id="19" parent="10" name="driver">
       <Position>5</Position>
-      <DataType>varchar(191)|0</DataType>
+      <DataType>varchar(191)|0s</DataType>
     </column>
     <column id="20" parent="10" name="last_run">
       <Position>6</Position>
-      <DataType>datetime|0</DataType>
+      <DataType>datetime|0s</DataType>
     </column>
     <key id="21" parent="10" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>

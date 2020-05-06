@@ -18,6 +18,7 @@ Router::get('home/index',	'HomeController/index');
 Router::get('home/start',	'HomeController/start');
 
 Router::get('rules/index', 'RulesController/index');
+Router::get('backoffice/index', 'BackofficeController/index');
 
 
 
