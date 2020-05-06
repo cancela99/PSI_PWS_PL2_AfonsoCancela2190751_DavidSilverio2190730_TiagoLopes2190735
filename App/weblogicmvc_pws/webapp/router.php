@@ -19,7 +19,7 @@ Router::get('home/start',	'HomeController/start');
 
 Router::get('rules/index', 'RulesController/index');
 Router::get('backoffice/index', 'BackofficeController/index');
-
+Router::get('matches/index', 'MatchesController/index');
 
 
 
