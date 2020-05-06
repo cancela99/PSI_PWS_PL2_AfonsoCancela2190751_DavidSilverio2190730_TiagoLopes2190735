@@ -11,5 +11,16 @@ class RulesController extends BaseController
         return View::make('rules.index');
     }
 
+    public function loginPage () {
+        return View::make('login.loginPage');
+    }
+
+    public function top10page () {
+        return View::make('top10.top10page');
+    }
+
+    public function registerPage() {
+        return View::make('register.registerpage');
+    }
 
 }

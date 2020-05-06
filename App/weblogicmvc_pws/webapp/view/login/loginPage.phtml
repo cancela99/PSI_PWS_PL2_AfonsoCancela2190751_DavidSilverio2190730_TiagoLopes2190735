@@ -1,0 +1,60 @@
+<?php
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('headerproject');
+?>
+
+    <style>
+        #login .containerlogin #linhaLogin #colunaLogin #loginBox {
+            margin-top: 120px;
+            max-width: 600px;
+            height: 305px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+        }
+
+        #login .containerlogin #linhaLogin #colunaLogin #loginBox #loginForm {
+            padding: 20px;
+        }
+
+        .containerlogin {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    </style>
+
+    <body>
+    <div id="login">
+        <div class="containerlogin">
+            <div id="linhaLogin" class="row justify-content-center align-items-center">
+                <div id="colunaLogin" class="col-md-6">
+                    <div id="loginBox" class="d-flex justify-content-between">
+                        <form id="loginForm" class="form" action="" method="post">
+                            <h3 class="text-center text-warning">Login</h3>
+                            <div class="p-1">
+                                <label for="username" class="text-warning">Username:</label>
+                                <input type="text" name="username" id="username" class="form-control">
+                            </div><br>
+                            <div class="form-group">
+                                <label for="password" class="text-warning">Password:</label>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                            <div id="register-link" class="text-right">
+                                <a href="<?= URL::toRoute('register/')?>" class="text-warning">Register</a>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-warning btn-md" value="Login">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+
+<?php Layout::includeLayout('footerproject'); ?>

@@ -1,0 +1,60 @@
+<?php
+use ArmoredCore\WebObjects\Layout;
+Layout::includeLayout('headerproject');
+?>
+
+<style>
+    #login .containerRegister #row #column #registerBox {
+        margin-top: 120px;
+        max-width: 600px;
+        height: 320px;
+        border: 1px solid #9C9C9C;
+        background-color: #EAEAEA;
+    }
+
+    #login .containerRegister #row #column #registerBox #registForm {
+        padding: 20px;
+    }
+
+    .containerRegister {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+</style>
+
+<body>
+<div style="margin-top: 5.5%" id="register">
+    <div class="containerRegister">
+        <div id="row" class="row justify-content-center align-items-center">
+            <div id="column" class="col-md-6">
+                <div id="registerBox" class="d-flex justify-content-between">
+                    <form id="registForm" class="form" action="" method="post">
+                        <h3 class="text-center text-warning">Register</h3><br>
+                        <div class="form-group">
+                            <label for="password" class="text-warning">Name:</label>
+                            <input type="text" name="name" id="nameregist" class="form-control">
+                        </div><br>
+                        <div class="form-group">
+                            <label for="username" class="text-warning">Username:</label>
+                            <input type="text" name="username" id="usernameregist" class="form-control">
+                        </div><br>
+                        <div class="form-group">
+                            <label for="password" class="text-warning">Password:</label>
+                            <input type="password" name="password" id="passwordregist" class="form-control">
+                        </div><br>
+                        <div style="text-align: center" class="form-group">
+                            <input type="submit" class="btn btn-warning btn-md" value="Register">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+<?php Layout::includeLayout('footerproject'); ?>

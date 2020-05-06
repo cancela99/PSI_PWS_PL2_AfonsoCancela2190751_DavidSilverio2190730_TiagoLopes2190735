@@ -1,0 +1,81 @@
+<?php
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\Facades\AssetBundler;
+use ArmoredCore\Facades\DebugRenderer;
+use ArmoredCore\WebObjects\URL;
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+
+    <title>Shut the Box Game</title>
+
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <!-- <link rel="stylesheet" type="text/css" href="estilos.css"> -->
+
+    <style>
+        footer {
+            margin-top: 9%;
+            background-color: ;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <div class="head">
+                <div class="row-fluid">
+                    <div class="span-12">
+                        <div class="span-6">
+                            <h1 class="text-warning">Shut The Box Game</h1>
+                        </div>
+
+                        <!--<div class="" style="margin-bottom: 9.1%;">
+                            <button class="btn pull-right" type="button">Sign In</button>
+                        </div>-->
+                    </div>
+                </div>
+
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <ul class="nav">
+                                <li>
+                                    <a href="<?= URL::toRoute('login/')?>">Home</a>
+                                </li>
+                                <li>
+                                    <a>About</a>
+                                </li>
+                                <li>
+                                    <a href="<?= URL::toRoute('rules/')?>">Game Rules</a>
+                                </li>
+                                <li>
+                                    <a href="<?= URL::toRoute('top10/')?>">TOP 10</a>
+                                </li>
+                            </ul>
+                            <!-- <div class="navbar-right">
+                                <div class="container">
+                                    <ul class="nav">
+                                        <li>
+                                            <a>Login</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
