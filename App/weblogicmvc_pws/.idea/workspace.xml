@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7001a1a5-552a-4369-8b2d-3d517ff80e18" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/WEBlogicMVC.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WEBlogicMVC.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5ec1b3e0-78a2-472a-9f04-e11ddc4f4699.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5ec1b3e0-78a2-472a-9f04-e11ddc4f4699.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/controller/RulesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/controller/RulesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/view/layout/footerproject.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/layout/footerproject.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/view/layout/headerproject.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/layout/headerproject.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/view/login/loginPage.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/login/loginPage.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/view/register/registerpage.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/register/registerpage.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/view/rules/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/rules/index.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/view/top10/top10page.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/top10/top10page.phtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,19 +203,19 @@
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Pessoal\PSI_PWS_PL2_AfonsoCancela2190751_DavidSilverio2190730_TiagoLopes2190735\App\weblogicmvc_pws\webapp\view" />
-      <recent name="E:\wamp64\wamp64\www\weblogicmvc\framework\ArmoredCore\WebObjects" />
-      <recent name="E:\wamp64\wamp64\www\weblogicmvc\public\html" />
-      <recent name="E:\wamp64\www\weblogicmvc\wlstudio\startup" />
-      <recent name="E:\wamp64\www\weblogicmvc\wlstudio\startup\lib" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\wamp64\www\weblogicmvc\vendor\Pd\Diagnostics" />
       <recent name="E:\wamp64\www\weblogicmvc\webapp\startup" />
       <recent name="E:\wamp64\www\weblogicmvc\webapp\view\layout" />
       <recent name="E:\wamp64\www\weblogicmvc\framework\armoredcore" />
       <recent name="E:\wamp64\www\weblogicmvc\framework" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Pessoal\PSI_PWS_PL2_AfonsoCancela2190751_DavidSilverio2190730_TiagoLopes2190735\App\weblogicmvc_pws\public\img" />
+      <recent name="C:\Pessoal\PSI_PWS_PL2_AfonsoCancela2190751_DavidSilverio2190730_TiagoLopes2190735\App\weblogicmvc_pws\webapp\view\login" />
+      <recent name="C:\Pessoal\PSI_PWS_PL2_AfonsoCancela2190751_DavidSilverio2190730_TiagoLopes2190735\App\weblogicmvc_pws\webapp\view" />
+      <recent name="E:\wamp64\wamp64\www\weblogicmvc\framework\ArmoredCore\WebObjects" />
+      <recent name="E:\wamp64\wamp64\www\weblogicmvc\public\html" />
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.weblogicmvc">
@@ -270,7 +271,8 @@
       <workItem from="1588713336106" duration="769000" />
       <workItem from="1588714633052" duration="4892000" />
       <workItem from="1588754145156" duration="2315000" />
-      <workItem from="1588778496037" duration="276000" />
+      <workItem from="1588778496037" duration="18735000" />
+      <workItem from="1588839065287" duration="8809000" />
     </task>
     <servers />
   </component>
@@ -299,15 +301,20 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728/-1440.0.1440.860@0.0.1366.728" timestamp="1588714673145" />
-    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1588719478485">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728/-1440.0.1440.860@0.0.1366.728" timestamp="1588719478485" />
-    <state x="-1040" y="222" key="com.intellij.ide.util.TipDialog" timestamp="1588778531554">
+    <state x="-895" y="339" key="NewPhpFileDialog" timestamp="1588782595076">
       <screen x="-1440" y="0" width="1440" height="860" />
     </state>
-    <state x="-1040" y="222" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1440.0.1440.860@-1440.0.1440.860" timestamp="1588778531554" />
+    <state x="-895" y="339" key="NewPhpFileDialog/0.0.1366.728/-1440.0.1440.860@-1440.0.1440.860" timestamp="1588782595076" />
+    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728/-1440.0.1440.860@0.0.1366.728" timestamp="1588719478485" />
+    <state x="-1040" y="222" key="com.intellij.ide.util.TipDialog" timestamp="1588839076951">
+      <screen x="-1440" y="0" width="1440" height="860" />
+    </state>
+    <state x="-1040" y="222" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1440.0.1440.860@-1440.0.1440.860" timestamp="1588839076951" />
     <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728/-1440.0.1440.860@0.0.1366.728" timestamp="1588754475588" />
+    <state x="-1057" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1588804931960">
+      <screen x="-1440" y="0" width="1440" height="860" />
+    </state>
+    <state x="-1057" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/-1440.0.1440.860@-1440.0.1440.860" timestamp="1588804931960" />
   </component>
   <component name="masterDetails">
     <states>

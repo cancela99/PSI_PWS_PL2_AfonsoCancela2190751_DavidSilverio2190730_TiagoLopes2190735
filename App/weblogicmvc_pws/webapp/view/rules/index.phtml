@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Regras</title>
-</head>
+<?php
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('headerproject');
+?>
+
+
 <body>
 
-<h1 style="text-align: center">Regras</h1>
+<h1 class="mt-5" style="text-align: center">Regras</h1>
 
 <div style="max-width: 960px; margin: auto;margin-top: 100px">
     <p>O jogo começa com o jogador a lançar os dados e a fazer a soma dos dois dados.<br>
@@ -31,3 +33,5 @@
 
 </body>
 </html>
+
+<?php Layout::includeLayout('footerproject'); ?>

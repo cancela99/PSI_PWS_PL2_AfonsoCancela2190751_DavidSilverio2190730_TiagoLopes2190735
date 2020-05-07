@@ -23,4 +23,8 @@ class RulesController extends BaseController
         return View::make('register.registerpage');
     }
 
+    public function homePage() {
+        return View::make('homepage.homepage');
+    }
+
 }

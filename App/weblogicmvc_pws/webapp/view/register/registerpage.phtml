@@ -1,60 +1,46 @@
 <?php
-use ArmoredCore\WebObjects\Layout;
-Layout::includeLayout('headerproject');
+use ArmoredCore\WebObjects\URL;
 ?>
 
-<style>
-    #login .containerRegister #row #column #registerBox {
-        margin-top: 120px;
-        max-width: 600px;
-        height: 320px;
-        border: 1px solid #9C9C9C;
-        background-color: #EAEAEA;
-    }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    <title>Shut the Box Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
 
-    #login .containerRegister #row #column #registerBox #registForm {
-        padding: 20px;
-    }
 
-    .containerRegister {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-</style>
-
-<body>
-<div style="margin-top: 5.5%" id="register">
-    <div class="containerRegister">
-        <div id="row" class="row justify-content-center align-items-center">
-            <div id="column" class="col-md-6">
-                <div id="registerBox" class="d-flex justify-content-between">
-                    <form id="registForm" class="form" action="" method="post">
-                        <h3 class="text-center text-warning">Register</h3><br>
-                        <div class="form-group">
-                            <label for="password" class="text-warning">Name:</label>
-                            <input type="text" name="name" id="nameregist" class="form-control">
-                        </div><br>
-                        <div class="form-group">
-                            <label for="username" class="text-warning">Username:</label>
-                            <input type="text" name="username" id="usernameregist" class="form-control">
-                        </div><br>
-                        <div class="form-group">
-                            <label for="password" class="text-warning">Password:</label>
-                            <input type="password" name="password" id="passwordregist" class="form-control">
-                        </div><br>
-                        <div style="text-align: center" class="form-group">
-                            <input type="submit" class="btn btn-warning btn-md" value="Register">
-                        </div>
-                    </form>
-                </div>
-            </div>
+<body style="margin-top: 10%" class="text-center">
+<div style="max-width: 550px; border: 1px solid grey; padding-top: 2%; background-color: whitesmoke" class="container">
+    <form class="form-signin">
+<!--        <img class="mb-4" src="" alt="" width=92" height="92">-->
+        <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">Sign Up</h1>
+        <div class="form-label-group">
+            <input type="text" id="inputEmail" class="form-control" placeholder="Name" required autofocus>
+            <label for="inputName" class=""></label>
+        </div >
+        <div class="form-label-group">
+            <input type="email" id="inputName" class="form-control" placeholder="Email" required>
+            <label for="inputEmail" class=""></label>
         </div>
-    </div>
+        <div class="form-label-group">
+            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required >
+            <label for="inputUsername" class=""></label>
+        </div>
+        <div class="form-label-group">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <label for="inputPassword" class=""></label>
+        </div><br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+         <div class="mt-4 mb-2 text-muted"><!--© 2020 Copyright:
+            <a href=""> Polytechnic Institute of Leiria</a>-->
+             <a href="<?= URL::toRoute('login/')?>">Back to Login</a>
+        </div>
+    </form>
 </div>
 </body>
 
 
-<?php Layout::includeLayout('footerproject'); ?>
