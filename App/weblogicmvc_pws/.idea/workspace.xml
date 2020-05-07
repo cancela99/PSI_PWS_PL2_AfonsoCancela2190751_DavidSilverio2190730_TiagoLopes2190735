@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7001a1a5-552a-4369-8b2d-3d517ff80e18" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/controller/RulesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/controller/RulesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/router.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/router.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/view/layout/footerproject.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/layout/footerproject.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/view/layout/headerproject.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/layout/headerproject.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/view/login/loginPage.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/login/loginPage.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/view/register/registerpage.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/register/registerpage.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/view/rules/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/rules/index.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/view/top10/top10page.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/view/top10/top10page.phtml" afterDir="false" />
+    <list default="true" id="92e76a7c-ddae-4912-abe5-1175964136f0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webapp/view/gamepage/game.phtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,19 +196,19 @@
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\wamp64\www\weblogicmvc\vendor\Pd\Diagnostics" />
-      <recent name="E:\wamp64\www\weblogicmvc\webapp\startup" />
-      <recent name="E:\wamp64\www\weblogicmvc\webapp\view\layout" />
-      <recent name="E:\wamp64\www\weblogicmvc\framework\armoredcore" />
-      <recent name="E:\wamp64\www\weblogicmvc\framework" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Pessoal\PSI_PWS_PL2_AfonsoCancela2190751_DavidSilverio2190730_TiagoLopes2190735\App\weblogicmvc_pws\public\img" />
       <recent name="C:\Pessoal\PSI_PWS_PL2_AfonsoCancela2190751_DavidSilverio2190730_TiagoLopes2190735\App\weblogicmvc_pws\webapp\view\login" />
       <recent name="C:\Pessoal\PSI_PWS_PL2_AfonsoCancela2190751_DavidSilverio2190730_TiagoLopes2190735\App\weblogicmvc_pws\webapp\view" />
       <recent name="E:\wamp64\wamp64\www\weblogicmvc\framework\ArmoredCore\WebObjects" />
       <recent name="E:\wamp64\wamp64\www\weblogicmvc\public\html" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\wamp64\www\weblogicmvc\vendor\Pd\Diagnostics" />
+      <recent name="E:\wamp64\www\weblogicmvc\webapp\startup" />
+      <recent name="E:\wamp64\www\weblogicmvc\webapp\view\layout" />
+      <recent name="E:\wamp64\www\weblogicmvc\framework\armoredcore" />
+      <recent name="E:\wamp64\www\weblogicmvc\framework" />
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.weblogicmvc">
@@ -239,8 +232,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="PHP Script.startupconfig.php" />
       <item itemvalue="PHPUnit.weblogicmvc" />
+      <item itemvalue="PHP Script.startupconfig.php" />
     </list>
     <recent_temporary>
       <list>
