@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="92e76a7c-ddae-4912-abe5-1175964136f0" name="Default Changelist" comment="" />
+=======
+    <list default="true" id="7001a1a5-552a-4369-8b2d-3d517ff80e18" name="Default" comment="" />
+>>>>>>> 25ade4709927609a4778c4af6ebaf2ed6a26e25c
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="ComposerSettings" doNotAsk="true">
+=======
+  <component name="ComposerSettings">
+>>>>>>> 25ade4709927609a4778c4af6ebaf2ed6a26e25c
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -74,6 +82,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Html5" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -104,6 +113,7 @@
       <find>Debugger::barDump</find>
     </findStrings>
   </component>
+<<<<<<< HEAD
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
@@ -131,6 +141,31 @@
       <path value="$PROJECT_DIR$/vendor/Psr/Log" />
       <path value="$PROJECT_DIR$/vendor/Psr/http-message" />
       <path value="$PROJECT_DIR$/vendor/Psr/Interop" />
+=======
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/phpFastCache/Proxy" />
+      <path value="$PROJECT_DIR$/vendor/phpFastCache/Util" />
+      <path value="$PROJECT_DIR$/vendor/Filisko/PDOplus" />
+      <path value="$PROJECT_DIR$/vendor/Dave1010/Hug" />
+      <path value="$PROJECT_DIR$/vendor/PetrKnap/Php" />
+      <path value="$PROJECT_DIR$/vendor/Psr/Hug" />
+      <path value="$PROJECT_DIR$/vendor/Psr/Container" />
+      <path value="$PROJECT_DIR$/vendor/Stolz/Assets" />
+      <path value="$PROJECT_DIR$/vendor/Psr/Cache" />
+      <path value="$PROJECT_DIR$/vendor/Psr/Http" />
+      <path value="$PROJECT_DIR$/vendor/php-activerecord/test" />
+      <path value="$PROJECT_DIR$/vendor/Psr/Log" />
+      <path value="$PROJECT_DIR$/vendor/Psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/Psr/Interop" />
+      <path value="$PROJECT_DIR$/vendor/Symfony/Component" />
+      <path value="$PROJECT_DIR$/vendor/Tracy/Bridges" />
+      <path value="$PROJECT_DIR$/vendor/php-activerecord/lib" />
+      <path value="$PROJECT_DIR$/vendor/Tracy/assets" />
+>>>>>>> 25ade4709927609a4778c4af6ebaf2ed6a26e25c
       <path value="$PROJECT_DIR$/vendor/Windwalker/loader" />
       <path value="$PROJECT_DIR$/vendor/Windwalker/structure" />
       <path value="$PROJECT_DIR$/vendor/Windwalker/Cache" />
@@ -138,6 +173,7 @@
       <path value="$PROJECT_DIR$/vendor/Windwalker/edge" />
       <path value="$PROJECT_DIR$/vendor/Windwalker/renderer" />
       <path value="$PROJECT_DIR$/vendor/Windwalker/uri" />
+<<<<<<< HEAD
       <path value="$PROJECT_DIR$/vendor/legacy/Haanga" />
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-diactoros" />
       <path value="$PROJECT_DIR$/vendor/Aura/Filter" />
@@ -153,11 +189,33 @@
       <path value="$PROJECT_DIR$/vendor/Netpromotion/Profiler" />
       <path value="$PROJECT_DIR$/vendor/phpFastCache/Exceptions" />
       <path value="$PROJECT_DIR$/vendor/Pd/Diagnostics" />
+=======
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/legacy/Haanga" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-diactoros" />
+      <path value="$PROJECT_DIR$/vendor/Pd/Diagnostics" />
+      <path value="$PROJECT_DIR$/vendor/Hoa/Socket" />
+      <path value="$PROJECT_DIR$/vendor/Aura/Filter" />
+      <path value="$PROJECT_DIR$/vendor/Hoa/Websocket" />
+      <path value="$PROJECT_DIR$/vendor/Aura/Includer" />
+      <path value="$PROJECT_DIR$/vendor/Hoa/Exception" />
+      <path value="$PROJECT_DIR$/vendor/Aura/Di" />
+      <path value="$PROJECT_DIR$/vendor/Hoa/Event" />
+      <path value="$PROJECT_DIR$/vendor/Hoa/Consistency" />
+      <path value="$PROJECT_DIR$/vendor/Kdyby/Extension" />
+      <path value="$PROJECT_DIR$/vendor/Hoa/Protocol" />
+      <path value="$PROJECT_DIR$/vendor/Nette/Iterators" />
+      <path value="$PROJECT_DIR$/vendor/Netpromotion/Profiler" />
+      <path value="$PROJECT_DIR$/vendor/Nette/PhpGenerator" />
+      <path value="$PROJECT_DIR$/vendor/Nette/Utils" />
+      <path value="$PROJECT_DIR$/vendor/phpFastCache/Exceptions" />
+>>>>>>> 25ade4709927609a4778c4af6ebaf2ed6a26e25c
       <path value="$PROJECT_DIR$/vendor/phpFastCache/Cache" />
       <path value="$PROJECT_DIR$/vendor/phpFastCache/Entities" />
       <path value="$PROJECT_DIR$/vendor/phpFastCache/Drivers" />
       <path value="$PROJECT_DIR$/vendor/phpFastCache/Core" />
       <path value="$PROJECT_DIR$/vendor/php-activerecord/examples" />
+<<<<<<< HEAD
       <path value="$PROJECT_DIR$/vendor/Hoa/Socket" />
       <path value="$PROJECT_DIR$/vendor/phpFastCache/Bundle" />
       <path value="$PROJECT_DIR$/vendor/Hoa/Websocket" />
@@ -176,17 +234,31 @@
   </component>
   <component name="ProjectId" id="1bV2o7geKWZXYH3RxH3FOoUYuVl" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+=======
+      <path value="$PROJECT_DIR$/vendor/phpFastCache/Bundle" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1bXW5ZjEzbQE5UVn9ijgGOblMxz" />
+>>>>>>> 25ade4709927609a4778c4af6ebaf2ed6a26e25c
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="SearchEverywhereHistoryKey" value="Debugger::barDump&#9;null&#9;null&#10;code sty&#9;ACTION&#9;ChangeCodeStyleScheme&#10;Session::start&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="last_opened_file_path" value="C:/wamp64/www/weblogicmvc" />
+=======
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SearchEverywhereHistoryKey" value="Debugger::barDump&#9;null&#9;null&#10;code sty&#9;ACTION&#9;ChangeCodeStyleScheme&#10;Session::start&#9;null&#9;null" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+>>>>>>> 25ade4709927609a4778c4af6ebaf2ed6a26e25c
     <property name="php.override.implement.member.chooser.php.doc" value="DEFAULT" />
     <property name="recentsLimit" value="5" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -207,6 +279,16 @@
       <recent name="E:\wamp64\www\weblogicmvc\framework\armoredcore" />
       <recent name="E:\wamp64\www\weblogicmvc\framework" />
     </key>
+<<<<<<< HEAD
+=======
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\wamp64\wamp64\www\weblogicmvc\framework\ArmoredCore\WebObjects" />
+      <recent name="E:\wamp64\wamp64\www\weblogicmvc\public\html" />
+      <recent name="E:\wamp64\www\weblogicmvc\wlstudio\startup" />
+      <recent name="E:\wamp64\www\weblogicmvc\wlstudio\startup\lib" />
+      <recent name="E:\wamp64\www\weblogicmvc\middleware\lib" />
+    </key>
+>>>>>>> 25ade4709927609a4778c4af6ebaf2ed6a26e25c
   </component>
   <component name="RunManager" selected="PHPUnit.weblogicmvc">
     <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
@@ -229,8 +311,13 @@
       <method v="2" />
     </configuration>
     <list>
+<<<<<<< HEAD
       <item itemvalue="PHPUnit.weblogicmvc" />
       <item itemvalue="PHP Script.startupconfig.php" />
+=======
+      <item itemvalue="PHP Script.startupconfig.php" />
+      <item itemvalue="PHPUnit.weblogicmvc" />
+>>>>>>> 25ade4709927609a4778c4af6ebaf2ed6a26e25c
     </list>
     <recent_temporary>
       <list>
@@ -257,12 +344,16 @@
       <workItem from="1492530197275" duration="2484000" />
       <workItem from="1492542296752" duration="17485000" />
       <workItem from="1492626948768" duration="11495000" />
+<<<<<<< HEAD
       <workItem from="1588703117995" duration="1051000" />
       <workItem from="1588713336106" duration="769000" />
       <workItem from="1588714633052" duration="4892000" />
       <workItem from="1588754145156" duration="2315000" />
       <workItem from="1588778496037" duration="18735000" />
       <workItem from="1588839065287" duration="8809000" />
+=======
+      <workItem from="1588778737730" duration="7033000" />
+>>>>>>> 25ade4709927609a4778c4af6ebaf2ed6a26e25c
     </task>
     <servers />
   </component>
@@ -287,6 +378,7 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+<<<<<<< HEAD
     <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1588714673145">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -305,6 +397,12 @@
       <screen x="-1440" y="0" width="1440" height="860" />
     </state>
     <state x="-1057" y="180" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/-1440.0.1440.860@-1440.0.1440.860" timestamp="1588804931960" />
+=======
+    <state x="540" y="227" key="NewPhpClassDialog" timestamp="1588788058548">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="540" y="227" key="NewPhpClassDialog/0.0.1536.824@0.0.1536.824" timestamp="1588788058548" />
+>>>>>>> 25ade4709927609a4778c4af6ebaf2ed6a26e25c
   </component>
   <component name="masterDetails">
     <states>
