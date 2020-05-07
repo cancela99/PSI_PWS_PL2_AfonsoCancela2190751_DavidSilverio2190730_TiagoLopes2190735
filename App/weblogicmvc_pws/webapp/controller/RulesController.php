@@ -27,4 +27,12 @@ class RulesController extends BaseController
         return View::make('homepage.homepage');
     }
 
+    public function indexMatches(){
+        return View::make('matches.index');
+    }
+
+    public function indexBackoffice(){
+        return View::make('backoffice.index');
+    }
+
 }

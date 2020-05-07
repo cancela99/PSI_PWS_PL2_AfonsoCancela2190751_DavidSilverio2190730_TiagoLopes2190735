@@ -1,3 +1,10 @@
+<?php
+
+use ArmoredCore\WebObjects\Layout;
+
+Layout::includeLayout('headerproject');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,33 +12,27 @@
     <title>Contas</title>
 </head>
 
-<style>
-    table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        padding: 5px;
-    }
-</style>
+
 
 <body>
-<h1 style="text-align: center">Backoffice</h1>
-<div style="max-width: 960px; margin: auto; margin-top: 150px">
+<h1 style="text-align: center; margin-top: 100px">Backoffice</h1>
 
-    <div style="text-align: center">
-        Pesquisar: <input type="text">
-    </div>
 
-    <table style="margin: auto;margin-top: 50px;">
+<div style="margin-top: 3%" class="container">
+
+    <table class="table table-hover">
+        <thead>
         <tr>
             <th>Username</th>
             <th>Bloqueada</th>
-            <th>Descricao</th>
             <th>Data</th>
+            <th></th>
         </tr>
+        </thead>
+        <tbody>
         <tr>
             <th>TiagoLopes</th>
             <th>X</th>
-            <th>Batota</th>
             <th>06/05/2020</th>
             <th><button>Desbloquear</button></th>
         </tr>
@@ -39,16 +40,15 @@
             <th>DavidSilverio</th>
             <th></th>
             <th></th>
-            <th></th>
             <th><button>Bloquear</button></th>
         </tr>
         <tr>
             <th>AfonsoCancela</th>
             <th>X</th>
-            <th>Batota</th>
             <th>04/05/2020</th>
             <th><button>Desbloquear</button></th>
         </tr>
+        </tbody>
     </table>
 </div>
 
