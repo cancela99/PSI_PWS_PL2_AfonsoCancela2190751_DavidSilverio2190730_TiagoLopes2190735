@@ -27,4 +27,8 @@ class RulesController extends BaseController
         return View::make('homepage.homepage');
     }
 
+    public function gamePage() {
+        return View::make('gamepage.game');
+    }
+
 }

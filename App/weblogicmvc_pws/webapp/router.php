@@ -30,7 +30,7 @@ Router::get('top10/top10', 'RulesController/top10page');
 Router::get('register/', 'RulesController/registerpage');
 Router::get('home/', 'RulesController/homepage');
 
-
+Router::get('game/', 'RulesController/gamepage');
 
 
 /************** End of URLEncoder Routing Rules ************************************/
