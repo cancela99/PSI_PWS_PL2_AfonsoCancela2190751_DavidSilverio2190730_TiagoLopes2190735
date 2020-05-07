@@ -19,15 +19,19 @@ Router::get('home/start',	'HomeController/start');
 
 Router::get('rules/index', 'RulesController/index');
 Router::get('rules/', 'RulesController/index');
-Router::get('backoffice/index', 'BackofficeController/index');
-Router::get('matches/index', 'MatchesController/index');
+
+Router::get('backoffice/index', 'RulesController/indexBackoffice');
+
+Router::get('matches/index', 'RulesController/indexMatches');
 
 Router::get('login/', 'RulesController/loginPage');
 Router::get('login/loginPage', 'RulesController/loginPage');
+
 Router::get('top10/', 'RulesController/top10page');
 Router::get('top10/top10', 'RulesController/top10page');
 
 Router::get('register/', 'RulesController/registerpage');
+
 Router::get('home/', 'RulesController/homepage');
 
 Router::get('game/', 'RulesController/gamepage');

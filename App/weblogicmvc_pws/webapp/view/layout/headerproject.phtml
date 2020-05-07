@@ -40,19 +40,25 @@ use ArmoredCore\WebObjects\URL;
                 <a class="nav-link" href="<?= URL::toRoute('home/')?>">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?= URL::toRoute('rules/')?>">Game Rules</a>
+                <a class="nav-link" href="<?= URL::toRoute('rules/')?>">Regras</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?= URL::toRoute('top10/')?>">Top10</a>
+                <a class="nav-link" href="<?= URL::toRoute('top10/')?>">Top 10</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= URL::toRoute('matches/index')?>">Partidas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= URL::toRoute('backoffice/index')?>">Backoffice</a>
             </li>
     </div>
 
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Sign Up<span class="caret"></span></a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Registar<span class="caret"></span></a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="<?= URL::toRoute('login/')?>">Login</a>
-                    <a class="dropdown-item" href="<?= URL::toRoute('register/')?>">Sign Up</a>
+                    <a class="dropdown-item" href="<?= URL::toRoute('register/')?>">Registar</a>
                 </div>
             </li>
         </ul>
