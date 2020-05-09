@@ -17,24 +17,25 @@ Router::get('home/',		'HomeController/index');
 Router::get('home/index',	'HomeController/index');
 Router::get('home/start',	'HomeController/start');
 
-Router::get('rules/index', 'RulesController/index');
-Router::get('rules/', 'RulesController/index');
+//Rotas das páginas do site
+//Router::get('rules/index', 'SiteController/index');
+Router::get('rules/', 'SiteController/indexRules');
 
-Router::get('backoffice/index', 'RulesController/indexBackoffice');
+Router::get('backoffice/', 'SiteController/indexBackoffice');
 
-Router::get('matches/index', 'RulesController/indexMatches');
+Router::get('matches/', 'SiteController/indexMatches');
 
-Router::get('login/', 'RulesController/loginPage');
-Router::get('login/loginPage', 'RulesController/loginPage');
+Router::get('login/', 'SiteController/indexLoginPage');
+//Router::get('login/loginPage', 'SiteController/loginPage');
 
-Router::get('top10/', 'RulesController/top10page');
-Router::get('top10/top10', 'RulesController/top10page');
+Router::get('top10/', 'SiteController/indexTop10');
+//Router::get('top10/top10', 'SiteController/top10page');
 
-Router::get('register/', 'RulesController/registerpage');
+Router::get('register/', 'SiteController/indexRegisterpage');
 
-Router::get('home/', 'RulesController/homepage');
+Router::get('home/', 'SiteController/indexHomePage');
 
-Router::get('game/', 'RulesController/gamepage');
+Router::get('game/', 'SiteController/indexGamePage');
 
 
 /************** End of URLEncoder Routing Rules ************************************/
