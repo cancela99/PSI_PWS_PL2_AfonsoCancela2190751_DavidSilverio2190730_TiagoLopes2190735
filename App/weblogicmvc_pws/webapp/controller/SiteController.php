@@ -7,36 +7,36 @@ use ArmoredCore\WebObjects\View;
 class SiteController extends BaseController
 {
 
-    public function indexRules(){
-        return View::make('rules.index');
+    public function Rules(){
+        return View::make('stbox.rules');
     }
 
-    public function indexLoginPage () {
-        return View::make('login.index');
+    public function Login() {
+        return View::make('stbox.login');
     }
 
-    public function indexTop10 () {
-        return View::make('top10.index');
+    public function Top10() {
+        return View::make('stbox.top10');
     }
 
-    public function indexRegisterPage() {
-        return View::make('register.index');
+    public function Register() {
+        return View::make('stbox.register');
     }
 
-    public function indexHomePage() {
-        return View::make('homepage.index');
+    public function Home() {
+        return View::make('stbox.homepage');
     }
 
-    public function indexGamePage() {
-        return View::make('gamepage.index');
+    public function Game() {
+        return View::make('stbox.gamepage');
     }
 
-    public function indexMatches(){
-        return View::make('matches.index');
+    public function Matches(){
+        return View::make('stbox.matches');
     }
 
-    public function indexBackoffice(){
-        return View::make('backoffice.index');
+    public function Backoffice(){
+        return View::make('stbox.backoffice');
     }
 
 }

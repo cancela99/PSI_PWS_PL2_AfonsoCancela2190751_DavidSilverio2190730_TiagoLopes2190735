@@ -18,24 +18,14 @@ Router::get('home/index',	'HomeController/index');
 Router::get('home/start',	'HomeController/start');
 
 //Rotas das páginas do site
-//Router::get('rules/index', 'SiteController/index');
-Router::get('rules/', 'SiteController/indexRules');
-
-Router::get('backoffice/', 'SiteController/indexBackoffice');
-
-Router::get('matches/', 'SiteController/indexMatches');
-
-Router::get('login/', 'SiteController/indexLoginPage');
-//Router::get('login/loginPage', 'SiteController/loginPage');
-
-Router::get('top10/', 'SiteController/indexTop10');
-//Router::get('top10/top10', 'SiteController/top10page');
-
-Router::get('register/', 'SiteController/indexRegisterpage');
-
-Router::get('home/', 'SiteController/indexHomePage');
-
-Router::get('game/', 'SiteController/indexGamePage');
+Router::get('stbox/rules', 'SiteController/Rules');
+Router::get('stbox/backoffice', 'SiteController/Backoffice');
+Router::get('stbox/matches', 'SiteController/Matches');
+Router::get('stbox/login', 'SiteController/Login');
+Router::get('stbox/top10', 'SiteController/Top10');
+Router::get('stbox/register', 'SiteController/Register');
+Router::get('stbox/home', 'SiteController/Home');
+Router::get('stbox/game', 'SiteController/Game');
 
 
 /************** End of URLEncoder Routing Rules ************************************/
