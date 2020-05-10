@@ -18,6 +18,7 @@ Router::get('home/index',	'HomeController/index');
 Router::get('home/start',	'HomeController/start');
 
 //Rotas das páginas do site
+Router::get('stbox/', 'SiteController/Home');
 Router::get('stbox/rules', 'SiteController/Rules');
 Router::get('stbox/backoffice', 'SiteController/Backoffice');
 Router::get('stbox/matches', 'SiteController/Matches');
