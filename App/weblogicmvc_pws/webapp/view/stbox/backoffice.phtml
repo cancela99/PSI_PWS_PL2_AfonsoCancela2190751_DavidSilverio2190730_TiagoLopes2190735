@@ -1,20 +1,14 @@
 <?php
 
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 
-Layout::includeLayout('headerproject');
+Layout::includeLayout('headerLoggedIn');
+$users = Data::get('users');
+\Tracy\Debugger::barDump($users,'Users');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Contas</title>
-</head>
 
-
-
-<body>
 <h1 style="text-align: center; margin-top: 100px">Backoffice</h1>
 
 
@@ -30,24 +24,31 @@ Layout::includeLayout('headerproject');
         </tr>
         </thead>
         <tbody>
+        <?php foreach ($users as $user) {
+            \Tracy\Debugger::barDump($user)?>
         <tr>
-            <th>TiagoLopes</th>
-            <th>X</th>
-            <th>06/05/2020</th>
-            <th><button>Desbloquear</button></th>
+            <th><?=$user->username?></th>
+
+
+
+
+            <?php if($user->bloqueado != 0){?>
+                <th style="padding-left: 45px">X</th>
+            <?php }else{ ?>
+                <th></th>
+            <?php }?>
+
+
+
+
+            <th><?=$user->databloqueado?></th>
+            <?php if($user->bloqueado == 0) {
+                echo '<th><button>Bloquear</button></th>';
+            }else{
+                echo '<th><button>Desbloquear</button></th>';
+            } ?>
         </tr>
-        <tr>
-            <th>DavidSilverio</th>
-            <th></th>
-            <th></th>
-            <th><button>Bloquear</button></th>
-        </tr>
-        <tr>
-            <th>AfonsoCancela</th>
-            <th>X</th>
-            <th>04/05/2020</th>
-            <th><button>Desbloquear</button></th>
-        </tr>
+        <?php } ?>
         </tbody>
     </table>
 </div>

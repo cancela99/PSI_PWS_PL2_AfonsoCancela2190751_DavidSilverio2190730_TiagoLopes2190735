@@ -2,7 +2,14 @@
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('headerproject');
+
+
+Layout::includeLayout('headerLoggedIn');
+
+
+
+
+
 ?>
 
 
@@ -34,7 +41,7 @@ Layout::includeLayout('headerproject');
                 <p class="card-text">Veja as regras do jogo, na nossa página de regras</p>
             </div>
             <div class="card-footer">
-                <a href="<?= URL::toRoute('rules/')?>" class="btn btn-primary btn-sm">Regras</a>
+                <a href="<?= URL::toRoute('stbox/rules')?>" class="btn btn-primary btn-sm">Regras</a>
             </div>
         </div>
     </div>
@@ -46,7 +53,7 @@ Layout::includeLayout('headerproject');
                 <p class="card-text">Veja na página de Top 10 quais são os melhores jogadores</p>
             </div>
             <div class="card-footer">
-                <a href="<?= URL::toRoute('top10/')?>" class="btn btn-primary btn-sm">Top 10</a>
+                <a href="<?= URL::toRoute('stbox/top10')?>" class="btn btn-primary btn-sm">Top 10</a>
             </div>
         </div>
     </div>
@@ -58,7 +65,7 @@ Layout::includeLayout('headerproject');
                 <p class="card-text">Para conseguires jogar, tens de estar registado no site</p>
             </div>
             <div class="card-footer">
-                <a href="<?= URL::toRoute('register/')?>" class="btn btn-primary btn-sm">Regista-te aqui</a>
+                <a href="<?= URL::toRoute('stbox/register')?>" class="btn btn-primary btn-sm">Regista-te aqui</a>
             </div>
         </div>
     </div>

@@ -35,8 +35,12 @@ class SiteController extends BaseController
         return View::make('stbox.matches');
     }
 
-    public function Backoffice(){
+    /*public function Backoffice(){
         return View::make('stbox.backoffice');
+    }*/
+
+    public function Profile(){
+        return View::make('stbox.profile');
     }
 
 }
