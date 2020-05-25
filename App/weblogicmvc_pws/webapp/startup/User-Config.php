@@ -15,7 +15,7 @@ define('WL_DEBUG_ENABLED',                      true);
 $defaultDbConnection = array (
     'DBMS'          => 'mysql',
     'SERVER'        => 'localhost',
-    'DATABASENAME'  => 'webapp',
+    'DATABASENAME'  => 'shuthebox',
     'USER'          => 'root',
     'PASSWORD'      => ''
 );

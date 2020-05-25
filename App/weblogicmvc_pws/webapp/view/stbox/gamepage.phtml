@@ -1,0 +1,74 @@
+<?php
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+
+Layout::includeLayout('headerLoggedIn');
+
+$dados = array(2,2);
+//$dados = Data::get('valorDados');
+
+\Tracy\Debugger::barDump($dados);
+
+
+
+?>
+<h2 class="text-center mt-5">Shut the Box</h2>
+<div style="background-color: #e0e0ca; border: 1px solid #8A7B52; width: 55%;" class="container mt-4 rounded">
+    <div class="gameBox">
+        <div style="margin: 20px;" >
+            <div class="btn-group ">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-warning btn-block">1</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-warning btn-block">2</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-warning">3</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-warning">4</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-warning">5</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-warning">6</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-warning">7</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-warning">8</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-warning">9</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div style="background-color: #3c763d; border: 1px solid #8A7B52; height: 235px; margin: 20px;" class="rollDices">
+            <div style="height: 80%;" class="col-xs-1 text-center">
+
+                <?php
+
+                echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image("$dados[0]") . '" alt="" height="85" width="85">';
+                echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image("$dados[1]") . '" alt="" height="85" width="85">';
+                ?>
+
+
+            </div>
+
+        </div>
+        <form method="post" action="<?=URL::toRoute('stbox/game')?>">
+            <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3"><button class="btn btn-lg btn-danger btn-block">Lançar Dados!</button></div>
+        </form>
+
+    </div>
+</div>

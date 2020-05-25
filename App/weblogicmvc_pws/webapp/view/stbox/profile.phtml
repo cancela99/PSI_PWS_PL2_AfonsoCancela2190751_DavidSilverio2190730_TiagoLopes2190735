@@ -1,0 +1,43 @@
+<?php
+
+
+use ArmoredCore\WebObjects\Layout;
+
+Layout::includeLayout('headerLoggedIn');
+?>
+
+
+<body class="text-center">
+<div style="max-width: 550px; border: 1px solid grey; padding-top: 2%; background-color: whitesmoke; margin-top: 50px" class="container">
+    <form class="form-signin" method="post" action="">
+        <!--        <img class="mb-4" src="" alt="" width=92" height="92">-->
+        <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">Perfil - Informações Pessoais</h1>
+        <div class="form-label-group">
+            <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio" required autofocus name="primeiro_nome" value="">
+            <br>
+        </div >
+        <div class="form-label-group">
+            <input type="text" id="inputApelido" class="form-control" placeholder="Apelido" required autofocus name="apelido" value="">
+            <br>
+        </div >
+        <div class="form-label-group">
+            <input type="date" id="inputDataNascimento" class="form-control" placeholder="Data de Nascimento" required autofocus name="dataNascimento" value="">
+            <br>
+        </div >
+        <div class="form-label-group">
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email" required name="email" value="">
+            <br>
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password" value="">
+            <br>
+        </div><br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar Alterações</button>
+        <br>
+
+    </form>
+</div>
+</body>
+
+</div>

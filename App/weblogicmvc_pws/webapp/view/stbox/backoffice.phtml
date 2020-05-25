@@ -1,0 +1,57 @@
+<?php
+
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+
+Layout::includeLayout('headerLoggedIn');
+$users = Data::get('users');
+\Tracy\Debugger::barDump($users,'Users');
+?>
+
+
+<h1 style="text-align: center; margin-top: 100px">Backoffice</h1>
+
+
+<div style="margin-top: 3%" class="container">
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Bloqueada</th>
+            <th>Data</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($users as $user) {
+            \Tracy\Debugger::barDump($user)?>
+        <tr>
+            <th><?=$user->username?></th>
+
+
+
+
+            <?php if($user->bloqueado != 0){?>
+                <th style="padding-left: 45px">X</th>
+            <?php }else{ ?>
+                <th></th>
+            <?php }?>
+
+
+
+
+            <th><?=$user->databloqueado?></th>
+            <?php if($user->bloqueado == 0) {
+                echo '<th><button>Bloquear</button></th>';
+            }else{
+                echo '<th><button>Desbloquear</button></th>';
+            } ?>
+        </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<?php
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Layout;
+
+
+Layout::includeLayout('headerLoggedIn');
+?>
+
+<!--<head>
+    <meta charset="utf-8">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    <title>Shut the Box Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>-->
+
+
+    <body class="text-center">
+    <div class="container" style="margin-top: 100px">
+    <form class="form-signin">
+        <img class="mb-4" src="<?= Asset::image('dices.png')?>" alt="" width=92" height="92">
+        <h1 class="h3 mb-4 font-weight-normal">Shut the Box Game</h1>
+
+            <label for="inputUsername" class=""</label>
+            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+
+            <label for="inputPassword" class=""></label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+        <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Login</button>
+        <div class="mb-3">
+            <label>
+                <p></p>
+                <a href="<?= URL::toRoute('register/')?>">Registar</a>
+            </label>
+        </div>
+        <div class="mt-5 mb-3 text-muted">© 2020 Copyright:
+            <a href=""> Polytechnic Institute of Leiria</a>
+        </div>
+    </form>
+    </div>
+    </body>

@@ -1,0 +1,103 @@
+<?php
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\Facades\AssetBundler;
+use ArmoredCore\Facades\DebugRenderer;
+use ArmoredCore\WebObjects\URL;
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+
+    <title>Shut the Box Game</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+     <!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+
+
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="<?= URL::toRoute('stbox/home')?>">Shut the Box Game<img class="img-fluid rounded ml-2 mb-4 mb-lg-0" src="<?= Asset::image('dices.png')?>" alt="" width=25" height="20"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="<?= URL::toRoute('stbox/home')?>">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= URL::toRoute('stbox/rules')?>">Regras</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= URL::toRoute('stbox/top10')?>">Top 10</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= URL::toRoute('stbox/matches')?>">Partidas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= URL::toRoute('stbox/backoffice')?>">Backoffice</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= URL::toRoute('stbox/game')?>">Shut The Box</a>
+            </li>
+    </div>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Registar<span class="caret"></span></a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="<?= URL::toRoute('stbox/login')?>">Login</a>
+                    <a class="dropdown-item" href="<?= URL::toRoute('stbox/register')?>">Registar</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- <ul class="nav navbar-nav navbar-right">
+         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+         <li>
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                 <span class="glyphicon glyphicon-log-in"></span> Login / Sign Up <span class="caret"></span>
+             </a>
+             <ul class="dropdown-menu">
+                 <li><a href="#">Login</a></li>
+                 <li><a href="#">Sign Up</a></li>
+             </ul>
+         </li>
+     </ul>
+
+
+       <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" h"#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+ </ul>
+ <form class="form-inline my-2 my-lg-0">
+     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+ </form>-->
+
+
