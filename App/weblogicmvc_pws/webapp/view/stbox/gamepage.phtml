@@ -8,8 +8,8 @@ use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('headerLoggedIn');
 
-$dados = array(2,2);
-//$dados = Data::get('valorDados');
+//$dados = array(2,2);
+$dados = Data::get('valorDados');
 
 \Tracy\Debugger::barDump($dados);
 
@@ -57,9 +57,16 @@ $dados = array(2,2);
             <div style="height: 80%;" class="col-xs-1 text-center">
 
                 <?php
+                if($dados != null){
+                    echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image("$dados[0]") . '" alt="" height="85" width="85">';
+                    echo '<img class="img-fluid rounded mt-5" id="dado2" src="' . Asset::image("$dados[1]") . '" alt="" height="85" width="85">';
+                }else{
+                    echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image('dado2.png') . '" alt="" height="85" width="85">';
+                    echo '<img class="img-fluid rounded mt-5" id="dado2" src="' . Asset::image('dado2.png') . '" alt="" height="85" width="85">';
+                }
 
-                echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image("$dados[0]") . '" alt="" height="85" width="85">';
-                echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image("$dados[1]") . '" alt="" height="85" width="85">';
+                //echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image("$dados[0]") . '" alt="" height="85" width="85">';
+                //echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image("$dados[1]") . '" alt="" height="85" width="85">';
                 ?>
 
 
