@@ -19,7 +19,6 @@ class GameController extends BaseController
         $valorDados = array($resultado1,$resultado2);
 
 
-
         return View::make('stbox/game', ['valorDados'=>$valorDados]);
 
 
