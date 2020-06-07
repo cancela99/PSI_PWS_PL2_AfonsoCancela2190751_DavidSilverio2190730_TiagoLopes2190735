@@ -30,10 +30,9 @@ class UserController extends BaseController implements ResourceControllerInterfa
      * @inheritDoc
      */
 
-    /**CRIAR E GRAVAR UM NOVO UTILIZADOR NA BASE DE DADOS**/
+    /**CRIA UM NOVO UTILIZADOR NA BASE DE DADOS**/
     public function store()
     {
-
         $user = new User();
 
         $user->username = Post::get('username');
@@ -67,4 +66,28 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         // TODO: Implement destroy() method.
     }
+
+    public function login(){
+
+        $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
+
+        //echo "<script>console.log('Estou no login');</script>";
+        $username = $_POST['username'];
+        $password =  $_POST['password'];
+        $passwordHashed = hash('sha1', $password, false);
+
+        $query = "SELECT id, username, password FROM users WHERE username = '$username' AND password = '$passwordHashed'";
+
+        $loginResult = mysqli_query($db,$query);
+
+        if(mysqli_num_rows($loginResult) == 1){
+            $_SESSION['username'] = $username;
+            $_SESSION['loggedIn'] = 'Já fez login';
+            Redirect::toRoute('stbox/');
+        }else{
+            /*DEVOLVER PÁGINA DE LOGIN COM O USERNAME INSERIDO NA TEXTBOX E AVISO DE CREDENCIAIS INCORRETAS */
+            Redirect::toRoute('stbox/login');
+        }
+    }
+    
 }

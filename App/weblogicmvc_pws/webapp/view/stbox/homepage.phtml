@@ -4,7 +4,12 @@ use ArmoredCore\WebObjects\URL;
 
 
 
-Layout::includeLayout('headerLoggedIn');
+
+if(isset($_SESSION['loggedIn'])){
+    Layout::includeLayout('headerLoggedIn');
+}else{
+    Layout::includeLayout('headerNotLoggedIn');
+}
 
 
 

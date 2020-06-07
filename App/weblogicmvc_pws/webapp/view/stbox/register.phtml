@@ -5,8 +5,13 @@ use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
 
 
-Layout::includeLayout('headerLoggedIn');?>
-<?php $user = Data::get('user')?>
+if(isset($_SESSION['loggedIn'])){
+    Layout::includeLayout('headerLoggedIn');
+}else{
+    Layout::includeLayout('headerNotLoggedIn');
+}?>
+<?php $user = Data::get('user');
+?>
 
 
 <!--<head>
@@ -50,10 +55,10 @@ Layout::includeLayout('headerLoggedIn');?>
             <br>
         </div><br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Registar</button>
-         <div class="mt-4 mb-2 text-muted">
-             <a href="<?= URL::toRoute('login/')?>">Voltar ao Login</a>
-        </div>
     </form>
+    <div class="mt-4 mb-2 text-muted">
+        <a href="<?= URL::toRoute('stbox/login/')?>">Voltar ao Login</a>
+    </div>
 </div>
 </body>
 

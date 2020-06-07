@@ -5,7 +5,12 @@ use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
 
 
-Layout::includeLayout('headerLoggedIn');
+
+if(isset($_SESSION['loggedIn'])){
+    Layout::includeLayout('headerLoggedIn');
+}else{
+    Layout::includeLayout('headerNotLoggedIn');
+}
 ?>
 
 <!--<head>
@@ -21,26 +26,28 @@ Layout::includeLayout('headerLoggedIn');
 
     <body class="text-center">
     <div class="container" style="margin-top: 100px">
-    <form class="form-signin">
+    <form class="form-signin" method="post" action="<?=Url::toRoute('user/login')?>">
         <img class="mb-4" src="<?= Asset::image('dices.png')?>" alt="" width=92" height="92">
         <h1 class="h3 mb-4 font-weight-normal">Shut the Box Game</h1>
 
             <label for="inputUsername" class=""</label>
-            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+            <input type="text" id="inputUsername"  class="form-control" placeholder="Username" required autofocus name="username">
 
             <label for="inputPassword" class=""></label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
 
         <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Login</button>
         <div class="mb-3">
-            <label>
-                <p></p>
-                <a href="<?= URL::toRoute('register/')?>">Registar</a>
-            </label>
+
         </div>
+
+    </form>
+        <label>
+            <p></p>
+            <a href="<?= URL::toRoute('stbox/register/')?>">Ir para o formulário de Registo</a>
+        </label>
         <div class="mt-5 mb-3 text-muted">© 2020 Copyright:
             <a href=""> Polytechnic Institute of Leiria</a>
         </div>
-    </form>
     </div>
     </body>
