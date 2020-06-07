@@ -8,12 +8,7 @@ use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('headerLoggedIn');
 
-//$dados = array(2,2);
-$dados = Data::get('valorDados');
-
-\Tracy\Debugger::barDump($dados);
-
-
+$valorDado = Data::get('valorDado');
 
 ?>
 <h2 class="text-center mt-5">Shut the Box</h2>
@@ -21,59 +16,33 @@ $dados = Data::get('valorDados');
     <div class="gameBox">
         <div style="margin: 20px;" >
             <div class="btn-group ">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-lg btn-warning btn-block">1</button>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-lg btn-warning btn-block">2</button>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-lg btn-warning">3</button>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-lg btn-warning">4</button>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-lg btn-warning">5</button>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-lg btn-warning">6</button>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-lg btn-warning">7</button>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-lg btn-warning">8</button>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-lg btn-warning">9</button>
-                </div>
+                <?php for($i = 1; $i < 10; $i++){ ?>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-lg btn-warning" id="button<?=$i?>"><?=$i?></button>
+                    </div>
+                <?php } ?>
             </div>
         </div>
-
-
 
         <div style="background-color: #3c763d; border: 1px solid #8A7B52; height: 235px; margin: 20px;" class="rollDices">
             <div style="height: 80%;" class="col-xs-1 text-center">
 
-                <?php
-                if($dados != null){
-                    echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image("$dados[0]") . '" alt="" height="85" width="85">';
-                    echo '<img class="img-fluid rounded mt-5" id="dado2" src="' . Asset::image("$dados[1]") . '" alt="" height="85" width="85">';
-                }else{
-                    echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image('dado2.png') . '" alt="" height="85" width="85">';
-                    echo '<img class="img-fluid rounded mt-5" id="dado2" src="' . Asset::image('dado2.png') . '" alt="" height="85" width="85">';
-                }
+                <?php if($valorDado != null){ ?>
 
-                //echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image("$dados[0]") . '" alt="" height="85" width="85">';
-                //echo '<img class="img-fluid rounded mt-5" id="dado1" src="' . Asset::image("$dados[1]") . '" alt="" height="85" width="85">';
-                ?>
+                    <img class="img-fluid rounded mt-5" id="dado1" src="<?= Asset::image('dado'.$valorDado[0].'.png')?>" alt="" height="85" width="85">
+                    <img class="img-fluid rounded mt-5" id="dado2" src="<?= Asset::image('dado'.$valorDado[1].'.png')?>" alt="" height="85" width="85">
 
+                <?php } else { ?>
+
+                    <img class="img-fluid rounded mt-5" id="dado1" src="<?= Asset::image('dado6.png')?>" alt="" height="85" width="85">
+                    <img class="img-fluid rounded mt-5" id="dado2" src="<?= Asset::image('dado6.png')?>" alt="" height="85" width="85">
+
+                <?php } ?>
 
             </div>
-
         </div>
-        <form method="post" action="<?=URL::toRoute('stbox/game')?>">
+
+        <form method="post" action="<?= URL::toRoute('stbox/game')?>">
             <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3"><button class="btn btn-lg btn-danger btn-block">Lançar Dados!</button></div>
         </form>
 

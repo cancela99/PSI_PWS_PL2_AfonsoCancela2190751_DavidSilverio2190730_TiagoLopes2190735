@@ -28,16 +28,12 @@ class SiteController extends BaseController
     }
 
     public function Game() {
-        return View::make('stbox.gamepage');
+        return View::make('stbox.gamepage', ["valorDado" => array(6, 6)]);
     }
 
     public function Matches(){
         return View::make('stbox.matches');
     }
-
-    /*public function Backoffice(){
-        return View::make('stbox.backoffice');
-    }*/
 
     public function Profile(){
         return View::make('stbox.profile');

@@ -12,12 +12,13 @@ use ArmoredCore\Facades\Router;
  *  Use convention: controllerName@methodActionName
  ****************************************************************************/
 
-Router::get('/',			'HomeController/index');
-Router::get('home/',		'HomeController/index');
-Router::get('home/index',	'HomeController/index');
-Router::get('home/start',	'HomeController/start');
+//Router::get('/',			'HomeController/index');
+//Router::get('home/',		'HomeController/index');
+//Router::get('home/index',	'HomeController/index');
+//Router::get('home/start',	'HomeController/start');
 
 //Rotas das páginas do site
+Router::get('/', 'SiteController/Home');
 Router::get('stbox/', 'SiteController/Home');
 Router::get('stbox/rules', 'SiteController/Rules');
 Router::get('stbox/backoffice', 'UserController/index');
@@ -26,12 +27,10 @@ Router::get('stbox/login', 'SiteController/Login');
 Router::get('stbox/top10', 'SiteController/Top10');
 Router::get('stbox/register', 'SiteController/Register');
 Router::get('stbox/home', 'SiteController/Home');
-Router::get('stbox/game', 'SiteController/Game');
 Router::get('stbox/profile','SiteController/Profile');
+Router::get('stbox/game', 'SiteController/Game');
 
-
-Router::post('stbox/game', 'GameController/lancarDado');
-
+Router::post('stbox/game', 'GameController/mostrarDado');
 
 Router::resource('user', 'UserController');
 
