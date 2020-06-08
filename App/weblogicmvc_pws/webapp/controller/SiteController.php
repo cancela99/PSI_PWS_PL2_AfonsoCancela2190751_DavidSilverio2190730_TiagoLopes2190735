@@ -40,7 +40,10 @@ class SiteController extends BaseController
     }*/
 
     public function Profile(){
-        return View::make('stbox.profile');
+        $users = new User();
+
+        $users->primeiro_nome = 'José';
+        return View::make('stbox.profile', ['users'=>$users]);
     }
 
 }

@@ -2,7 +2,11 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\Facades\AssetBundler;
 use ArmoredCore\Facades\DebugRenderer;
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\URL;
+
+
+\Tracy\Debugger::barDump($_SESSION['id']);
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +22,7 @@ use ArmoredCore\WebObjects\URL;
      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="<?=Asset::css('stbox.css')?>">
      <!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
      <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
@@ -49,7 +54,7 @@ use ArmoredCore\WebObjects\URL;
                 <a class="nav-link" href="<?= URL::toRoute('stbox/matches')?>">Partidas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?= URL::toRoute('stbox/backoffice')?>">Backoffice</a>
+                <a class="nav-link" href="<?= URL::toRoute('admin/backoffice')?>">Backoffice</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?= URL::toRoute('stbox/game')?>">Shut The Box</a>
@@ -58,9 +63,9 @@ use ArmoredCore\WebObjects\URL;
 
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><img src="<?=Asset::image('userLogo.png')?>" style="width: 40px"><span class="caret"></span></a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="<?= URL::toRoute('stbox/profile')?>">Perfil</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['username']?><span class="caret"></span></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="<?= URL::toRoute('user/edit', $_SESSION['id'])?>">Perfil</a>
                     <a class="dropdown-item" href="<?= URL::toRoute('user/logOut')?>">Log out</a>
                 </div>
             </li>

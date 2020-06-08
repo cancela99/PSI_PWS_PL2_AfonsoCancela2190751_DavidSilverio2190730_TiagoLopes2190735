@@ -52,14 +52,22 @@ class UserController extends BaseController implements ResourceControllerInterfa
         // TODO: Implement show() method.
     }
 
+
     public function edit($id)
     {
-        // TODO: Implement edit() method.
+        $user = User::find($id);
+
+
+        if (is_null($user)) {
+            // redirect to standard error page
+        } else {
+            View::make('stbox.profile', ['user' => $user]);
+        }
     }
 
     public function update($id)
     {
-        // TODO: Implement update() method.
+
     }
 
     public function destroy($id)
@@ -80,8 +88,11 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
         $loginResult = mysqli_query($db,$query);
 
+        $id = mysqli_fetch_object($loginResult);
+
         if(mysqli_num_rows($loginResult) == 1){
             $_SESSION['username'] = $username;
+            $_SESSION['id'] = $id->id;
             $_SESSION['loggedIn'] = 'Já fez login';
             Redirect::toRoute('stbox/');
         }else{

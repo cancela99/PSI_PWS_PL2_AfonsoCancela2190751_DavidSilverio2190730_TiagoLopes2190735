@@ -3,7 +3,9 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
-<?php $books = Data::get('books') ?>
+<?php $books = Data::get('books');
+\Tracy\Debugger::barDump($books);
+?>
 
     <!-- container -->
     <div class="container">
