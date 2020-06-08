@@ -89,5 +89,10 @@ class UserController extends BaseController implements ResourceControllerInterfa
             Redirect::toRoute('stbox/login');
         }
     }
+
+    public function logOut(){
+        session_destroy();
+        Redirect::toRoute('stbox/');
+    }
     
 }
