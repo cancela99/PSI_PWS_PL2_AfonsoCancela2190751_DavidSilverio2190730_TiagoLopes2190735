@@ -11,7 +11,6 @@ class NumeroBloqueado
 
     public function bloquearNumero($numArray, $somaDados) {
         $flag = 0;
-        $soma = 0;
 
         foreach($numArray as $num) {
             if($somaDados == $num) {
@@ -22,11 +21,11 @@ class NumeroBloqueado
             }
         }
         if($flag != 1) {
-            for($i = 0; $i<count($numArray)+1; $i++) {
-                $soma += $numArray[$i];
-                $soma < $somaDados ? $r = "r" : $s = "s";
-            }
+            // Implementar algoritmo que dado um Array de tamanho N e um inteiro K,
+            // descobre todas as combinações únicas no array cuja soma seja igual a K.
         }
+
+        return View::Make('stbox.gamepage', ['numArray' => $numArray]);
     }
 
     public function checkFinalJogada($numArray, $somaDados) {
