@@ -9,6 +9,7 @@ use ArmoredCore\WebObjects\URL;
 Layout::includeLayout('headerLoggedIn');
 
 $valorDado = Data::get('valorDado');
+$numArray = Data::get('numArray');
 
 ?>
 <h2 class="text-center mt-5">Shut the Box</h2>
@@ -19,11 +20,11 @@ $valorDado = Data::get('valorDado');
                 <?php for($i = 1; $i < 10; $i++){ ?>
                     <div class="btn-group">
                         <button type="button" class="btn btn-lg btn-warning" id="button<?=$i?>"><?=$i?></button>
+                        <label type="text"><?=$i<count($numArray)?$numArray[$i]:""?></label>
                     </div>
                 <?php } ?>
             </div>
         </div>
-
         <div style="background-color: #3c763d; border: 1px solid #8A7B52; height: 235px; margin: 20px;" class="rollDices">
             <div style="height: 80%;" class="col-xs-1 text-center">
 

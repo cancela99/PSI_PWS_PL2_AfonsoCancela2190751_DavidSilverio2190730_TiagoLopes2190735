@@ -24,8 +24,8 @@ class GameController extends BaseController
         $numerosBloqueados = new NumeroBloqueado();
         $numerosBloqueados->iniciar();
 
-        $numerosBloqueados->bloquearNumero(array(2, 3, 5), 5);
+        $numArray = $numerosBloqueados->bloquearNumero(array(2, 3, 7, 6, 1), 5);
 
-
+        return View::Make('stbox.gamepage', ["numArray" => $numArray]);
     }
 }
