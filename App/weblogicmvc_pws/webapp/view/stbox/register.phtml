@@ -29,7 +29,7 @@ if(isset($_SESSION['loggedIn'])){
 <div style="max-width: 550px; border: 1px solid grey; padding-top: 2%; background-color: whitesmoke; margin-top: 50px" class="container">
     <form class="form-signin" method="post" action="<?=Url::toRoute('user/store') ?>">
 <!--        <img class="mb-4" src="" alt="" width=92" height="92">-->
-        <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">Formulário - Registar</h1>
+        <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">REGISTE-SE AQUI</h1>
         <div class="form-label-group">
             <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio" required autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">
             <br>
@@ -57,7 +57,7 @@ if(isset($_SESSION['loggedIn'])){
         <button class="btn btn-lg btn-primary btn-block" type="submit">Registar</button>
     </form>
     <div class="mt-4 mb-2 text-muted">
-        <a href="<?= URL::toRoute('stbox/login/')?>">Voltar ao Login</a>
+        Se já criou conta faça login <a href="<?= URL::toRoute('stbox/login/')?>">AQUI</a>!
     </div>
 </div>
 </body>

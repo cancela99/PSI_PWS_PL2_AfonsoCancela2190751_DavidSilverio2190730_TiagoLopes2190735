@@ -14,7 +14,6 @@ if(isset($_SESSION['loggedIn'])){
 
 
 
-//\Tracy\Debugger::barDump($users,'Users');
 ?>
 
 
@@ -33,29 +32,24 @@ if(isset($_SESSION['loggedIn'])){
         </thead>
         <tbody>
         <?php foreach ($users as $user) {
-            \Tracy\Debugger::barDump($user)?>
-        <tr>
+            if($user->admin == 0){ ?>
+
             <th><?=$user->username?></th>
-
-
-
-
             <?php if($user->bloqueado != 0){?>
                 <th style="padding-left: 45px">X</th>
             <?php }else{ ?>
                 <th></th>
             <?php }?>
-
-
-
-
             <th><?=$user->databloqueado?></th>
             <?php if($user->bloqueado == 0) {
-                echo '<th><button>Bloquear</button></th>';
-            }else{
-                echo '<th><button>Desbloquear</button></th>';
-            } ?>
+            echo '<form action="'. URL::toRoute('admin/blockUser', $user->id) .'"><th><button>Bloquear</button></th></form>';
+        }else{
+            echo '<form action="'. URL::toRoute('admin/unblockUser', $user->id) .'"><th><button>Desbloquear</button></th></form>';
+        } ?>
         </tr>
+           <?php } ?>
+        <tr>
+
         <?php } ?>
         </tbody>
     </table>

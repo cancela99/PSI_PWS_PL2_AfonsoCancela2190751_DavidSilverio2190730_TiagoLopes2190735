@@ -3,6 +3,7 @@
 
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
 
 if(isset($_SESSION['loggedIn'])){
     Layout::includeLayout('headerLoggedIn');
@@ -16,7 +17,7 @@ $user = Data::get('user');
 
 <body class="text-center">
 <div style="max-width: 550px; border: 1px solid grey; padding-top: 2%; background-color: whitesmoke; margin-top: 50px" class="container">
-    <form class="form-signin" method="post" action="<?=\ArmoredCore\WebObjects\URL::toRoute('user/update', $user->id)?>">
+    <form class="form-signin" method="post" action="<?=URL::toRoute('user/update', $user->id)?>">
         <!--        <img class="mb-4" src="" alt="" width=92" height="92">-->
         <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">Perfil - Informações Pessoais</h1>
         <div class="form-label-group">
@@ -40,6 +41,12 @@ $user = Data::get('user');
             <input type="password" id="inputPassword" class="form-control" placeholder="Password"  value="" name="password">
             <br>
         </div><br>
+        <?php
+        if(isset($_SESSION['errorProfile'])){
+            echo '<p style="color:red; font-size: 18px">'.$_SESSION['errorProfile'].'</p>';
+            $_SESSION['errorProfile'] = null;
+        }
+        ?>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar Alterações</button>
         <br>
 

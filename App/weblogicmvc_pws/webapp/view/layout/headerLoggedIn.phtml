@@ -5,8 +5,6 @@ use ArmoredCore\Facades\DebugRenderer;
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\URL;
 
-
-\Tracy\Debugger::barDump($_SESSION['id']);
 ?>
 
 <!DOCTYPE html>
@@ -53,9 +51,12 @@ use ArmoredCore\WebObjects\URL;
             <li class="nav-item">
                 <a class="nav-link" href="<?= URL::toRoute('stbox/matches')?>">Partidas</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= URL::toRoute('admin/backoffice')?>">Backoffice</a>
-            </li>
+            <?php
+            if($_SESSION['admin'] == 1){ ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= URL::toRoute('admin/backoffice')?>">Backoffice</a>
+                </li>
+            <?php } ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?= URL::toRoute('stbox/game')?>">Shut The Box</a>
             </li>
