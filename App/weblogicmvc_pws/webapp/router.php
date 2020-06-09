@@ -27,7 +27,7 @@ Router::get('stbox/top10', 'SiteController/Top10');
 Router::get('stbox/register', 'SiteController/Register');
 Router::get('stbox/home', 'SiteController/Home');
 Router::get('stbox/game', 'SiteController/Game');
-//Router::get('stbox/profile','SiteController/Profile');
+Router::get('stbox/profile','SiteController/Profile');
 
 
 Router::post('stbox/game', 'GameController/lancarDado');

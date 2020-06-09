@@ -44,7 +44,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $password = Post::get('password');
         $user->password = hash('sha1',$password,false);
         $user->save();
-        Redirect::toRoute('stbox/');
+        Redirect::toRoute('stbox/login');
     }
 
     public function show($id)
@@ -67,7 +67,20 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function update($id)
     {
+        $user = User::find($id);
+        $user->update_attributes(Post::getAll());
 
+        if($_POST['password'] != ""){
+            $user->password = hash('sha1',$_POST['password'], false);
+        }
+
+        if($user->is_valid()){
+            $user->save();
+            Redirect::toRoute('stbox/');
+        } else {
+            // return form with data and errors
+            Redirect::flashToRoute('user/edit', ['user' => $user], $id);
+        }
     }
 
     public function destroy($id)
