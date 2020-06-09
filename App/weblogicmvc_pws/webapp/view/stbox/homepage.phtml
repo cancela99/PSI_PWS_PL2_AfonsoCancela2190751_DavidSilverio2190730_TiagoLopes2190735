@@ -12,9 +12,6 @@ if(isset($_SESSION['loggedIn'])){
 }
 
 
-
-
-
 ?>
 
 
@@ -29,7 +26,7 @@ if(isset($_SESSION['loggedIn'])){
     <div class="col-lg-5">
         <h1 class="font-weight-light">Bem-vindo ao Shut the Box Game</h1>
         <p>Shut The Box é um jogo de dados, fácil de jogar e de aprender</p>
-        <a class="btn btn-primary" href="#">Clica para jogar</a>
+        <a href="<?=URL::toRoute('stbox/game')?>" class="btn btn-primary" href="#">Clica para jogar</a>
     </div>
     <!-- /.col-md-4 -->
 </div>
@@ -43,38 +40,71 @@ if(isset($_SESSION['loggedIn'])){
         <div class="card h-100">
             <div class="card-body">
                 <h2 class="card-title">Regras</h2>
-                <p class="card-text">Veja as regras do jogo, na nossa página de regras</p>
+                <p class="card-text">Veja as regras do jogo, na nossa página de regras.</p>
             </div>
             <div class="card-footer">
-                <a href="<?= URL::toRoute('stbox/rules')?>" class="btn btn-primary btn-sm">Regras</a>
+                <a href="<?= URL::toRoute('stbox/rules')?>" class="btn btn-primary btn-sm">Veja as regras</a>
             </div>
         </div>
     </div>
     <!-- /.col-md-4 -->
+    <?php if(!(isset($_SESSION['loggedIn']))){?>
+    <div class="col-md-4 mb-5">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">Faça o login aqui!</h2>
+                <p class="card-text">Para usufruir das várias funcionalidades do site, faça login.</p>
+            </div>
+            <div class="card-footer">
+                <a href="<?= URL::toRoute('stbox/login')?>" class="btn btn-primary btn-sm">Autentica-te aqui</a>
+            </div>
+        </div>
+    </div>
+    <?php }?>
+
+    <?php if(isset($_SESSION['loggedIn'])){?>
     <div class="col-md-4 mb-5">
         <div class="card h-100">
             <div class="card-body">
                 <h2 class="card-title">Top 10</h2>
-                <p class="card-text">Veja na página de Top 10 quais são os melhores jogadores</p>
+                <p class="card-text">Veja na página de Top 10 quais são os melhores jogadores.</p>
             </div>
             <div class="card-footer">
-                <a href="<?= URL::toRoute('stbox/top10')?>" class="btn btn-primary btn-sm">Top 10</a>
+                <a href="<?= URL::toRoute('stbox/top10')?>" class="btn btn-primary btn-sm">Veja o Top 10</a>
             </div>
         </div>
     </div>
+    <?php }?>
+
     <!-- /.col-md-4 -->
+    <?php if(!(isset($_SESSION['loggedIn']))){?>
     <div class="col-md-4 mb-5">
         <div class="card h-100">
             <div class="card-body">
                 <h2 class="card-title">Não estás registado?</h2>
-                <p class="card-text">Para conseguires jogar, tens de estar registado no site</p>
+                <p class="card-text">Para conseguires jogar, tens de estar registado no site.</p>
             </div>
             <div class="card-footer">
                 <a href="<?= URL::toRoute('stbox/register')?>" class="btn btn-primary btn-sm">Regista-te aqui</a>
             </div>
         </div>
     </div>
+    <?php }?>
     <!-- /.col-md-4 -->
+
+    <?php if(isset($_SESSION['loggedIn'])){?>
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Histórico de Partidas</h2>
+                    <p class="card-text">Consulta aqui as suas mais recentes partidas.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="<?= URL::toRoute('stbox/matches')?>" class="btn btn-primary btn-sm">Veja o histórico</a>
+                </div>
+            </div>
+        </div>
+    <?php }?>
 
 </div>
 <!-- /.row -->

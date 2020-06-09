@@ -16,7 +16,13 @@ class SiteController extends BaseController
     }
 
     public function Top10() {
-        return View::make('stbox.top10');
+
+        if(isset($_SESSION['loggedIn'])){
+            return View::make('stbox.top10');
+        }else{
+            return View::make('stbox.errorNotLoggedIn');
+        }
+
     }
 
     public function Register() {
@@ -28,11 +34,25 @@ class SiteController extends BaseController
     }
 
     public function Game() {
-        return View::make('stbox.gamepage');
+        if(isset($_SESSION['loggedIn'])){
+            return View::make('stbox.gamepage');
+        }else{
+            return View::make('stbox.errorNotLoggedIn');
+        }
+
     }
 
     public function Matches(){
-        return View::make('stbox.matches');
+        if(isset($_SESSION['loggedIn'])){
+            return View::make('stbox.matches');
+        }else{
+            return View::make('stbox.errorNotLoggedIn');
+        }
+
+    }
+
+    public function Erro(){
+        return View::make('stbox.errorNotLoggedIn');
     }
 
     /*public function Backoffice(){
@@ -40,10 +60,13 @@ class SiteController extends BaseController
     }*/
 
     public function Profile(){
-        $users = new User();
 
-        $users->primeiro_nome = 'José';
-        return View::make('stbox.profile', ['users'=>$users]);
+        if(isset($_SESSION['loggedIn'])){
+            $users = new User();
+            return View::make('stbox.profile', ['users'=>$users]);
+        }else{
+            return View::make('stbox.errorNotLoggedIn');
+        }
     }
 
 }
