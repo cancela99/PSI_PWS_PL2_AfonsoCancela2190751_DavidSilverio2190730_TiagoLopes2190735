@@ -79,10 +79,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $user = User::find($id);
 
 
-        /*if($_POST['password'] != ""){
-            $user->password = hash('sha1',$_POST['password'], false);
-    }*/
-
         if($_POST['password'] == ""){
             $_SESSION['errorProfile'] = 'É obrigatório colocar password.';
             Redirect::toRoute('user/edit', $_SESSION['id']);
@@ -105,7 +101,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function login(){
 
-
         $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
 
         $username = $_POST['username'];
@@ -118,22 +113,22 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
         $id = mysqli_fetch_object($loginResult);
 
-        if($id->bloqueado == 1){
-            $_SESSION['bloqueado'] = 'Esta conta encontra-se bloqueada';
-            Redirect::toRoute('stbox/login');
-        }else{
-            if(mysqli_num_rows($loginResult) == 1){
-                $_SESSION['username'] = $username;
-                $_SESSION['id'] = $id->id;
-                $_SESSION['loggedIn'] = 'Já fez login';
-                $_SESSION['admin'] = $id->admin;
-                Redirect::toRoute('stbox/');
-            }else{
-                $_SESSION['loginErrors'] = 'Credenciais Incorretas';
-                Redirect::toRoute('stbox/login');
-            }
-        }
 
+        if(mysqli_num_rows($loginResult) == 1){
+            if($id->bloqueado == 1){
+                $_SESSION['bloqueado'] = 'Esta conta encontra-se bloqueada';
+                Redirect::toRoute('stbox/login');
+                }else{
+                    $_SESSION['username'] = $username;
+                    $_SESSION['id'] = $id->id;
+                    $_SESSION['loggedIn'] = 'Já fez login';
+                    $_SESSION['admin'] = $id->admin;
+                    Redirect::toRoute('stbox/');
+                }
+        }else{
+            $_SESSION['loginErrors'] = 'Credenciais Incorretas';
+            Redirect::toRoute('stbox/login');
+        }
     }
 
     public function logOut(){

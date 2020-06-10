@@ -41,9 +41,11 @@ if(isset($_SESSION['loginErrors'])){
 echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['loginErrors'].'</p>';
 $_SESSION['loginErrors'] = null;
 }
+
 if(isset($_SESSION['bloqueado'])){
     echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['bloqueado'].'</p>';
     $_SESSION['bloqueado'] = null;
+    session_destroy();
 }
 ?>
         <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Login</button>

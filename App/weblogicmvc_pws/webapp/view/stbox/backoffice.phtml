@@ -13,13 +13,24 @@ if(isset($_SESSION['loggedIn'])){
 }
 
 
-
 ?>
 
 
 <h1 style="text-align: center; margin-top: 100px">Backoffice</h1>
 
+
+
 <div style="margin-top: 3%" class="container">
+
+    <form action="<?=URL::toRoute('admin/searchUser')?>" method="post">
+    <input type="text" id="inputUsername" placeholder="Username" name="username">
+    <button>Pesquisar</button>
+    </form>
+
+
+
+
+    <br><br>
 
     <table class="table table-hover">
         <thead>
@@ -31,26 +42,47 @@ if(isset($_SESSION['loggedIn'])){
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($users as $user) {
-            if($user->admin == 0){ ?>
 
-            <th><?=$user->username?></th>
-            <?php if($user->bloqueado != 0){?>
-                <th style="padding-left: 45px">X</th>
-            <?php }else{ ?>
-                <th></th>
-            <?php }?>
-            <th><?=$user->databloqueado?></th>
-            <?php if($user->bloqueado == 0) {
-            echo '<form action="'. URL::toRoute('admin/blockUser', $user->id) .'"><th><button>Bloquear</button></th></form>';
-        }else{
-            echo '<form action="'. URL::toRoute('admin/unblockUser', $user->id) .'"><th><button>Desbloquear</button></th></form>';
+        <?php
+        if(!(isset($_SESSION['userSearched']))){ ?>
+            <?php foreach ($users as $user) {
+                if($user->admin == 0){ ?>
+                    <th><?=$user->username?></th>
+                    <?php if($user->bloqueado != 0){?>
+                        <th style="padding-left: 45px">X</th>
+                    <?php }else{ ?>
+                        <th></th>
+                    <?php }?>
+                    <th><?=$user->databloqueado?></th>
+                    <?php if($user->bloqueado == 0) {
+                        echo '<form action="'. URL::toRoute('admin/blockUser', $user->id) .'"><th><button>Bloquear</button></th></form>';
+                    }else{
+                        echo '<form action="'. URL::toRoute('admin/unblockUser', $user->id) .'"><th><button>Desbloquear</button></th></form>';
+                    } ?>
+                    </tr>
+                <?php }
+            } ?>
+        <?php }else{ ?>
+
+
+                    <th><?=$_SESSION['userSearched']->username?></th>
+                    <?php if($_SESSION['userSearched']->bloqueado != 0){?>
+                        <th style="padding-left: 45px">X</th>
+                    <?php }else{ ?>
+                        <th></th>
+                    <?php }?>
+                    <th><?=$_SESSION['userSearched']->dataBloqueado?></th>
+                    <?php if($_SESSION['userSearched']->bloqueado == 0) {
+                        echo '<form action="'. URL::toRoute('admin/blockUser', $_SESSION['userSearched']->id) .'"><th><button>Bloquear</button></th></form>';
+                    }else{
+                        echo '<form action="'. URL::toRoute('admin/unblockUser', $_SESSION['userSearched']->id) .'"><th><button>Desbloquear</button></th></form>';
+                    } ?>
+                    </tr>
+
+          <?php
+            $_SESSION['userSearched'] = null;
         } ?>
-        </tr>
-           <?php } ?>
-        <tr>
 
-        <?php } ?>
         </tbody>
     </table>
 </div>

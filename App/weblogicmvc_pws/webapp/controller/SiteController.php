@@ -16,13 +16,7 @@ class SiteController extends BaseController
     }
 
     public function Top10() {
-
-        if(isset($_SESSION['loggedIn'])){
-            return View::make('stbox.top10');
-        }else{
-            return View::make('stbox.errorNotLoggedIn');
-        }
-
+        return View::make('stbox.top10');
     }
 
     public function Register() {
@@ -37,6 +31,7 @@ class SiteController extends BaseController
         if(isset($_SESSION['loggedIn'])){
             return View::make('stbox.gamepage');
         }else{
+            $_SESSION['notLoggedIn'] = "É necessário realizar login";
             return View::make('stbox.errorNotLoggedIn');
         }
 
@@ -46,6 +41,7 @@ class SiteController extends BaseController
         if(isset($_SESSION['loggedIn'])){
             return View::make('stbox.matches');
         }else{
+            $_SESSION['notLoggedIn'] = "É necessário realizar login";
             return View::make('stbox.errorNotLoggedIn');
         }
 
@@ -65,6 +61,7 @@ class SiteController extends BaseController
             $users = new User();
             return View::make('stbox.profile', ['users'=>$users]);
         }else{
+            $_SESSION['notLoggedIn'] = "É necessário realizar login";
             return View::make('stbox.errorNotLoggedIn');
         }
     }

@@ -5,6 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-ERRO
+
+<?php
+if(isset($_SESSION['notLoggedIn'])){
+echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notLoggedIn'].'</p>';
+$_SESSION['notLoggedIn'] = null;
+}
+?>
+
+
 </body>
 </html>
