@@ -38,8 +38,27 @@ class SiteController extends BaseController
     }
 
     public function Matches(){
+
         if(isset($_SESSION['loggedIn'])){
-            return View::make('stbox.matches');
+
+            $user = $_SESSION['id'];
+
+            $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
+
+            $query = "SELECT * FROM matches WHERE idUsername = '$user' ORDER BY data ASC";
+
+            $queryResult = mysqli_query($db,$query);
+
+            $match = new Match();
+
+            while ($match = mysqli_fetch_object($queryResult)){
+                $matches[] = $match;
+            }
+
+            //Tracy\Debugger::barDump($user);
+
+            return View::make('stbox.matches', ['matches'=>$matches]);
+
         }else{
             $_SESSION['notLoggedIn'] = "É necessário realizar login";
             return View::make('stbox.errorNotLoggedIn');
@@ -65,5 +84,4 @@ class SiteController extends BaseController
             return View::make('stbox.errorNotLoggedIn');
         }
     }
-
 }

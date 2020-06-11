@@ -15,22 +15,22 @@ if(isset($_SESSION['loggedIn'])){
 
 ?>
 
+<body>
 
-<h1 style="text-align: center; margin-top: 100px">Backoffice</h1>
-
-
-
-<div style="margin-top: 3%" class="container">
-
-    <form action="<?=URL::toRoute('admin/searchUser')?>" method="post">
-    <input type="text" id="inputUsername" placeholder="Username" name="username">
-    <button>Pesquisar</button>
-    </form>
+<h1 style="margin-top: 7%" class="text-center">Backoffice</h1>
 
 
 
+<div class="container mt-5">
 
-    <br><br>
+    <div class="search-container mb-4">
+        <div class="form-inline">
+            <form action="<?=URL::toRoute('admin/searchUser')?>" method="post">
+                <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username">
+                <button class="btn btn-info"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div>
 
     <table class="table table-hover">
         <thead>
@@ -47,17 +47,17 @@ if(isset($_SESSION['loggedIn'])){
         if(!(isset($_SESSION['userSearched']))){ ?>
             <?php foreach ($users as $user) {
                 if($user->admin == 0){ ?>
-                    <th><?=$user->username?></th>
+                    <td><?=$user->username?></td>
                     <?php if($user->bloqueado != 0){?>
-                        <th style="padding-left: 45px">X</th>
+                        <td style="padding-left: 45px"> <i style="color: red" class="fa fa-ban"></i></td>
                     <?php }else{ ?>
-                        <th></th>
+                        <td></td>
                     <?php }?>
-                    <th><?=$user->databloqueado?></th>
+                    <td><?=$user->databloqueado?></td>
                     <?php if($user->bloqueado == 0) {
-                        echo '<form action="'. URL::toRoute('admin/blockUser', $user->id) .'"><th><button>Bloquear</button></th></form>';
+                        echo '<form action="'. URL::toRoute('admin/blockUser', $user->id) .'"><td><button class="btn btn-default"><i style="color: red; font-size: 20px;" class="fa fa-times-circle"></i></button></td></form>';
                     }else{
-                        echo '<form action="'. URL::toRoute('admin/unblockUser', $user->id) .'"><th><button>Desbloquear</button></th></form>';
+                        echo '<form action="'. URL::toRoute('admin/unblockUser', $user->id) .'"><td><button class="btn btn-default"><i style="color: green; font-size: 20px;" class="fa fa-check-circle"></i></button></td></form>';
                     } ?>
                     </tr>
                 <?php }
@@ -65,17 +65,17 @@ if(isset($_SESSION['loggedIn'])){
         <?php }else{ ?>
 
 
-                    <th><?=$_SESSION['userSearched']->username?></th>
+                    <td><?=$_SESSION['userSearched']->username?></td>
                     <?php if($_SESSION['userSearched']->bloqueado != 0){?>
-                        <th style="padding-left: 45px">X</th>
+                        <td style="padding-left: 45px"><i style="color: red" class="fa fa-ban"></i></td>
                     <?php }else{ ?>
-                        <th></th>
+                        <td></td>
                     <?php }?>
-                    <th><?=$_SESSION['userSearched']->dataBloqueado?></th>
+                    <td><?=$_SESSION['userSearched']->dataBloqueado?></td>
                     <?php if($_SESSION['userSearched']->bloqueado == 0) {
-                        echo '<form action="'. URL::toRoute('admin/blockUser', $_SESSION['userSearched']->id) .'"><th><button>Bloquear</button></th></form>';
+                        echo '<form action="'. URL::toRoute('admin/blockUser', $_SESSION['userSearched']->id) .'"><td><button class="btn btn-default"><i style="color: red" class="fa fa-times-circle"></i></button></td></form>';
                     }else{
-                        echo '<form action="'. URL::toRoute('admin/unblockUser', $_SESSION['userSearched']->id) .'"><th><button>Desbloquear</button></th></form>';
+                        echo '<form action="'. URL::toRoute('admin/unblockUser', $_SESSION['userSearched']->id) .'"><td><button class="btn btn-default"><i style="color: green" class="fa fa-check-circle"></i></button></td></form>';
                     } ?>
                     </tr>
 
@@ -88,4 +88,5 @@ if(isset($_SESSION['loggedIn'])){
 </div>
 
 </body>
-</html>
+
+<?php Layout::includeLayout('footerproject'); ?>

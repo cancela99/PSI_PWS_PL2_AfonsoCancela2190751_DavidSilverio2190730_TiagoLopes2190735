@@ -136,6 +136,4 @@ class UserController extends BaseController implements ResourceControllerInterfa
         Redirect::toRoute('stbox/');
     }
 
-
-    
 }

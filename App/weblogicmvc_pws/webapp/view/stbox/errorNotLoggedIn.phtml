@@ -1,17 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
 <?php
-if(isset($_SESSION['notLoggedIn'])){
-echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notLoggedIn'].'</p>';
-$_SESSION['notLoggedIn'] = null;
-}
-?>
+
+use ArmoredCore\WebObjects\Layout;
+
+if(isset($_SESSION['loggedIn'])){
+    Layout::includeLayout('headerLoggedIn');
+}else{
+    Layout::includeLayout('headerNotLoggedIn');
+}?>
+
+<body>
+<div style="background-color: #a31515; border: 1px solid #3c3836; width: 45%;" class="container mt-5 rounded">
+   <div class="container mt-3 text-center">
+       <i style="color: white; font-size: 55px;" class="fa fa-ban"></i>
+   </div>
+    <div class="text-center">
+        <?php
+        if(isset($_SESSION['notLoggedIn'])){
+            echo '<br><p style="color:white; font-size: 18px">'.$_SESSION['notLoggedIn'].'</p>';
+            $_SESSION['notLoggedIn'] = null;
+        }
+        ?>
+    </div>
+</div>
 
 
 </body>

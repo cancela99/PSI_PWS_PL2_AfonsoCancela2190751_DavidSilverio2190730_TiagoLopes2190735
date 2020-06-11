@@ -1,5 +1,6 @@
 <?php
 
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 
 if(isset($_SESSION['loggedIn'])){
@@ -7,14 +8,17 @@ if(isset($_SESSION['loggedIn'])){
 }else{
     Layout::includeLayout('headerNotLoggedIn');
 }
+
+$matches = Data::get('matches');
+
 ?>
 
 
-<h1 style="text-align: center; margin-top: 100px">Histórico de Partidas</h1>
+<h1 style="margin-top: 7%" class="text-center">Histórico de Partidas</h1>
 
 
 
-<div style="margin-top: 3%" class="container">
+<div class="container mt-5">
 
     <table class="table table-hover">
         <thead>
@@ -26,27 +30,34 @@ if(isset($_SESSION['loggedIn'])){
         </tr>
         </thead>
         <tbody>
+
         <tr>
-            <th>3</th>
-            <td>10</td>
-            <td>Ganhou</td>
-            <td>07/05/2020</td>
-        </tr>
-        <tr>
-            <th>2</th>
-            <td>14</td>
-            <td>Perdeu</td>
-            <td>05/05/2020</td>
-        </tr>
-        <tr>
-            <th>1</th>
-            <td>3</td>
-            <td>Ganhou</td>
-            <td>03/05/2020</td>
-        </tr>
+    <?php
+    $i = 1;
+
+    if(!(isset($_SESSION['matches']))){ ?>
+        <?php foreach ($matches as $match) {
+             ?>
+                <th><?= $i ?></th>
+                <td><?=$match->pontuacao?></td>
+                <?php  switch($match->vencedor){
+                case 'G':
+                    echo '<td>Ganho</td>';
+                    break;
+                case 'P':
+                    echo '<td>Perdeu</td>';
+                    break;
+                case 'E':
+                    echo '<td>Empatou</td>';
+                    break; } ?>
+                <td><?=$match->data?></td>
+            </tr>
+            <?php $i++; }?>
+
+    <?php }?>
         </tbody>
     </table>
 </div>
 
-</body>
-</html>
+
+<?php Layout::includeLayout('footerproject'); ?>
