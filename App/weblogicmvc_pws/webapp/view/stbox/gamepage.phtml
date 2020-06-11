@@ -6,7 +6,11 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 
-Layout::includeLayout('headerLoggedIn');
+if(isset($_SESSION['loggedIn'])){
+    Layout::includeLayout('headerLoggedIn');
+}else{
+    Layout::includeLayout('headerNotLoggedIn');
+}
 
 $valorDado = Data::get('valorDado');
 $numArray = Data::get('numArray');
@@ -14,7 +18,7 @@ $numArray = Data::get('numArray');
 \Tracy\Debugger::barDump($numArray);
 
 ?>
-<h2 class="text-center mt-5">Shut the Box</h2>
+<h2 style="margin-top: 5%" class="text-center">Shut the Box</h2>
 <div style="background-color: #e0e0ca; border: 1px solid #8A7B52; width: 55%;" class="container mt-4 rounded">
     <div class="gameBox">
         <div style="margin: 20px;" >
@@ -53,3 +57,6 @@ $numArray = Data::get('numArray');
 
     </div>
 </div>
+
+
+<?php Layout::includeLayout('footerproject'); ?>

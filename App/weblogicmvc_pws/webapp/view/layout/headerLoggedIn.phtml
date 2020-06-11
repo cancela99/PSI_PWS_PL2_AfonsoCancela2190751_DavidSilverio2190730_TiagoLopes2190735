@@ -2,7 +2,9 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\Facades\AssetBundler;
 use ArmoredCore\Facades\DebugRenderer;
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\URL;
+
 ?>
 
 <!DOCTYPE html>
@@ -14,10 +16,13 @@ use ArmoredCore\WebObjects\URL;
     <title>Shut the Box Game</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="<?=Asset::css('stbox.css')?>">
      <!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
      <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
@@ -48,9 +53,12 @@ use ArmoredCore\WebObjects\URL;
             <li class="nav-item">
                 <a class="nav-link" href="<?= URL::toRoute('stbox/matches')?>">Partidas</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= URL::toRoute('stbox/backoffice')?>">Backoffice</a>
-            </li>
+            <?php
+            if($_SESSION['admin'] == 1){ ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= URL::toRoute('admin/backoffice')?>">Backoffice</a>
+                </li>
+            <?php } ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?= URL::toRoute('stbox/game')?>">Shut The Box</a>
             </li>
@@ -58,10 +66,10 @@ use ArmoredCore\WebObjects\URL;
 
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Registar<span class="caret"></span></a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="<?= URL::toRoute('stbox/login')?>">Login</a>
-                    <a class="dropdown-item" href="<?= URL::toRoute('stbox/register')?>">Registar</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['username']?><span class="caret"></span></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="<?= URL::toRoute('user/edit', $_SESSION['id'])?>">Perfil</a>
+                    <a class="dropdown-item" href="<?= URL::toRoute('user/logOut')?>">Log out</a>
                 </div>
             </li>
         </ul>

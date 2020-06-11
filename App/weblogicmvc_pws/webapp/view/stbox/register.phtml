@@ -5,8 +5,13 @@ use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
 
 
-Layout::includeLayout('headerLoggedIn');?>
-<?php $user = Data::get('user'); ?>
+if(isset($_SESSION['loggedIn'])){
+    Layout::includeLayout('headerLoggedIn');
+}else{
+    Layout::includeLayout('headerNotLoggedIn');
+}?>
+<?php $user = Data::get('user');
+?>
 
 
 <!--<head>
@@ -24,7 +29,7 @@ Layout::includeLayout('headerLoggedIn');?>
 <div style="max-width: 550px; border: 1px solid grey; padding-top: 2%; background-color: whitesmoke; margin-top: 50px" class="container">
     <form class="form-signin" method="post" action="<?=Url::toRoute('user/store') ?>">
 <!--        <img class="mb-4" src="" alt="" width=92" height="92">-->
-        <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">Formulário - Registar</h1>
+        <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">REGISTE-SE AQUI</h1>
         <div class="form-label-group">
             <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio" required autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">
             <br>
@@ -46,14 +51,14 @@ Layout::includeLayout('headerLoggedIn');?>
             <br>
         </div>
         <div class="form-label-group">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password" value="<?=$user->password?>">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" value="<?=$user->password?>">
             <br>
         </div><br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Registar</button>
-         <div class="mt-4 mb-2 text-muted">
-             <a href="<?= URL::toRoute('stbox/login')?>">Voltar ao Login</a>
-        </div>
     </form>
+    <div class="mt-4 mb-2 text-muted">
+        Se já criou conta faça login <a href="<?= URL::toRoute('stbox/login/')?>">AQUI</a>!
+    </div>
 </div>
 </body>
 

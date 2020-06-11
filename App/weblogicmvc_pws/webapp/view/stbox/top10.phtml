@@ -1,6 +1,11 @@
 <?php
 use ArmoredCore\WebObjects\Layout;
-Layout::includeLayout('headerLoggedIn');
+
+if(isset($_SESSION['loggedIn'])){
+    Layout::includeLayout('headerLoggedIn');
+}else{
+    Layout::includeLayout('headerNotLoggedIn');
+}
 ?>
 
     <body>

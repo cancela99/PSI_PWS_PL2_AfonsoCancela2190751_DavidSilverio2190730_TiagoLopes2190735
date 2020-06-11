@@ -28,15 +28,57 @@ class SiteController extends BaseController
     }
 
     public function Game() {
-        return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "numArray" => array()]);
+        if(isset($_SESSION['loggedIn'])){
+            return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "numArray" => array()]);
+        }else{
+            $_SESSION['notLoggedIn'] = "É necessário realizar login";
+            return View::make('stbox.errorNotLoggedIn');
+        }
+
     }
 
     public function Matches(){
-        return View::make('stbox.matches');
+
+        if(isset($_SESSION['loggedIn'])){
+
+            $user = $_SESSION['id'];
+
+            $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
+
+            $query = "SELECT * FROM matches WHERE idUsername = '$user' ORDER BY data ASC";
+
+            $queryResult = mysqli_query($db,$query);
+
+            $match = new Match();
+
+            while ($match = mysqli_fetch_object($queryResult)){
+                $matches[] = $match;
+            }
+
+            //Tracy\Debugger::barDump($user);
+
+            return View::make('stbox.matches', ['matches'=>$matches]);
+
+        }else{
+            $_SESSION['notLoggedIn'] = "É necessário realizar login";
+            return View::make('stbox.errorNotLoggedIn');
+        }
+
+    }
+
+    public function Erro(){
+        return View::make('stbox.errorNotLoggedIn');
     }
 
     public function Profile(){
-        return View::make('stbox.profile');
+
+        if(isset($_SESSION['loggedIn'])){
+            $users = new User();
+            return View::make('stbox.profile', ['users'=>$users]);
+        }else{
+            $_SESSION['notLoggedIn'] = "É necessário realizar login";
+            return View::make('stbox.errorNotLoggedIn');
+        }
     }
 
 }

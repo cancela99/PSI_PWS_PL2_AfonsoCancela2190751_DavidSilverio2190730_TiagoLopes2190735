@@ -21,17 +21,20 @@ use ArmoredCore\Facades\Router;
 Router::get('/', 'SiteController/Home');
 Router::get('stbox/', 'SiteController/Home');
 Router::get('stbox/rules', 'SiteController/Rules');
-Router::get('stbox/backoffice', 'UserController/index');
+//Router::get('stbox/backoffice', 'UserController/index');
 Router::get('stbox/matches', 'SiteController/Matches');
 Router::get('stbox/login', 'SiteController/Login');
 Router::get('stbox/top10', 'SiteController/Top10');
 Router::get('stbox/register', 'SiteController/Register');
 Router::get('stbox/home', 'SiteController/Home');
 Router::get('stbox/profile','SiteController/Profile');
-Router::get('stbox/game', 'SiteController/Game');
+Router::get('stbox/error', 'SiteController/Erro');
+
 
 Router::post('stbox/game', 'GameController/mostrarDado');
 
 Router::resource('user', 'UserController');
+
+Router::resource('admin', 'AdminController');
 
 /************** End of URLEncoder Routing Rules ************************************/
