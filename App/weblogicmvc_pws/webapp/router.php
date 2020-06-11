@@ -29,7 +29,7 @@ Router::get('stbox/register', 'SiteController/Register');
 Router::get('stbox/home', 'SiteController/Home');
 Router::get('stbox/profile','SiteController/Profile');
 Router::get('stbox/error', 'SiteController/Erro');
-
+Router::get('stbox/game', 'SiteController/Game');
 
 Router::post('stbox/game', 'GameController/mostrarDado');
 

@@ -17,7 +17,7 @@ class GameController extends BaseController
         $valorDado = array($resultado1, $resultado2);
 
         $somaDados = $resultado1 + $resultado2;
-        $freeGate =  $_POST['freeGate'];
+        $freeGate =  array(1,2,3,4,5,6,7,8,9);//$_POST['freeGate'];
         $numArray = $this->mostrarNumerosBloqueados($freeGate, $somaDados);
 
         return View::make('stbox.gamepage', ['valorDado' => $valorDado, "numArray" => $numArray]);

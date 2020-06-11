@@ -57,7 +57,7 @@ class SiteController extends BaseController
 
             //Tracy\Debugger::barDump($user);
 
-            return View::make('stbox.matches', ['matches'=>$matches]);
+            return View::make('stbox.matches', ['matches' => $matches]);
 
         }else{
             $_SESSION['notLoggedIn'] = "É necessário realizar login";
