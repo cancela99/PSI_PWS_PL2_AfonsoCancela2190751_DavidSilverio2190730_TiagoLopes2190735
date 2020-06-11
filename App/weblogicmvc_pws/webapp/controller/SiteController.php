@@ -19,9 +19,9 @@ class SiteController extends BaseController
 
         $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
 
-        //$query = "SELECT * FROM matches ORDER BY pontuacao ASC";
+        $query = "SELECT * FROM matches INNER JOIN users ON matches.idUsername = users.id ORDER BY pontuacao ASC LIMIT 10";
 
-        $query = "SELECT * FROM matches INNER JOIN users ON matches.idUsername = users.id ORDER BY pontuacao ASC";
+        //$query = "SELECT * FROM (SELECT * FROM matches INNER JOIN users ON matches.idUsername = users.id ORDER BY pontuacao ASC LIMIT 10) sub ORDER BY pontuacao DESC";
 
         $queryResult = mysqli_query($db,$query);
 
