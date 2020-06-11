@@ -34,6 +34,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
     /**CRIA UM NOVO UTILIZADOR NA BASE DE DADOS**/
     public function store()
     {
+
         $user = new User();
 
         $user->username = Post::get('username');
@@ -53,7 +54,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         // TODO: Implement show() method.
     }
-
 
     public function edit($id)
     {
@@ -137,6 +137,4 @@ class UserController extends BaseController implements ResourceControllerInterfa
         Redirect::toRoute('stbox/');
     }
 
-
-    
 }

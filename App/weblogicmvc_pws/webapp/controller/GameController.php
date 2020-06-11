@@ -7,21 +7,29 @@ use ArmoredCore\WebObjects\View;
 
 class GameController extends BaseController
 {
-    public function lancarDado() {
+    public function mostrarDado() {
 
         $dados = new Dado();
-        $valorDados = array();
 
-        $resultado1 = 'dado'.$dados->mostrarDados().'.png';
-        $resultado2 = 'dado'.$dados->mostrarDados().'.png';
+        $resultado1 = $dados->lancarDado();
+        $resultado2 = $dados->lancarDado();
 
+        $valorDado = array($resultado1, $resultado2);
 
-        $valorDados = array($resultado1,$resultado2);
+        $somaDados = $resultado1 + $resultado2;
+        $freeGate =  array(1,2,3,4,5,6,7,8,9);//$_POST['freeGate'];
+        $numArray = $this->mostrarNumerosBloqueados($freeGate, $somaDados);
 
+        return View::make('stbox.gamepage', ['valorDado' => $valorDado, "numArray" => $numArray]);
+    }
 
-        return View::make('stbox/game', ['valorDados'=>$valorDados]);
+    public function mostrarNumerosBloqueados($freeGate, $somaDados) {
 
+        $numerosBloqueados = new NumeroBloqueado();
+        $numerosBloqueados->iniciar();
 
+        $numArray = $numerosBloqueados->bloquearNumero($freeGate, $somaDados);
 
+        return $numArray;
     }
 }

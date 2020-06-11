@@ -9,18 +9,24 @@ if(isset($_SESSION['loggedIn'])){
 }
 ?>
 <body>
+<div style="background-color: #a31515; border: 1px solid #3c3836; width: 45%;" class="container mt-5 rounded">
+   <div class="container mt-3 text-center">
+       <i style="color: white; font-size: 55px;" class="fa fa-ban"></i>
+   </div>
+    <div class="text-center">
+        <?php
+        if(isset($_SESSION['notLoggedIn'])){
+            echo '<br><p style="color:white; font-size: 18px">'.$_SESSION['notLoggedIn'].'</p>';
+            $_SESSION['notLoggedIn'] = null;
+        }
 
-<?php
-if(isset($_SESSION['notLoggedIn'])){
-echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notLoggedIn'].'</p>';
-$_SESSION['notLoggedIn'] = null;
-}
-
-if(isset($_SESSION['notAdmin'])){
-    echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notAdmin'].'</p>';
-    $_SESSION['notAdmin'] = null;
-}
-?>
+        if(isset($_SESSION['notAdmin'])){
+            echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notAdmin'].'</p>';
+            $_SESSION['notAdmin'] = null;
+        }
+        ?>
+    </div>
+</div>
 
 
 </body>
