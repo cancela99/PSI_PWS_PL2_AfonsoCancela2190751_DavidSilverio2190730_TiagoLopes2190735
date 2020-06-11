@@ -10,24 +10,37 @@ class NumeroBloqueado
     }
 
     public function bloquearNumero($numArray, $somaDados) {
-        $flag = 0;
-        $local = [];
+        $local = array();
 
-        foreach($numArray as $num) {
-            if($somaDados == $num) {
-                array_push($this->numerosBloqueados, $somaDados);
-                if(($key = array_search($num, $numArray)) !== false)
-                    array_push($local, $numArray[$key]);
-                $flag = 1;
+        function extractList($numArray, &$local, $temp = array()) {
+            if (count($temp) > 0 && !in_array($temp, $local))
+                $local[] = $temp;
+            for($i = 0; $i < count($numArray); $i++) {
+                $copy = $numArray;
+                $elem = array_splice($copy, $i, 1);
+                if (count($copy) > 0) {
+                    $add = array_merge($temp, array($elem[0]));
+                    sort($add);
+                    extractList($copy, $local, $add);
+                } else {
+                    $add = array_merge($temp, array($elem[0]));
+                    sort($add);
+                    if (!in_array($temp, $local)) {
+                        $local[] = $add;
+                    }
+                }
             }
         }
-        if($flag != 1) {
-            // Implementar algoritmo que dado um Array de tamanho N e um inteiro K,
-            // descobre todas as combinações únicas no array cuja soma seja igual a K.
-        }
+
+        extractList($numArray, $local);
+
+        $local = array_filter($local, function($v) use ($somaDados) {
+            return(array_sum($v) == $somaDados);
+        });
 
         return $local;
     }
+
 
     public function checkFinalJogada($numArray, $somaDados) {
 

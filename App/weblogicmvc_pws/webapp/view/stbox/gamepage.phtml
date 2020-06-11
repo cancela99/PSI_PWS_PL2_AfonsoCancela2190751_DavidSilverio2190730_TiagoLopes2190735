@@ -11,6 +11,8 @@ Layout::includeLayout('headerLoggedIn');
 $valorDado = Data::get('valorDado');
 $numArray = Data::get('numArray');
 
+\Tracy\Debugger::barDump($numArray);
+
 ?>
 <h2 class="text-center mt-5">Shut the Box</h2>
 <div style="background-color: #e0e0ca; border: 1px solid #8A7B52; width: 55%;" class="container mt-4 rounded">
@@ -19,8 +21,7 @@ $numArray = Data::get('numArray');
             <div class="btn-group ">
                 <?php for($i = 1; $i < 10; $i++){ ?>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-lg btn-warning" id="button<?=$i?>"><?=$i?></button>
-                        <label type="text"><?=$i<count($numArray)?$numArray[$i]:""?></label>
+                        <button type="button" class="btn btn-lg btn-warning" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                     </div>
                 <?php } ?>
             </div>
@@ -44,7 +45,10 @@ $numArray = Data::get('numArray');
         </div>
 
         <form method="post" action="<?= URL::toRoute('stbox/game')?>">
-            <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3"><button class="btn btn-lg btn-danger btn-block">Lançar Dados!</button></div>
+            <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3">
+                <input type="hidden" id="freeGate" name="freeGate" value="<?=2?>">
+                <button class="btn btn-lg btn-danger btn-block">Lançar Dados!</button>
+            </div>
         </form>
 
     </div>

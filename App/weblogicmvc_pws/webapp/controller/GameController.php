@@ -16,16 +16,20 @@ class GameController extends BaseController
 
         $valorDado = array($resultado1, $resultado2);
 
-        return View::make('stbox.gamepage', ['valorDado' => $valorDado]);
+        $somaDados = $resultado1 + $resultado2;
+        $freeGate =  $_POST['freeGate'];
+        $numArray = $this->mostrarNumerosBloqueados($freeGate, $somaDados);
+
+        return View::make('stbox.gamepage', ['valorDado' => $valorDado, "numArray" => $numArray]);
     }
 
-    public function mostrarNumerosBloqueados() {
+    public function mostrarNumerosBloqueados($freeGate, $somaDados) {
 
         $numerosBloqueados = new NumeroBloqueado();
         $numerosBloqueados->iniciar();
 
-        $numArray = $numerosBloqueados->bloquearNumero(array(2, 3, 7, 6, 1), 5);
+        $numArray = $numerosBloqueados->bloquearNumero($freeGate, $somaDados);
 
-        return View::Make('stbox.gamepage', ["numArray" => $numArray]);
+        return $numArray;
     }
 }

@@ -28,7 +28,7 @@ class SiteController extends BaseController
     }
 
     public function Game() {
-        return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "numArray" => array(2, 3, 7, 6, 1)]);
+        return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "numArray" => array()]);
     }
 
     public function Matches(){
