@@ -1,9 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<?php
+
+use ArmoredCore\WebObjects\Layout;
+
+if(isset($_SESSION['loggedIn'])){
+    Layout::includeLayout('headerLoggedIn');
+}else{
+    Layout::includeLayout('headerNotLoggedIn');
+}
+?>
 <body>
 
 <?php
@@ -11,8 +15,17 @@ if(isset($_SESSION['notLoggedIn'])){
 echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notLoggedIn'].'</p>';
 $_SESSION['notLoggedIn'] = null;
 }
+
+if(isset($_SESSION['notAdmin'])){
+    echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notAdmin'].'</p>';
+    $_SESSION['notAdmin'] = null;
+}
 ?>
 
 
 </body>
 </html>
+
+
+
+<?php Layout::includeLayout('footerproject');?>

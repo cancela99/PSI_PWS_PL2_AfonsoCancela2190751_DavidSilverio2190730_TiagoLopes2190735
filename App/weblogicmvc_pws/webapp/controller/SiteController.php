@@ -16,7 +16,23 @@ class SiteController extends BaseController
     }
 
     public function Top10() {
-        return View::make('stbox.top10');
+
+        $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
+
+        //$query = "SELECT * FROM matches ORDER BY pontuacao ASC";
+
+        $query = "SELECT * FROM matches INNER JOIN users ON matches.idUsername = users.id ORDER BY pontuacao ASC";
+
+        $queryResult = mysqli_query($db,$query);
+
+        $match = new Match();
+
+        while($match = mysqli_fetch_object($queryResult)){
+            $top[] = $match;
+        }
+
+        return View::make('stbox.top10', ['top10'=>$top]);
+
     }
 
     public function Register() {

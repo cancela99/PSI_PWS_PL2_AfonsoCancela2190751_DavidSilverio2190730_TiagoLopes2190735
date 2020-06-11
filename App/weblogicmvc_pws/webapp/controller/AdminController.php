@@ -15,6 +15,7 @@ class AdminController extends BaseController{
             $users = User::all();
             return View::make('stbox.backoffice', ['users' => $users]);
         }else{
+            $_SESSION['notAdmin'] = "É necessário ser admin para entrar aqui";
             return View::make('stbox.errorNotLoggedIn');
         }
     }
@@ -55,10 +56,13 @@ class AdminController extends BaseController{
 
         $_SESSION['userSearched'] = $id;
 
-
         if(mysqli_num_rows($queryResult) > 0){
 
             return View::make('stbox.backoffice');
+        }else{
+
+            $_SESSION['notFound'] = 'Username não encontrado';
+            return View::make('stbox.backoffice', ['users' => $users]);
         }
     }
 }

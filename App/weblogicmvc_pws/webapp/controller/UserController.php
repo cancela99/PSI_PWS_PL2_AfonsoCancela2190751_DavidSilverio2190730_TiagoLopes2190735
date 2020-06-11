@@ -15,8 +15,8 @@ class UserController extends BaseController implements ResourceControllerInterfa
      */
     public function index()
     {
-        $users = User::all();
-        View::make('stbox.backoffice', ['users' => $users]);
+        //$users = User::all();
+        //View::make('stbox.backoffice', ['users' => $users]);
     }
 
     /**
@@ -43,8 +43,9 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $user->email =  Post::get('email');
 
         $password = Post::get('password');
-        $user->password = hash('sha1',$password,false);
+        $user->password = hash('sha1', $password,false);
         $user->save();
+
         Redirect::toRoute('stbox/login');
     }
 
