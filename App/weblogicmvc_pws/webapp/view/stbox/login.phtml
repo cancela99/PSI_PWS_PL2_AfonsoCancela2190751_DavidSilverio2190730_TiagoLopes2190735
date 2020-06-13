@@ -27,9 +27,10 @@ if(isset($_SESSION['loggedIn'])){
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
 
 <?php
+
 if(isset($_SESSION['loginErrors'])){
-echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['loginErrors'].'</p>';
-$_SESSION['loginErrors'] = null;
+    echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['loginErrors'].'</p>';
+    $_SESSION['loginErrors'] = null;
 }
 
 if(isset($_SESSION['bloqueado'])){
@@ -37,7 +38,15 @@ if(isset($_SESSION['bloqueado'])){
     $_SESSION['bloqueado'] = null;
     session_destroy();
 }
+
+if(isset($_SESSION['notLoggedIn'])){
+    echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notLoggedIn'].'</p>';
+    $_SESSION['notLoggedIn'] = null;
+}
 ?>
+
+
+
         <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Login</button>
         <div class="mb-3">
         </div>

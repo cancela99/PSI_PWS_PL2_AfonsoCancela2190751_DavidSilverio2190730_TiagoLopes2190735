@@ -21,7 +21,7 @@ if(isset($_SESSION['loggedIn'])){
         }
 
         if(isset($_SESSION['notAdmin'])){
-            echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notAdmin'].'</p>';
+            echo '<br><p style="color:white; font-size: 18px">'.$_SESSION['notAdmin'].'</p>';
             $_SESSION['notAdmin'] = null;
         }
         ?>

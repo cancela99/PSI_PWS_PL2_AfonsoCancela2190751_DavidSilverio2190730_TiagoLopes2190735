@@ -45,22 +45,33 @@ class AdminController extends BaseController{
 
     public function searchUser(){
         $users = User::all();
-        $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
+        $db = new mysqli('localhost', 'root', '', 'shuthebox');
         $searchedUser = Post::get('username');
 
-        $query = "SELECT * FROM users WHERE username LIKE '%$searchedUser%'";
+        if(Post::get('username') == ''){
+            return View::make('stbox.backoffice', ['users' => $users]);
+        }
+
+        $query = "SELECT * FROM users WHERE username LIKE '%".$searchedUser."%' AND admin = 0";
 
         $queryResult = mysqli_query($db,$query);
 
-        $id = mysqli_fetch_object($queryResult);
 
-        $_SESSION['userSearched'] = $id;
+        while ($row[] = mysqli_fetch_object($queryResult)){
+            $i = 0;
+            $row[$i];
+            $i++;
+        }
+        //$id = mysqli_fetch_object($queryResult);
+
+        $_SESSION['userSearched'] = $row;
 
         if(mysqli_num_rows($queryResult) > 0){
-
+            $_SESSION['resultados'] = mysqli_num_rows($queryResult);
             return View::make('stbox.backoffice');
         }else{
 
+            $_SESSION['userSearched'] = null;
             $_SESSION['notFound'] = 'Username não encontrado';
             return View::make('stbox.backoffice', ['users' => $users]);
         }
