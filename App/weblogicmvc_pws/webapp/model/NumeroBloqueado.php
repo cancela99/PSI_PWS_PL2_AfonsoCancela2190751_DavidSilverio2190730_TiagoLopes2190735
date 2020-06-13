@@ -10,7 +10,25 @@ class NumeroBloqueado
     }
 
     public function bloquearNumero($numArray, $somaDados) {
-        $local = array();
+
+    }
+
+
+    public function checkFinalJogada($numArray, $somaDados) {
+
+    }
+    public function getFinalPointsSum() {
+
+    }
+
+}
+
+
+
+
+
+/* Função bloquearNumero.
+$local = array();
 
         // Substituir por iteração. 2 For loops, a percorrer o array e a somar.
         function extractList($numArray, &$local, $temp = array()) {
@@ -40,14 +58,4 @@ class NumeroBloqueado
         });
 
         return $local;
-    }
-
-
-    public function checkFinalJogada($numArray, $somaDados) {
-
-    }
-    public function getFinalPointsSum() {
-
-    }
-
-}
+*/

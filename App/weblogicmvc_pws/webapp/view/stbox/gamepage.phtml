@@ -13,11 +13,11 @@ if(isset($_SESSION['loggedIn'])){
 }
 
 $valorDado = Data::get('valorDado');
-$numArray = Data::get('numArray');
+//$numArray = Data::get('numArray');
 $status = Data::get('status');
-$statuss = Data::get('statuss');
 
-\Tracy\Debugger::barDump($statuss);
+\Tracy\Debugger::barDump($valorDado[0], "valorDado 0");
+\Tracy\Debugger::barDump($valorDado[1], "valorDado 1");
 
 ?>
 

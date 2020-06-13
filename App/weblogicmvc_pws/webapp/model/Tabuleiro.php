@@ -10,14 +10,17 @@ class Tabuleiro
     public $numBloqueadosP2;
 
     public function lancarDados() {
+        $this->dado = new Dado();
+
+        $valorDado1 = $this->dado->lancarDado();
+        $valorDado2 = $this->dado->lancarDado();
+    }
+
+    public function checkFinalJogadaP1($soma) {
 
     }
 
-    public function checkFinalJogadoP1($soma) {
-
-    }
-
-    public function checkFinalJogadoP2($soma) {
+    public function checkFinalJogadaP2($soma) {
 
     }
 
