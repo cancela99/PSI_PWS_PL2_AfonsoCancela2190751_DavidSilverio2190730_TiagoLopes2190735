@@ -12,6 +12,7 @@ class NumeroBloqueado
     public function bloquearNumero($numArray, $somaDados) {
         $local = array();
 
+        // Substituir por iteração. 2 For loops, a percorrer o array e a somar.
         function extractList($numArray, &$local, $temp = array()) {
             if (count($temp) > 0 && !in_array($temp, $local))
                 $local[] = $temp;

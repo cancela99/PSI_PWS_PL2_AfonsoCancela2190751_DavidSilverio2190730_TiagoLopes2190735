@@ -13,22 +13,10 @@ if(isset($_SESSION['loggedIn'])){
 }
 ?>
 
-<!--<head>
-    <meta charset="utf-8">
-    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
-    <title>Shut the Box Game</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-</head>-->
-
-
-    <body class="text-center">
-    <div class="container" style="margin-top: 100px">
-    <form class="form-signin" method="post" action="<?=Url::toRoute('user/login')?>">
-        <img class="mb-4" src="<?= Asset::image('dices.png')?>" alt="" width=92" height="92">
-        <h1 class="h3 mb-4 font-weight-normal">Shut the Box Game</h1>
+    <div class="container text-center" style="margin-top: 100px">
+        <form class="form-signin" method="post" action="<?=Url::toRoute('user/login')?>">
+            <img class="mb-4" src="<?= Asset::image('dices.png')?>" alt="" width=92" height="92">
+            <h1 class="h3 mb-4 font-weight-normal">Shut the Box Game</h1>
 
             <label for="inputUsername" class=""</label>
             <input type="text" id="inputUsername"  class="form-control" placeholder="Username" required autofocus name="username">
@@ -36,22 +24,21 @@ if(isset($_SESSION['loggedIn'])){
             <label for="inputPassword" class=""></label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
 
-<?php
-if(isset($_SESSION['loginErrors'])){
-echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['loginErrors'].'</p>';
-$_SESSION['loginErrors'] = null;
-}
+            <?php
+            if(isset($_SESSION['loginErrors'])){
+            echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['loginErrors'].'</p>';
+            $_SESSION['loginErrors'] = null;
+            }
 
-if(isset($_SESSION['bloqueado'])){
-    echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['bloqueado'].'</p>';
-    $_SESSION['bloqueado'] = null;
-    session_destroy();
-}
-?>
-        <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Login</button>
-        <div class="mb-3">
-        </div>
-    </form>
+            if(isset($_SESSION['bloqueado'])){
+                echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['bloqueado'].'</p>';
+                $_SESSION['bloqueado'] = null;
+                session_destroy();
+            }
+            ?>
+            <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Login</button>
+            <div class="mb-3"></div>
+        </form>
         <label>
             Não estás registado? Clica <a href="<?= URL::toRoute('stbox/register/')?>">AQUI</a> para te registares!
             <!--<a href="<?= URL::toRoute('stbox/register/')?>">Não estás registado? Clica aqui para te registares!</a>-->
@@ -60,4 +47,4 @@ if(isset($_SESSION['bloqueado'])){
             <a href=""> Polytechnic Institute of Leiria</a>
         </div>
     </div>
-    </body>
+</body>

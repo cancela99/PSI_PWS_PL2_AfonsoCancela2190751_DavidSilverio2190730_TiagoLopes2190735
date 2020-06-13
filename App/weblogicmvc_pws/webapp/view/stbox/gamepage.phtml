@@ -14,20 +14,28 @@ if(isset($_SESSION['loggedIn'])){
 
 $valorDado = Data::get('valorDado');
 $numArray = Data::get('numArray');
+$status = Data::get('status');
+$statuss = Data::get('statuss');
 
-\Tracy\Debugger::barDump($numArray);
+\Tracy\Debugger::barDump($statuss);
 
 ?>
+
 <h2 style="margin-top: 5%" class="text-center">Shut the Box</h2>
 <div style="background-color: #e0e0ca; border: 1px solid #8A7B52; width: 55%;" class="container mt-4 rounded">
     <div class="gameBox">
+        <form method="post" action="<?=URL::toRoute('game/iniciarJogo')?>">
+            <button type="submit" class="btn btn-success text-center">PLAY</button>
+        </form>
         <div style="margin: 20px;" >
-            <div class="btn-group ">
+            <div class="btn-group">
+                <form method="post" action="<?=URL::toRoute('game/bloquearNumero')?>">
                 <?php for($i = 1; $i < 10; $i++){ ?>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-lg btn-warning" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                        <button type="submit" class="btn btn-lg btn-warning <?=$status?>" name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                     </div>
                 <?php } ?>
+                </form>
             </div>
         </div>
         <div style="background-color: #3c763d; border: 1px solid #8A7B52; height: 235px; margin: 20px;" class="rollDices">
@@ -48,10 +56,9 @@ $numArray = Data::get('numArray');
             </div>
         </div>
 
-        <form method="post" action="<?= URL::toRoute('stbox/game')?>">
+        <form method="post" action="<?= URL::toRoute('game/mostrarDado')?>">
             <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3">
-                <input type="hidden" id="freeGate" name="freeGate" value="">
-                <button class="btn btn-lg btn-danger btn-block">Lançar Dados!</button>
+                <button class="btn btn-lg btn-danger btn-block <?=$status?>">Lançar Dados!</button>
             </div>
         </form>
 
