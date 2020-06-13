@@ -11,13 +11,19 @@ class AdminController extends BaseController{
 
 
     public function backoffice(){
-        if($_SESSION['admin'] == 1){
-            $users = User::all();
-            return View::make('stbox.backoffice', ['users' => $users]);
+        if(isset($_SESSION['loggedIn'])){
+            if($_SESSION['admin'] == 1){
+                $users = User::all();
+                return View::make('stbox.backoffice', ['users' => $users]);
+            }else{
+                $_SESSION['notAdmin'] = "É necessário ser admin para entrar aqui";
+                return View::make('stbox.errorNotLoggedIn');
+            }
         }else{
-            $_SESSION['notAdmin'] = "É necessário ser admin para entrar aqui";
+            $_SESSION['notLoggedIn'] = "Faça login com uma conta de admin";
             return View::make('stbox.errorNotLoggedIn');
         }
+
     }
 
     public function blockUser($id){

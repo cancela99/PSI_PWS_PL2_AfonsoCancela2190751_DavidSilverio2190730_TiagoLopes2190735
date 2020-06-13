@@ -31,7 +31,14 @@ class SiteController extends BaseController
             $top[] = $match;
         }
 
-        return View::make('stbox.top10', ['top10'=>$top]);
+        if(mysqli_num_rows($queryResult) == 0){
+            $_SESSION['noTop'] = 'Não existem partidas concluídas no site';
+            return View::make('stbox.top10');
+        }else{
+            return View::make('stbox.top10', ['top10'=>$top]);
+        }
+
+
 
     }
 
@@ -71,9 +78,15 @@ class SiteController extends BaseController
                 $matches[] = $match;
             }
 
-            //Tracy\Debugger::barDump($user);
+            if(mysqli_num_rows($queryResult) == 0){
 
-            return View::make('stbox.matches', ['matches' => $matches]);
+                $_SESSION['noMatches'] = 'Este utilizador não tem partidas';
+
+                return View::make('stbox.matches');
+            }else{
+                return View::make('stbox.matches', ['matches' => $matches]);
+            }
+
 
         }else{
             $_SESSION['notLoggedIn'] = "É necessário realizar login";

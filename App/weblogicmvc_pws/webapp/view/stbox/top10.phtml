@@ -17,6 +17,12 @@ $top10 = Data::get('top10');
     <div style="margin-top: 3%" class="container">
         <h3>Top 10</h3>
 
+        <?php
+        if(isset($_SESSION['noTop'])){
+            echo '<br><p style="color:red; text-align: center; font-size: 18px">'.$_SESSION['noTop'].'</p>';
+        }
+        ?>
+
         <table class="table table-hover">
             <thead>
             <tr>
@@ -29,24 +35,25 @@ $top10 = Data::get('top10');
             <tbody>
 
             <?php
-                  $i = 1;
-                  foreach ($top10 as $top){ ?>
-                      <tr>
-                          <th><?=$i?></th>
-                          <th><?=$top->username?></th>
-                          <?php $data = date_create($top->data); ?>
-                          <th><?=date_format($data,"d/m/Y")?></th>
-                          <th><?=$top->pontuacao?></th>
-                      </tr>
-                      <?php
-                      $i++;
-            } ?>
-
-
-
+            if(!(isset($_SESSION['noTop']))){
+                $i = 1;
+                foreach ($top10 as $top){ ?>
+                    <tr>
+                        <th><?=$i?></th>
+                        <th><?=$top->username?></th>
+                        <?php $data = date_create($top->data); ?>
+                        <th><?=date_format($data,"d/m/Y")?></th>
+                        <th><?=$top->pontuacao?></th>
+                    </tr>
+                    <?php
+                    $i++;
+                }
+            }
+            $_SESSION['noTop'] = null;?>
 
             </tbody>
         </table>
+
     </div>
 
 

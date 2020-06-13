@@ -18,6 +18,12 @@ $matches = Data::get('matches');
 
 
 
+<?php
+if(isset($_SESSION['noMatches'])){
+    echo '<br><p style="color:red; text-align: center; font-size: 18px">'.$_SESSION['noMatches'].'</p>';
+}
+?>
+
 <div class="container mt-5">
 
     <table class="table table-hover">
@@ -35,7 +41,7 @@ $matches = Data::get('matches');
     <?php
     $i = 1;
 
-    if(!(isset($_SESSION['matches']))){ ?>
+    if(!(isset($_SESSION['noMatches']))){ ?>
         <?php foreach ($matches as $match) {
              ?>
                 <th><?= $i ?></th>
@@ -54,7 +60,9 @@ $matches = Data::get('matches');
             </tr>
             <?php $i++; }?>
 
-    <?php }?>
+    <?php }
+    $_SESSION['noMatches'] = null;
+    ?>
         </tbody>
     </table>
 </div>
