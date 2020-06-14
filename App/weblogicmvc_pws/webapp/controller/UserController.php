@@ -34,7 +34,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
     /**CRIA UM NOVO UTILIZADOR NA BASE DE DADOS**/
     public function store()
     {
-
         $user = new User();
 
         $user->username = Post::get('username');
@@ -58,7 +57,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
     public function edit($id)
     {
 
-
         if($_SESSION['id'] == $id){
             $user = User::find($id);
 
@@ -69,7 +67,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
                 View::make('stbox.profile', ['user' => $user]);
             }
         }else{
-            //URL::toRoute('user/edit', $_SESSION['id']);
             Redirect::toRoute('user/edit', $_SESSION['id']);
         }
 
@@ -80,7 +77,46 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $user = User::find($id);
 
 
-        if($_POST['password'] == ""){
+        if($_POST['password'] == "" && $_POST['newPassword'] == ""){
+
+            $post = Post::getAll();
+            \array_splice($post,5);
+
+
+            $post['password'] = $_SESSION['password'];
+
+            $user->update_attributes($post);
+
+
+            if($user->is_valid()) {
+                $user->save();
+
+                $_SESSION['updated'] = 'Informações alteradas com sucesso';
+                Redirect::toRoute('user/edit', $_SESSION['id']);
+            }else {
+                Redirect::flashToRoute('user/edit', ['user' => $user], $id);
+            }
+
+        }else{
+
+            $post = Post::getAll();
+            \array_splice($post,5);
+            $user->update_attributes($post);
+
+            $user->password = hash('sha1', $_POST['newPassword'], false);
+            $_SESSION['password'] = $user->password;
+            if($user->is_valid()){
+                $user->save();
+                $_SESSION['updated'] = 'Informações alteradas com sucesso';
+                Redirect::toRoute('user/edit', $_SESSION['id']);
+            } else {
+                Redirect::flashToRoute('user/edit', ['user' => $user], $id);
+            }
+        }
+
+
+
+            /*if($_POST['password'] == ""){
             $_SESSION['errorProfile'] = 'É obrigatório colocar password.';
             Redirect::toRoute('user/edit', $_SESSION['id']);
         }else{
@@ -88,11 +124,12 @@ class UserController extends BaseController implements ResourceControllerInterfa
             $user->password = hash('sha1', $_POST['password'], false);
             if($user->is_valid()){
                 $user->save();
-                Redirect::toRoute('user/edit', $_SESSION['id']);
+                \Tracy\Debugger::barDump($user, 'User');
+                //Redirect::toRoute('user/edit', $_SESSION['id']);
             } else {
                 Redirect::flashToRoute('user/edit', ['user' => $user], $id);
             }
-        }
+        }*/
     }
 
     public function destroy($id)
@@ -124,6 +161,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
                     $_SESSION['id'] = $id->id;
                     $_SESSION['loggedIn'] = 'Já fez login';
                     $_SESSION['admin'] = $id->admin;
+                    $_SESSION['password'] = $id->password;
                     Redirect::toRoute('stbox/');
                 }
         }else{
