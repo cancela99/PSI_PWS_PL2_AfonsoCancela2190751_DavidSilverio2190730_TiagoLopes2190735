@@ -3,6 +3,7 @@
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 
+//Verifica se o utilizador tem login feito
 if(isset($_SESSION['loggedIn'])){
     Layout::includeLayout('headerLoggedIn');
 }else{
@@ -40,13 +41,15 @@ if(isset($_SESSION['noMatches'])){
         <tr>
     <?php
     $i = 1;
-
+    //Verifica se o utilizador tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
     if(!(isset($_SESSION['noMatches']))){ ?>
         <?php foreach ($matches as $match) {
              ?>
                 <th><?= $i ?></th>
                 <td><?=$match->pontuacao?></td>
-                <?php  switch($match->vencedor){
+                <?php
+                //Verificamos o campo vencedor de cada jogo e devolvemos o resultado do memso
+                switch($match->vencedor){
                 case 'G':
                     echo '<td>Ganhou</td>';
                     break;

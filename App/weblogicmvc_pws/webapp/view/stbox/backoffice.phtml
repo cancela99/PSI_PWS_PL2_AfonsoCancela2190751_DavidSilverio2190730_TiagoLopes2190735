@@ -6,6 +6,7 @@ use ArmoredCore\WebObjects\URL;
 
 $users = Data::get('users');
 
+//Verifica se o utilizador tem login feito
 if(isset($_SESSION['loggedIn'])){
     Layout::includeLayout('headerLoggedIn');
 }else{
@@ -26,7 +27,7 @@ if(isset($_SESSION['loggedIn'])){
     <div class="search-container mb-4">
         <div class="form-inline">
             <form action="<?=URL::toRoute('admin/searchUser')?>" method="post">
-                <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username">
+                <input type="text" id="inputUsername" class="form-control" placeholder="Insira um username" name="username">
                 <button class="btn btn-info"><i class="fa fa-search"></i></button>
             </form>
         </div>
@@ -54,6 +55,7 @@ if(isset($_SESSION['loggedIn'])){
         <tbody>
 
         <?php
+        //Verifica se houve alguma pesquisa
         if(!(isset($_SESSION['userSearched']))){ ?>
 
             <?php foreach ($users as $user) {
@@ -77,6 +79,7 @@ if(isset($_SESSION['loggedIn'])){
         <?php }else{ ?>
 
             <?php
+                //Se o admin pesquisar por um utilizador, verifica se existe algum com o mesmo nome ou parecido com o da pesquisa, senão houver, avisa o admin
                 for($i = 0; $i < $_SESSION['resultados']; $i++){
                     ?>
                     <tr>

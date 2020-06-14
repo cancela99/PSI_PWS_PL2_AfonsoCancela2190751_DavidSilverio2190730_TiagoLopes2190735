@@ -4,12 +4,13 @@ use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
 
-
+//Verifica se o utilizador tem login feito
 if(isset($_SESSION['loggedIn'])){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
 }?>
+
 <?php $user = Data::get('user');
 ?>
 
