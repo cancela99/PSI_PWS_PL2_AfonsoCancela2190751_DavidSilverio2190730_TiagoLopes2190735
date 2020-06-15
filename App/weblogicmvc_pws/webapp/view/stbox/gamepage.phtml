@@ -86,14 +86,18 @@ $clickedGate = Data::get('clickedGate');
                 <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3">
                     <button class="btn btn-lg btn-danger btn-block" <?=$status?>>Lançar Dados!</button>
                 </div>
+                <div class="text-center">
+                    <?php
+                    if(isset($_SESSION['finalJogo'])){
+                        echo '<br><p style="color:green; font-size: 22px">'.$_SESSION['finalJogo'].'</p>';
+                        $_SESSION['finalJogo'] = null;
+                    }
+                    ?>
+                </div>
             <?php } ?>
         </form>
 
     </div>
 </div>
-
-<form method="post" action="<?= URL::toRoute('game/clear')?>">
-    <button>Eliminar</button>
-</form>
 
 <?php Layout::includeLayout('footerproject'); ?>

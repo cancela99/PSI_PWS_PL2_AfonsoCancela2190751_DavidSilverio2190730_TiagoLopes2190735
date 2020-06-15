@@ -23,7 +23,7 @@ class Tabuleiro extends NumeroBloqueado
         $this->numBloqueadosP1 = $this->numerosBloqueados;
         $aux = array_diff($arrayInteiro, $_SESSION['numBloq']);
         $unblockedGates = array_values($aux);
-        $_SESSION['points'] = array_sum($unblockedGates);
+        $_SESSION['sessionPoints'] = array_sum($unblockedGates);
 
         return $this->checkFinalJogada($unblockedGates, $soma);
     }
@@ -42,6 +42,6 @@ class Tabuleiro extends NumeroBloqueado
     }
 
     public function getPointsVencedor() {
-
+        return $_SESSION['sessionPoints'];
     }
 }

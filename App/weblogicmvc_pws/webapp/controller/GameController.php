@@ -9,6 +9,8 @@ class GameController extends BaseController
 {
 
     public function iniciarJogo() {
+        $this->clear();
+
         $gameEngine = new GameEngine();
         $gameEngine->iniciarJogo();
 
@@ -76,15 +78,15 @@ class GameController extends BaseController
         $_SESSION['valorDado'] = null;
         $_SESSION['somaDados'] = null;
         $_SESSION['numerosBloqueados'] = null;
-        $_SESSION['gameEngineEstado'] = null;
-        $_SESSION['gameEngine'] = null;
-        $_SESSION['tabuleiro'] = null;
+        //$_SESSION['gameEngineEstado'] = null;
+        //$_SESSION['gameEngine'] = null;
+        //$_SESSION['tabuleiro'] = null;
         $_SESSION['checkFinal'] = null;
         $_SESSION['primeiraJogada'] = null;
         $_SESSION['numBloq'] = null;
         $_SESSION['FLAG'] = null;
 
-        return View::make('stbox.gamepage', ['valorDado' => $_SESSION['valorDado'], 'status' => "enabled", 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
+        //return View::make('stbox.gamepage', ['valorDado' => $_SESSION['valorDado'], 'status' => "enabled", 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
     }
 
     public function mostrarDado() {
@@ -111,10 +113,12 @@ class GameController extends BaseController
                 $_SESSION['checkFinal'] = $checkFinal;
                 if(count($checkFinal) == 0) {
                     $gameEngine->updateEstadoJogo();
+                    $points = $tabuleiro->getPointsVencedor();
+                    $this->insertDataBD($points);
 
+                    $_SESSION['finalJogo'] = 'Jogo terminado! Acabou com '.$points.' pontos.';
 
-
-                    $this->clear();
+                    $this->iniciarJogo();
                 }
 
                 $_SESSION['local'] = null;
@@ -123,5 +127,18 @@ class GameController extends BaseController
         }
 
         return View::make('stbox.gamepage', ['valorDado' => $valorDado, 'status' => "enabled", 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
+    }
+
+    public function insertDataBD($points) {
+        $partida = new Match();
+        $partida->pontuacao = $points;
+        if($points == 0) {
+            $partida->vencedor = 'G';
+        } else {
+            $partida->vencedor = 'P';
+        }
+        $partida->idusername = $_SESSION['id'];
+
+        $partida->save();
     }
 }
