@@ -84,7 +84,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
         //Verifica se o campo da password e da nova password estão em branco, caso estejam, altera os dados e avisa o utilizador
         if($_POST['password'] == "" && $_POST['newPassword'] == ""){
 
-            $post = Post::getAll();
+            $post[] = Post::getAll();
             //Remove o campo newPassword do array
             \array_splice($post,5);
 
@@ -109,7 +109,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
                 Redirect::flashToRoute('user/edit', ['user' => $user], $id);
             }else{
                 //Senão faz a alteração da password
-                $post = Post::getAll();
+                $post[] = Post::getAll();
                 \array_splice($post,5);
                 $user->update_attributes($post);
 
