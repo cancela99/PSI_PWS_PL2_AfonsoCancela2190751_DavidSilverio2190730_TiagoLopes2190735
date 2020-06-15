@@ -27,7 +27,7 @@ if(isset($_SESSION['loggedIn'])){
     <div class="search-container mb-4">
         <div class="form-inline">
             <form action="<?=URL::toRoute('admin/searchUser')?>" method="post">
-                <input type="text" id="inputUsername" class="form-control" placeholder="Insira um username" name="username">
+                <input type="text" id="inputUsername" class="form-control" style="width: 250px" placeholder="Pesquise por um utilizador" name="username">
                 <button class="btn btn-info"><i class="fa fa-search"></i></button>
             </form>
         </div>
@@ -46,7 +46,7 @@ if(isset($_SESSION['loggedIn'])){
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>Username</th>
+            <th>Nome de utilizador</th>
             <th>Bloqueada</th>
             <th>Data</th>
             <th></th>

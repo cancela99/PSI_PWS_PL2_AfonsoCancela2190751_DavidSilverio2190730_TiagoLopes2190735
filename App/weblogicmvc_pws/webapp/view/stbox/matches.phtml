@@ -12,6 +12,7 @@ if(isset($_SESSION['loggedIn'])){
 
 $matches = Data::get('matches');
 
+
 ?>
 
 
@@ -40,7 +41,7 @@ if(isset($_SESSION['noMatches'])){
 
         <tr>
     <?php
-    $i = 1;
+    $i = $_SESSION['numRows'];
     //Verifica se o utilizador tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
     if(!(isset($_SESSION['noMatches']))){ ?>
         <?php foreach ($matches as $match) {
@@ -59,9 +60,11 @@ if(isset($_SESSION['noMatches'])){
                 case 'E':
                     echo '<td>Empatou</td>';
                     break; } ?>
-                <td><?=$match->data?></td>
+                <?php $data = date_create($match->data);
+                //Formata a data?>
+                <th style="font-weight: normal"><?=date_format($data,"d/m/Y")?></th>
             </tr>
-            <?php $i++; }?>
+            <?php $i--; }?>
 
     <?php }
     $_SESSION['noMatches'] = null;

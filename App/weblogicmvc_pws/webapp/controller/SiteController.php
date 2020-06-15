@@ -78,7 +78,7 @@ class SiteController extends BaseController
 
             $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
 
-            $query = "SELECT * FROM matches WHERE idUsername = '$user' ORDER BY data ASC";
+            $query = "SELECT * FROM matches WHERE idUsername = '$user' ORDER BY data DESC";
 
             $queryResult = mysqli_query($db,$query);
 
@@ -95,6 +95,7 @@ class SiteController extends BaseController
                 return View::make('stbox.matches');
             }else{
                 //Senão devolve a vista das partidas com os dados encontrados na query
+                $_SESSION['numRows'] = mysqli_num_rows($queryResult);
                 return View::make('stbox.matches', ['matches' => $matches]);
             }
         }else{
