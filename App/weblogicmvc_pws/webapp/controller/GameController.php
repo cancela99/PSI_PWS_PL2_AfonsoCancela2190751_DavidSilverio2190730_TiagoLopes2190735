@@ -12,17 +12,25 @@ class GameController extends BaseController
         $gameEngine = new GameEngine();
         $gameEngine->iniciarJogo();
 
+        $_SESSION['gameEngine'] = $gameEngine;
+        $_SESSION['gameEngineEstado'] = $gameEngine->getEstadoJogo();
+        $_SESSION['tabuleiro'] = $gameEngine->tabuleiro;
+        $_SESSION['controlDiceRoll'] = null;
+        $_SESSION['disableSegur'] = "disable";
+
         if($gameEngine->getEstadoJogo()) {
             $status = "enabled";
         } else {
             $status = "disabled";
         }
 
-        return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status]);
+        return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status, 'clickedGate' => $_SESSION, "statusGate" => "disabled"]);
     }
 
     public function bloquearNumero() {
         $flag=0;
+        $numerosBloqueados = new NumeroBloqueado();
+        $numerosBloqueados->iniciar();
 
         if (isset($_POST['portoes'])) {
             $flag = 1;
@@ -37,18 +45,54 @@ class GameController extends BaseController
 
         if(array_search((int)$numero, $_SESSION['local']) == false) {
             array_push($_SESSION['local'], (int)$numero);
+            //$clickedGate = (int)$numero;
+            //$_SESSION['idClickedGate'] = $clickedGate;
         }
 
-        $_SESSION['sum'] = array_sum($_SESSION['local']);
-        //$_SESSION['local'] = null;
-        //$_SESSION['sum'] = null;
+        $isTrue = $numerosBloqueados->bloquearNumero($_SESSION['local'], $_SESSION['somaDados']);
 
-        return View::make('stbox.gamepage', ['valorDado' => array(6, 6)]);
+        if($isTrue == true) {
+            // Os numeros foram bloqueados e adicionados ao array de numerosBloqueados.
+            $tabuleiro = $_SESSION['tabuleiro'];
+            $estadoAtual = $_SESSION['gameEngineEstado'];
+
+            if($estadoAtual == 1) {
+                //$tabuleiro->numBloqueadosP1 = [];
+                $tabuleiro->numBloqueadosP1 = $numerosBloqueados->numerosBloqueados;
+            } else if($estadoAtual == 2) {
+                //$tabuleiro->numBloqueadosP2 = [];
+                $tabuleiro->numBloqueadosP2 = $numerosBloqueados->numerosBloqueados;
+            }
+            $_SESSION['numerosBloqueados'] = $numerosBloqueados->numerosBloqueados;
+        }
+        $_SESSION['primeiraJogada'] = true;
+
+        return View::make('stbox.gamepage', ['valorDado' => $_SESSION['valorDado'], 'status' => "enabled", 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
+    }
+
+    public function clear() {
+        $_SESSION['local'] = null;
+        $_SESSION['sum'] = null;
+        $_SESSION['valorDado'] = null;
+        $_SESSION['somaDados'] = null;
+        $_SESSION['numerosBloqueados'] = null;
+        $_SESSION['gameEngineEstado'] = null;
+        $_SESSION['gameEngine'] = null;
+        $_SESSION['tabuleiro'] = null;
+        $_SESSION['checkFinal'] = null;
+        $_SESSION['primeiraJogada'] = null;
+        $_SESSION['numBloq'] = null;
+        $_SESSION['FLAG'] = null;
+
+        return View::make('stbox.gamepage', ['valorDado' => $_SESSION['valorDado'], 'status' => "enabled", 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
     }
 
     public function mostrarDado() {
 
-        $tabuleiro = new Tabuleiro();
+        $gameEngine = $_SESSION['gameEngine'];
+        $estadoAtual = $_SESSION['gameEngineEstado'];
+        $tabuleiro = $_SESSION['tabuleiro'];
+
         $tabuleiro->lancarDados();
 
         $resultado1 = $tabuleiro->valorDado1;
@@ -56,18 +100,28 @@ class GameController extends BaseController
 
         $valorDado = array($resultado1, $resultado2);
 
-        $_SESSION['somaDados'] = $_SESSION['valorDado1'] + $_SESSION['valorDado2'];
+        $_SESSION['valorDado'] = $valorDado;
+        $_SESSION['somaDados'] = $resultado1 + $resultado2;
+        $_SESSION['controlDiceRoll'] = "Fim de turno";
+        $_SESSION['disableSegur'] = "enable";
 
-        return View::make('stbox.gamepage', ['valorDado' => $valorDado, 'status' => "enabled"]);
-    }
+        if (isset($_SESSION['primeiraJogada'])) {
+            if ($estadoAtual == 1) {
+                $checkFinal = $tabuleiro->checkFinalJogadaP1($_SESSION['somaDados']);
+                $_SESSION['checkFinal'] = $checkFinal;
+                if(count($checkFinal) == 0) {
+                    $gameEngine->updateEstadoJogo();
 
-    public function mostrarNumerosBloqueados($freeGate, $somaDados) {
 
-        $numerosBloqueados = new NumeroBloqueado();
-        $numerosBloqueados->iniciar();
 
-        $numArray = $numerosBloqueados->bloquearNumero($freeGate, $somaDados);
+                    $this->clear();
+                }
 
-        return $numArray;
+                $_SESSION['local'] = null;
+                $_SESSION['sum'] = null;
+            }
+        }
+
+        return View::make('stbox.gamepage', ['valorDado' => $valorDado, 'status' => "enabled", 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
     }
 }

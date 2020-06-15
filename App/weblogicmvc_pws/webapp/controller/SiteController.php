@@ -29,7 +29,7 @@ class SiteController extends BaseController
 
     public function Game() {
         if(isset($_SESSION['loggedIn'])){
-            return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "status" => "disabled"]);
+            return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "status" => "disabled", 'clickedGate' => $_SESSION, "statusGate" => "disabled"]);
         }else{
             $_SESSION['notLoggedIn'] = "É necessário realizar login";
             return View::make('stbox.errorNotLoggedIn');

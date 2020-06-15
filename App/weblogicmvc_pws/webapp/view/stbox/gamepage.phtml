@@ -15,25 +15,46 @@ if(isset($_SESSION['loggedIn'])){
 $valorDado = Data::get('valorDado');
 //$numArray = Data::get('numArray');
 $status = Data::get('status');
+$statusGate = Data::get('statusGate');
+$clickedGate = Data::get('clickedGate');
 
-\Tracy\Debugger::barDump($valorDado[0], "valorDado 0");
-\Tracy\Debugger::barDump($valorDado[1], "valorDado 1");
+\Tracy\Debugger::barDump($clickedGate, "SESSION");
 
 ?>
 
 <h2 style="margin-top: 5%" class="text-center">Shut the Box</h2>
 <div style="background-color: #e0e0ca; border: 1px solid #8A7B52; width: 55%;" class="container mt-4 rounded">
     <div class="gameBox">
-        <form method="post" action="<?=URL::toRoute('game/iniciarJogo')?>">
-            <button type="submit" class="btn btn-success text-center">PLAY</button>
-        </form>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">
+                <form method="post" action="<?=URL::toRoute('game/iniciarJogo')?>">
+                    <button type="submit" class="btn btn-success text-center" style="margin: 5px;">PLAY</button>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
         <div style="margin: 20px;" >
             <div class="btn-group">
                 <form method="post" action="<?=URL::toRoute('game/bloquearNumero')?>">
                 <?php for($i = 1; $i < 10; $i++){ ?>
+                    <?php if(isset($_SESSION['numBloq']) && in_array($i, $_SESSION['numBloq'])) { ?>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                        </div>
+                    <?php } else if(!isset($_SESSION['controlDiceRoll'])){ ?>
                     <div class="btn-group">
-                        <button type="submit" class="btn btn-lg btn-warning <?=$status?>" name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                        <button type="submit" class="btn btn-lg btn-warning" disabled name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                     </div>
+                    <?php } else if(isset($_SESSION['controlDiceRoll'])){ ?>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-lg btn-warning" enabled name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                    </div>
+                    <?php } else { ?>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-lg btn-warning" <?=$statusGate?> name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                        </div>
+                    <?php } ?>
                 <?php } ?>
                 </form>
             </div>
@@ -57,13 +78,22 @@ $status = Data::get('status');
         </div>
 
         <form method="post" action="<?= URL::toRoute('game/mostrarDado')?>">
-            <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3">
-                <button class="btn btn-lg btn-danger btn-block <?=$status?>">Lançar Dados!</button>
-            </div>
+            <?php if(isset($_SESSION['controlDiceRoll'])) { ?>
+                <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3">
+                    <button class="btn btn-lg btn-danger btn-block" disabled <?=$status?>><?=$_SESSION['controlDiceRoll']?></button>
+                </div>
+            <?php } else { ?>
+                <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3">
+                    <button class="btn btn-lg btn-danger btn-block" <?=$status?>>Lançar Dados!</button>
+                </div>
+            <?php } ?>
         </form>
 
     </div>
 </div>
 
+<form method="post" action="<?= URL::toRoute('game/clear')?>">
+    <button>Eliminar</button>
+</form>
 
 <?php Layout::includeLayout('footerproject'); ?>

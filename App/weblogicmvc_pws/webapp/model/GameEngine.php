@@ -17,6 +17,8 @@ class GameEngine
 
     public function updateEstadoJogo() {
         if($this->estadoJogo == 1) {
+            $this->estadoJogo = 2;
+        } else if($this->estadoJogo == 2) {
             $this->estadoJogo = 0;
         }
     }
