@@ -57,6 +57,10 @@ $user = Data::get('user');
             echo '<p style="color:red; font-size: 22px">'.$_SESSION['clearCamp'].'</p>';
             $_SESSION['clearCamp'] = null;
         }
+        if(isset($_SESSION['wrongPassword'])){
+            echo '<p style="color:red; font-size: 22px">'.$_SESSION['wrongPassword'].'</p>';
+            $_SESSION['wrongPassword'] = null;
+        }
         ?>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar Alterações</button>
