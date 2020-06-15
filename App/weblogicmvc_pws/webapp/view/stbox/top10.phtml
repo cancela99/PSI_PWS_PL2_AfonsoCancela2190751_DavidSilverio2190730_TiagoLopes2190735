@@ -1,92 +1,62 @@
 <?php
+
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 
+//Verifica se o utilizador tem login feito
 if(isset($_SESSION['loggedIn'])){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
 }
+
+$top10 = Data::get('top10');
+
 ?>
 
     <body>
     <div style="margin-top: 3%" class="container">
         <h3>Top 10</h3>
-        <select class="mb-3 ">
-            <option value="">First to last</option>
-            <option value="">Last to first</option>
-        </select>
+
+        <?php
+        if(isset($_SESSION['noTop'])){
+            echo '<br><p style="color:red; text-align: center; font-size: 18px">'.$_SESSION['noTop'].'</p>';
+        }
+        ?>
+
         <table class="table table-hover">
             <thead>
             <tr>
                 <th>#</th>
-                <th>Nome</th>
-                <th>Username</th>
+                <th>Nome de utilizador</th>
+                <th>Data</th>
                 <th>Pontos</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th>1</th>
-                <td>Tiago Lopes</td>
-                <td>tiagolopes</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <th>2</th>
-                <td>David Silvério</td>
-                <td>davidsilverio</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <th>3</th>
-                <td>Afonso Cancela</td>
-                <td>cancelafonso</td>
-                <td>7</td>
-            </tr>
-            <tr>
-                <th>4</th>
-                <td>Major Santos</td>
-                <td>jorsantos</td>
-                <td>8</td>
-            </tr>
-            <tr>
-                <th>5</th>
-                <td>Rodrigo Silva</td>
-                <td>rodsilvas</td>
-                <td>11</td>
-            </tr>
-            <tr>
-                <th>6</th>
-                <td>André Gaspar</td>
-                <td>strongvow</td>
-                <td>13</td>
-            </tr>
-            <tr>
-                <th>7</th>
-                <td>Paulo Cardozo</td>
-                <td>cardozo</td>
-                <td>13</td>
-            </tr>
-            <tr>
-                <th>8</th>
-                <td>Rodrigo Valverde</td>
-                <td>valverdepower</td>
-                <td>18</td>
-            </tr>
-            <tr>
-                <th>9</th>
-                <td>Pedro Rainho</td>
-                <td>rainhoIntheHouse</td>
-                <td>21</td>
-            </tr>
-            <tr>
-                <th>10</th>
-                <td>Jorge Andrade</td>
-                <td>cabaleroandrade</td>
-                <td>22</td>
-            </tr>
+
+            <?php
+            //Verifica se existe algum jogo no sistema, senão houver, devolve um aviso
+            if(!(isset($_SESSION['noTop']))){
+                $i = 1;
+                foreach ($top10 as $top){ ?>
+                    <tr>
+                        <th><?=$i?></th>
+                        <th><?=$top->username?></th>
+                        <?php $data = date_create($top->data);
+                        //Formata a data?>
+                        <th><?=date_format($data,"d/m/Y")?></th>
+                        <th><?=$top->pontuacao?></th>
+                    </tr>
+                    <?php
+                    $i++;
+                }
+            }
+            $_SESSION['noTop'] = null;?>
+
             </tbody>
         </table>
+
     </div>
 
 

@@ -6,6 +6,7 @@ use ArmoredCore\WebObjects\URL;
 
 $users = Data::get('users');
 
+//Verifica se o utilizador tem login feito
 if(isset($_SESSION['loggedIn'])){
     Layout::includeLayout('headerLoggedIn');
 }else{
@@ -13,9 +14,9 @@ if(isset($_SESSION['loggedIn'])){
 }
 
 
+
 ?>
 
-<body>
 
 <h1 style="margin-top: 7%" class="text-center">Backoffice</h1>
 
@@ -26,16 +27,26 @@ if(isset($_SESSION['loggedIn'])){
     <div class="search-container mb-4">
         <div class="form-inline">
             <form action="<?=URL::toRoute('admin/searchUser')?>" method="post">
-                <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username">
+                <input type="text" id="inputUsername" class="form-control" style="width: 250px" placeholder="Pesquise por um utilizador" name="username">
                 <button class="btn btn-info"><i class="fa fa-search"></i></button>
             </form>
         </div>
     </div>
 
+    <?php
+    if(isset($_SESSION['notFound'])){
+        echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notFound'].'</p>';
+        $_SESSION['notFound'] = null;
+    } ?>
+
+
+
+    <br>
+
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>Username</th>
+            <th>Nome de utilizador</th>
             <th>Bloqueada</th>
             <th>Data</th>
             <th></th>
@@ -44,9 +55,12 @@ if(isset($_SESSION['loggedIn'])){
         <tbody>
 
         <?php
+        //Verifica se houve alguma pesquisa
         if(!(isset($_SESSION['userSearched']))){ ?>
+
             <?php foreach ($users as $user) {
                 if($user->admin == 0){ ?>
+                    <tr>
                     <td><?=$user->username?></td>
                     <?php if($user->bloqueado != 0){?>
                         <td style="padding-left: 45px"> <i style="color: red" class="fa fa-ban"></i></td>
@@ -64,24 +78,27 @@ if(isset($_SESSION['loggedIn'])){
             } ?>
         <?php }else{ ?>
 
-
-                    <td><?=$_SESSION['userSearched']->username?></td>
-                    <?php if($_SESSION['userSearched']->bloqueado != 0){?>
-                        <td style="padding-left: 45px"><i style="color: red" class="fa fa-ban"></i></td>
-                    <?php }else{ ?>
-                        <td></td>
-                    <?php }?>
-                    <td><?=$_SESSION['userSearched']->dataBloqueado?></td>
-                    <?php if($_SESSION['userSearched']->bloqueado == 0) {
-                        echo '<form action="'. URL::toRoute('admin/blockUser', $_SESSION['userSearched']->id) .'"><td><button class="btn btn-default"><i style="color: red" class="fa fa-times-circle"></i></button></td></form>';
-                    }else{
-                        echo '<form action="'. URL::toRoute('admin/unblockUser', $_SESSION['userSearched']->id) .'"><td><button class="btn btn-default"><i style="color: green" class="fa fa-check-circle"></i></button></td></form>';
-                    } ?>
+            <?php
+                //Se o admin pesquisar por um utilizador, verifica se existe algum com o mesmo nome ou parecido com o da pesquisa, senão houver, avisa o admin
+                for($i = 0; $i < $_SESSION['resultados']; $i++){
+                    ?>
+                    <tr>
+                        <td><?=$_SESSION['userSearched'][$i]->username?></td>
+                        <?php if($_SESSION['userSearched'][$i]->bloqueado != 0){?>
+                            <td style="padding-left: 45px"><i style="color: red" class="fa fa-ban"></i></td>
+                        <?php }else{ ?>
+                            <td></td>
+                        <?php }?>
+                        <td><?=$_SESSION['userSearched'][$i]->dataBloqueado?></td>
+                        <?php if($_SESSION['userSearched'][$i]->bloqueado == 0) {
+                            echo '<form action="'. URL::toRoute('admin/blockUser', $_SESSION['userSearched'][$i]->id) .'"><td><button class="btn btn-default"><i style="color: red" class="fa fa-times-circle"></i></button></td></form>';
+                        }else{
+                            echo '<form action="'. URL::toRoute('admin/unblockUser', $_SESSION['userSearched'][$i]->id) .'"><td><button class="btn btn-default"><i style="color: green" class="fa fa-check-circle"></i></button></td></form>';
+                        } ?>
                     </tr>
-
-          <?php
-            $_SESSION['userSearched'] = null;
-        } ?>
+                <?php  }
+                $_SESSION['userSearched'] = null;
+        }?>
 
         </tbody>
     </table>

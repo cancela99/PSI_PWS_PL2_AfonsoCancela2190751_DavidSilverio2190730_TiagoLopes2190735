@@ -4,12 +4,13 @@ use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
 
-
+//Verifica se o utilizador tem login feito
 if(isset($_SESSION['loggedIn'])){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
 }?>
+
 <?php $user = Data::get('user');
 ?>
 
@@ -35,11 +36,11 @@ if(isset($_SESSION['loggedIn'])){
             <br>
         </div>
         <div class="form-label-group">
-            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required name="username" value="<?=$user->username?>">
+            <input type="text" id="inputUsername" class="form-control" placeholder="Nome de utilizador" required name="username" value="<?=$user->username?>">
             <br>
         </div>
         <div class="form-label-group">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" value="<?=$user->password?>">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" name="password" value="<?=$user->password?>">
             <br>
         </div><br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Registar</button>
@@ -49,5 +50,8 @@ if(isset($_SESSION['loggedIn'])){
     </div>
 </div>
 </body>
+
+<?php
+Layout::includeLayout('footerproject');
 
 
