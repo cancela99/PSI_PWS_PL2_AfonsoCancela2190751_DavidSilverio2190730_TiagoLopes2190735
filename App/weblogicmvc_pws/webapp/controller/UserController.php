@@ -4,6 +4,7 @@ use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\View;
 
@@ -136,39 +137,70 @@ class UserController extends BaseController implements ResourceControllerInterfa
     //Função que faz login no site
     public function login(){
 
-        $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
+        //$db = mysqli_connect('localhost', 'root', '', 'shuthebox');
+//
+        //
+        //$username = $_POST['username'];
+        //$password =  $_POST['password'];
+        ////Faz o hash da password para verificar na base de dados
+        //$passwordHashed = hash('sha1', $password, false);
+//
+        //$query = "SELECT id, username, password, admin, bloqueado FROM users WHERE username = '$username' AND password = '$passwordHashed'";
+//
+        //$loginResult = mysqli_query($db,$query);
+//
+        //$id = mysqli_fetch_object($loginResult);
+//
+        ////Verifica se a query encontra algum resultado
+        //if(mysqli_num_rows($loginResult) == 1){
+        //    //Verifica se o utilizador que está a fazer login tem a conta bloqueada, se tiver avisa
+        //    if($id->bloqueado == 1){
+        //        $_SESSION['bloqueado'] = 'Esta conta encontra-se bloqueada';
+        //        Redirect::toRoute('stbox/login');
+        //        }else{
+        //        //Senão estiver bloqueada faz login no site
+        //            $_SESSION['username'] = $username;
+        //            $_SESSION['id'] = $id->id;
+        //            $_SESSION['loggedIn'] = 'Já fez login';
+        //            $_SESSION['admin'] = $id->admin;
+        //            $_SESSION['password'] = $id->password;
+        //            Redirect::toRoute('stbox/');
+        //        }
+        //}else{
+        //    //Se a query não encontrar nenhum resultado, volta para a vista de login e avisa
+        //    $_SESSION['loginErrors'] = 'Credenciais Incorretas';
+        //    Redirect::toRoute('stbox/login');
+        //}
 
-        $username = $_POST['username'];
-        $password =  $_POST['password'];
-        //Faz o hash da password para verificar na base de dados
-        $passwordHashed = hash('sha1', $password, false);
 
-        $query = "SELECT id, username, password, admin, bloqueado FROM users WHERE username = '$username' AND password = '$passwordHashed'";
+        $users = User::all();
 
-        $loginResult = mysqli_query($db,$query);
+        $username = Post::get('username');
+        $password = Post::get('password');
+        $passwordHashed = hash('sha1',$password,false);
 
-        $id = mysqli_fetch_object($loginResult);
-
-        //Verifica se a query encontra algum resultado
-        if(mysqli_num_rows($loginResult) == 1){
-            //Verifica se o utilizador que está a fazer login tem a conta bloqueada, se tiver avisa
-            if($id->bloqueado == 1){
-                $_SESSION['bloqueado'] = 'Esta conta encontra-se bloqueada';
-                Redirect::toRoute('stbox/login');
+        foreach ($users as $user){
+            if($user->username == $username && $user->password == $passwordHashed) {
+                if($user->bloqueado == 1){
+                    Session::set('loginErrors', null);
+                    Session::set('bloqueado', 'Esta conta encontra-se bloqueada');
+                    Redirect::toRoute('stbox/login');
+                    break;
                 }else{
-                //Senão estiver bloqueada faz login no site
-                    $_SESSION['username'] = $username;
-                    $_SESSION['id'] = $id->id;
-                    $_SESSION['loggedIn'] = 'Já fez login';
-                    $_SESSION['admin'] = $id->admin;
-                    $_SESSION['password'] = $id->password;
+                    Session::set('username', $username);
+                    Session::set('id', $user->id);
+                    Session::set('loggedIn', 'Já fez login');
+                    Session::set('admin', $user->admin);
+                    Session::set('password', $user->password);
                     Redirect::toRoute('stbox/');
+                    break;
                 }
-        }else{
-            //Se a query não encontrar nenhum resultado, volta para a vista de login e avisa
-            $_SESSION['loginErrors'] = 'Credenciais Incorretas';
-            Redirect::toRoute('stbox/login');
+            }else{
+                Session::set('loginErrors', 'Credenciais Incorretas');
+                Redirect::toRoute('stbox/login');
+            }
         }
+
     }
 
     //Função que faz logout
