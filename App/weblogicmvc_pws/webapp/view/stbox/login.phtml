@@ -1,6 +1,7 @@
 <?php
 
 use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
 
@@ -21,10 +22,10 @@ if(isset($_SESSION['loggedIn'])){
         <h1 class="h3 mb-4 font-weight-normal">Shut the Box Game</h1>
 
             <label for="inputUsername" class=""</label>
-            <input type="text" id="inputUsername"  class="form-control" placeholder="Nome de utilizador" required autofocus name="username">
+            <input type="text" id="inputUsername"  class="form-control" placeholder="Nome de utilizador" autofocus name="username">
 
             <label for="inputPassword" class=""></label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" required name="password">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" name="password">
 
 <?php
 
@@ -42,6 +43,11 @@ if(isset($_SESSION['bloqueado'])){
 if(isset($_SESSION['notLoggedIn'])){
     echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notLoggedIn'].'</p>';
     $_SESSION['notLoggedIn'] = null;
+}
+
+if(isset($_SESSION['blankField'])){
+    echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['blankField'].'</p>';
+    $_SESSION['blankField'] = null;
 }
 ?>
 

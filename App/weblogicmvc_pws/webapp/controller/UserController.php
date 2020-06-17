@@ -179,28 +179,32 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $password = Post::get('password');
         $passwordHashed = hash('sha1',$password,false);
 
-        foreach ($users as $user){
-            if($user->username == $username && $user->password == $passwordHashed) {
-                if($user->bloqueado == 1){
-                    Session::set('loginErrors', null);
-                    Session::set('bloqueado', 'Esta conta encontra-se bloqueada');
-                    Redirect::toRoute('stbox/login');
-                    break;
+        if($username == "" || $password == ""){
+            Session::set('blankField', 'Campo em branco');
+            Redirect::toRoute('stbox/login');
+        }else{
+            foreach ($users as $user){
+                if($user->username == $username && $user->password == $passwordHashed) {
+                    if($user->bloqueado == 1){
+                        Session::set('loginErrors', null);
+                        Session::set('bloqueado', 'Esta conta encontra-se bloqueada');
+                        Redirect::toRoute('stbox/login');
+                        break;
+                    }else{
+                        Session::set('username', $username);
+                        Session::set('id', $user->id);
+                        Session::set('loggedIn', 'Já fez login');
+                        Session::set('admin', $user->admin);
+                        Session::set('password', $user->password);
+                        Redirect::toRoute('stbox/');
+                        break;
+                    }
                 }else{
-                    Session::set('username', $username);
-                    Session::set('id', $user->id);
-                    Session::set('loggedIn', 'Já fez login');
-                    Session::set('admin', $user->admin);
-                    Session::set('password', $user->password);
-                    Redirect::toRoute('stbox/');
-                    break;
+                    Session::set('loginErrors', 'Credenciais Incorretas');
+                    Redirect::toRoute('stbox/login');
                 }
-            }else{
-                Session::set('loginErrors', 'Credenciais Incorretas');
-                Redirect::toRoute('stbox/login');
             }
         }
-
     }
 
     //Função que faz logout
