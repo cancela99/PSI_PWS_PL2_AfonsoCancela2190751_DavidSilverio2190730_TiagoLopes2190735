@@ -20,7 +20,7 @@ class SiteController extends BaseController
     //Faz uma query à base de dados para ir buscar o Top 10 e devolve um array com o Top 10
     public function Top10() {
 
-        $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
+        /*$db = mysqli_connect('localhost', 'root', '', 'shuthebox');
 
         $query = "SELECT * FROM matches INNER JOIN users ON matches.idUsername = users.id ORDER BY pontuacao ASC LIMIT 10";
 
@@ -42,7 +42,13 @@ class SiteController extends BaseController
         }else{
             //Senão devolve uma vista do Top 10 com os resultados da query
             return View::make('stbox.top10', ['top10'=>$top]);
-        }
+        }*/
+
+        $top10 = Match::all();
+
+        return View::make('stbox.top10', ['top10'=>$top10]);
+
+
     }
 
     //Função que mostra a vista para fazer o registo
