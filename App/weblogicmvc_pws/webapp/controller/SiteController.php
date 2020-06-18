@@ -45,10 +45,19 @@ class SiteController extends BaseController
         }*/
 
         $top10 = Match::all();
+        $topfinal = [];
+        $i = 0;
+        $j = 0;
 
+        foreach ($top10 as $top){
+            $topfinal[$i][$j] = $top->idusername;
+            $j++;
+            $topfinal[$i][$j] = $top->pontuacao;
+            $i++;
+        }
+
+        \Tracy\Debugger::barDump($topfinal);
         return View::make('stbox.top10', ['top10'=>$top10]);
-
-
     }
 
     //Função que mostra a vista para fazer o registo
@@ -109,7 +118,6 @@ class SiteController extends BaseController
             $_SESSION['notLoggedIn'] = "É necessário realizar login";
             return View::make('stbox.errorNotLoggedIn');
         }
-
     }
 
     //Função que devolve uma vista de erro

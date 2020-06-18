@@ -3,7 +3,10 @@ use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\Facades\AssetBundler;
 use ArmoredCore\Facades\DebugRenderer;
 use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
+
+$userData = Session::get('userData');
 
 ?>
 
@@ -54,7 +57,7 @@ use ArmoredCore\WebObjects\URL;
                 <a class="nav-link" href="<?= URL::toRoute('stbox/matches')?>">Partidas</a>
             </li>
             <?php
-            if($_SESSION['admin'] == 1){ ?>
+            if($userData->admin == 1){ ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= URL::toRoute('admin/backoffice')?>">Backoffice</a>
                 </li>
@@ -66,9 +69,9 @@ use ArmoredCore\WebObjects\URL;
 
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['username']?><span class="caret"></span></a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><?=$userData->username?><span class="caret"></span></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="<?= URL::toRoute('user/edit', $_SESSION['id'])?>">Perfil</a>
+                    <a class="dropdown-item" href="<?= URL::toRoute('user/edit', $userData->id)?>">Perfil</a>
                     <a class="dropdown-item" href="<?= URL::toRoute('user/logOut')?>">Terminar Sessão</a>
                 </div>
             </li>

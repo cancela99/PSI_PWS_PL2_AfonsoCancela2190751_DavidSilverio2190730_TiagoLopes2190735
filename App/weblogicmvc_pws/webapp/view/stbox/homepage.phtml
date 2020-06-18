@@ -1,4 +1,6 @@
 <?php
+
+use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
@@ -19,7 +21,7 @@ if(isset($_SESSION['loggedIn'])){
 <!-- Heading Row -->
 <div class="row align-items-center my-5">
     <div class="col-lg-7">
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="<?=\ArmoredCore\WebObjects\Asset::image('stbox.png')?>" alt=""-->
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="<?=Asset::image('stbox.png')?>" alt=""-->
     </div>
     <!-- /.col-lg-8 -->
     <div class="col-lg-5">

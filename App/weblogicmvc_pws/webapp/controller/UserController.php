@@ -37,18 +37,22 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         $user = new User();
 
-        $user->username = Post::get('username');
-        $user->primeiro_nome = Post::get('primeiro_nome');
-        $user->apelido = Post::get('apelido');
-        $user->datanascimento = Post::get('dataNascimento');
-        $user->email =  Post::get('email');
+        if(Post::get('username') == "" || Post::get('primeiro_nome') == "" || Post::get('apelido') == "" || Post::get('dataNascimento') == "" || Post::get('email') == "" || Post::get('password')){
+            Session::set('signInError', 'Impossível registar. Campos vazios');
+            Redirect::toRoute('stbox/register');
+        }else{
+            $user->username = Post::get('username');
+            $user->primeiro_nome = Post::get('primeiro_nome');
+            $user->apelido = Post::get('apelido');
+            $user->datanascimento = Post::get('dataNascimento');
+            $user->email =  Post::get('email');
+            $password = Post::get('password');
+            //Cria uma hash a partir da password inserida
+            $user->password = hash('sha1', $password,false);
+            $user->save();
 
-        $password = Post::get('password');
-        //Cria uma hash a partir da password inserida
-        $user->password = hash('sha1', $password,false);
-        $user->save();
-
-        Redirect::toRoute('stbox/login');
+            Redirect::toRoute('stbox/login');
+        }
     }
 
     public function show($id)
@@ -174,7 +178,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
 
         $users = User::all();
-
         $username = Post::get('username');
         $password = Post::get('password');
         $passwordHashed = hash('sha1',$password,false);
@@ -191,11 +194,14 @@ class UserController extends BaseController implements ResourceControllerInterfa
                         Redirect::toRoute('stbox/login');
                         break;
                     }else{
+                        Session::set('userData', $user);
+
                         Session::set('username', $username);
                         Session::set('id', $user->id);
                         Session::set('loggedIn', 'Já fez login');
                         Session::set('admin', $user->admin);
                         Session::set('password', $user->password);
+                        \Tracy\Debugger::barDump(Session::get('userData'));
                         Redirect::toRoute('stbox/');
                         break;
                     }
