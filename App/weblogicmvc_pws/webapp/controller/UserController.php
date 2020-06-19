@@ -35,10 +35,13 @@ class UserController extends BaseController implements ResourceControllerInterfa
     //Cria um novo utilizador e insere-o na base de dados
     public function store()
     {
+        $users = User::all();
         $user = new User();
+        $flag = 0;
 
-        if(Post::get('username') == "" || Post::get('primeiro_nome') == "" || Post::get('apelido') == "" || Post::get('dataNascimento') == "" || Post::get('email') == "" || Post::get('password')){
-            Session::set('signInError', 'Impossível registar. Campos vazios');
+        //Verifica se os campos estão em branco, caso estejam, devolve uma mensagem de erro
+        if(Post::get('username') == "" || Post::get('primeiro_nome') == "" || Post::get('apelido') == "" || Post::get('dataNascimento') == "" || Post::get('email') == "" || Post::get('password') == ""){
+            Session::set('signInError', 'Impossível registar. Campos vazios');;
             Redirect::toRoute('stbox/register');
         }else{
             $user->username = Post::get('username');
@@ -49,9 +52,28 @@ class UserController extends BaseController implements ResourceControllerInterfa
             $password = Post::get('password');
             //Cria uma hash a partir da password inserida
             $user->password = hash('sha1', $password,false);
-            $user->save();
 
-            Redirect::toRoute('stbox/login');
+            //Verifica se o username e se o email que o utilizador escreveu já existe na base de dados, caso exista altera o valor da flag
+            foreach ($users as $registeredUser){
+                if($registeredUser->username == $user->username){
+                    $flag = 1;
+                }
+                if($registeredUser->email == $user->email){
+                    $flag = 2;
+                }
+            }
+
+            //Verifica se o valor da flag foi alterado, caso tenha sido alterado, devolve a vista com uma mensagem de erro
+            if($flag == 1){
+                Session::set('signInError', 'Impossível registar. Esse nome de utilizador já foi utilizado');
+                Redirect::toRoute('stbox/register');
+            }else if ($flag == 2){
+                Session::set('signInError', 'Impossível registar. Esse email já foi utilizado');
+                Redirect::toRoute('stbox/register');
+            }else{
+                $user->save();
+                Redirect::toRoute('stbox/login');
+            }
         }
     }
 
