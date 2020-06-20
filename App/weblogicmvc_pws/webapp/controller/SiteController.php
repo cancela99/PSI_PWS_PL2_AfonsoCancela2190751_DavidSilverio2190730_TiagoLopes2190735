@@ -45,19 +45,9 @@ class SiteController extends BaseController
         }*/
 
         $top10 = Match::all();
-        $topfinal = [];
-        $i = 0;
-        $j = 0;
-
-        foreach ($top10 as $top){
-            $topfinal[$i][$j] = $top->idusername;
-            $j++;
-            $topfinal[$i][$j] = $top->pontuacao;
-            $i++;
-        }
-
-        \Tracy\Debugger::barDump($topfinal);
-        return View::make('stbox.top10', ['top10'=>$top10]);
+        $top10->asort();
+        \Tracy\Debugger::barDump($top10);
+        //return View::make('stbox.top10', ['top10'=>$top10]);
     }
 
     //Função que mostra a vista para fazer o registo

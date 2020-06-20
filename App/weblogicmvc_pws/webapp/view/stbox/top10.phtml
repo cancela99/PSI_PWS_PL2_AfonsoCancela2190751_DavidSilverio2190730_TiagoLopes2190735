@@ -41,11 +41,15 @@ $top10 = Data::get('top10');
                     <tr>
                         <th><?=$i?></th>
                         <th><?=$top->idusername?></th>
-                        <th></th>
+                        <?php $data = $top->data->format('d-m-Y H:i:s');?>
+                        <th><?=$data?></th>
                         <th><?=$top->pontuacao?></th>
                     </tr>
                     <?php
                     $i++;
+                    if ($i == 11){
+                        break;
+                    }
             }
             $_SESSION['noTop'] = null;?>
 
