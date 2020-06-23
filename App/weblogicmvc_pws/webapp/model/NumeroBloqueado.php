@@ -42,8 +42,32 @@ class NumeroBloqueado
         return $flag;
     }
 
-    public function checkFinalJogada($numArray, $somaDados) {
-        $local = array();
+    public function checkFinalJogada($numArray, $diceSum) {
+        $flag = false;
+
+        for($i = 0; $i < count($numArray); $i++) {
+            if($numArray[$i] == $diceSum) {
+                $flag = true;
+                break;
+            }
+            for($j = $i; $j < count($numArray); $j++) {
+                if($numArray[$i] != $numArray[$j]) {
+                    if (($numArray[$i] + $numArray[$j]) == $diceSum) {
+                        $_SESSION['TRUE RESULTS -> '][] = ($numArray[$i] + $numArray[$j]) . " | " .$numArray[$i] ."+".$numArray[$j];
+                        $flag = true;
+                        break;
+                    } else {
+                        $_SESSION['FALSE RESULTS -> '][] = ($numArray[$i] + $numArray[$j]) . " | " .$numArray[$i] ."+".$numArray[$j];
+                        $flag = false;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $flag;
+
+        /*$local = array();
 
         // Substituir por iteração. 2 For loops, a percorrer o array e a somar.
         function extractList($numArray, &$local, $temp = array()) {
@@ -72,7 +96,7 @@ class NumeroBloqueado
             return(array_sum($v) == $somaDados);
         });
 
-        return $local;
+        return $local;*/
     }
 
     public function getFinalPointsSum() {

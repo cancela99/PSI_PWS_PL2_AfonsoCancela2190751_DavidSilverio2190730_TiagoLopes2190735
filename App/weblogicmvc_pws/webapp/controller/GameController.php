@@ -41,7 +41,7 @@ class GameController extends BaseController
         // Operador ternário que realiza a verificação de dados no POST['portoes'];
         $flag == 1 ? $numero = $_POST['portoes'] : $numero = 0;
 
-        if(!isset($_SESSION['local'])) {
+        if(!isset($_SESSION['local'])) { 
             $_SESSION['local'] = [];
         }
 
@@ -111,7 +111,7 @@ class GameController extends BaseController
             if ($estadoAtual == 1) {
                 $checkFinal = $tabuleiro->checkFinalJogadaP1($_SESSION['somaDados']);
                 $_SESSION['checkFinal'] = $checkFinal;
-                if(count($checkFinal) == 0) {
+                if($checkFinal != true) {
                     $gameEngine->updateEstadoJogo();
                     $points = $tabuleiro->getPointsVencedor();
                     $this->insertDataBD($points);
