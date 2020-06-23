@@ -1,10 +1,11 @@
 <?php
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 
 //Verifica se o utilizador tem login feito
-if(isset($_SESSION['loggedIn'])){
+if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -45,28 +46,26 @@ $user = Data::get('user');
         <br>
 </div><br>
         <?php
-        if(isset($_SESSION['errorProfile'])){
-            echo '<p style="color:red; font-size: 18px">'.$_SESSION['errorProfile'].'</p>';
-            $_SESSION['errorProfile'] = null;
+        if(/*isset($_SESSION['errorProfile'])*/Session::has('errorProfile')){
+            echo '<p style="color:red; font-size: 18px">'.Session::get('errorProfile').'</p>';
+            Session::set('errorProfile',null);
+            //$_SESSION['errorProfile'] = null;
         }
-        if(isset($_SESSION['updated'])){
-            echo '<p style="color:green; font-size: 22px">'.$_SESSION['updated'].'</p>';
-            $_SESSION['updated'] = null;
+        if(/*isset($_SESSION['updated'])*/Session::has('updated')){
+            echo '<p style="color:green; font-size: 22px">'.Session::get('updated').'</p>';
+            Session::set('updated',null);
+            //$_SESSION['updated'] = null;
         }
-        if(isset($_SESSION['clearCamp'])){
-            echo '<p style="color:red; font-size: 22px">'.$_SESSION['clearCamp'].'</p>';
-            $_SESSION['clearCamp'] = null;
+        if(/*isset($_SESSION['clearCamp'])*/Session::has('clearCamp')){
+            echo '<p style="color:red; font-size: 22px">'.Session::get('clearCamp').'</p>';
+            Session::set('clearCamp',null);
+            //$_SESSION['clearCamp'] = null;
         }
         ?>
-
         <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar Alterações</button>
         <br>
-
     </form>
 </div>
 </body>
-
-</div>
-
 <?php Layout::includeLayout('footerproject');
 

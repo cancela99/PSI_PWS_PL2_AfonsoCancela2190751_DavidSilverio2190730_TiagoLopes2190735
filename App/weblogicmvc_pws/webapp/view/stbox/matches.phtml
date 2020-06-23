@@ -2,16 +2,16 @@
 
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
 
 //Verifica se o utilizador tem login feito
-if(isset($_SESSION['loggedIn'])){
+if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
 }
 
 $matches = Data::get('matches');
-
 
 ?>
 
@@ -21,8 +21,8 @@ $matches = Data::get('matches');
 
 
 <?php
-if(isset($_SESSION['noMatches'])){
-    echo '<br><p style="color:red; text-align: center; font-size: 18px">'.$_SESSION['noMatches'].'</p>';
+if(/*isset($_SESSION['noMatches'])*/Session::has('noMatches')){
+    echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('noMatches').'</p>';
 }
 ?>
 
@@ -41,7 +41,7 @@ if(isset($_SESSION['noMatches'])){
 
         <tr>
     <?php
-    $i = $_SESSION['numRows'];
+    $i = Session::get('numRows');;
     //Verifica se o utilizador tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
     if(!(isset($_SESSION['noMatches']))){ ?>
         <?php foreach ($matches as $match) {

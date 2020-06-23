@@ -2,6 +2,7 @@
 
 
 use ArmoredCore\Controllers\BaseController;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
 
 class SiteController extends BaseController
@@ -45,9 +46,9 @@ class SiteController extends BaseController
         }*/
 
         $top10 = Match::all();
-        $top10->asort();
+        //$top10->asort();
         \Tracy\Debugger::barDump($top10);
-        //return View::make('stbox.top10', ['top10'=>$top10]);
+        return View::make('stbox.top10', ['top10'=>$top10]);
     }
 
     //Função que mostra a vista para fazer o registo
@@ -63,11 +64,11 @@ class SiteController extends BaseController
     //Função que devolve a vista de jogo
     public function Game() {
         //Verifica se o utilizador tem login feito, se tiver devolve a vista do jogo
-        if(isset($_SESSION['loggedIn'])){
+        if(/*isset($_SESSION['loggedIn'])*/Session::has('loggedIn')){
             return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "numArray" => array()]);
         }else{
             //Senão a função devolve a vista de login com um aviso
-            $_SESSION['notLoggedIn'] = "Faça login para poder jogar";
+            Session::set('notLoggedIn','Faça login para poder jogar');
             return View::make('stbox.login');
         }
 
@@ -118,14 +119,13 @@ class SiteController extends BaseController
     //Função que devolve a vista do perfil
     public function Profile(){
         //Verifica se o utilizador fez login, se tiver feito login devolve a vista de perfil com os dados de utilizador
-        if(isset($_SESSION['loggedIn'])){
+        if(/*isset($_SESSION['loggedIn'])*/Session::has('loggedIn')){
             $users = new User();
             return View::make('stbox.profile', ['users'=>$users]);
         }else{
             //Senão a função devolve uma vista de erro com um aviso
-            $_SESSION['notLoggedIn'] = "É necessário realizar login";
+            Session::set('notLoggedIn','É necessário realizar login');
             return View::make('stbox.errorNotLoggedIn');
         }
     }
-
 }

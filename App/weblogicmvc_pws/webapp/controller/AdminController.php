@@ -2,33 +2,36 @@
 
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\View;
 
+
 class AdminController extends BaseController{
 
     //Função que mostra os utilizadores no backOffice
     public function backoffice(){
+
         //Verifica se o utilizador fez login
-        if(isset($_SESSION['loggedIn'])){
+        if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+            $userData = Session::get('userData');
             //Verifica se o utilizador que fez login é admin
-            if($_SESSION['admin'] == 1){
+            if(/*$_SESSION['admin'] == 1*/$userData->admin == 1){
                 $users = User::all();
                 return View::make('stbox.backoffice', ['users' => $users]);
             }else{
                 //Senão for admin devolve uma vista com um erro
-                $_SESSION['notAdmin'] = "É necessário ser admin para entrar aqui";
+                Session::set('notAdmin','É necessário ser admin para entrar aqui');
                 return View::make('stbox.errorNotLoggedIn');
             }
         }else{
             //Senão fez login devolve uma vista com um erro
-            $_SESSION['notLoggedIn'] = "Faça login com uma conta de admin";
+            Session::set('notLoggedIn','Faça login com uma conta de admin');
             return View::make('stbox.errorNotLoggedIn');
         }
-
     }
 
     //Função que bloqueia os utilizadores

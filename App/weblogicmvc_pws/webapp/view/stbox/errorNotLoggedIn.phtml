@@ -1,9 +1,10 @@
 <?php
 
 use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
 
 //Verifica se o utilizador tem login feito
-if(isset($_SESSION['loggedIn'])){
+if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -16,14 +17,14 @@ if(isset($_SESSION['loggedIn'])){
    </div>
     <div class="text-center">
         <?php
-        if(isset($_SESSION['notLoggedIn'])){
-            echo '<br><p style="color:white; font-size: 18px">'.$_SESSION['notLoggedIn'].'</p>';
-            $_SESSION['notLoggedIn'] = null;
+        if(/*isset($_SESSION['notLoggedIn'])*/Session::has('notLoggedIn')){
+            echo '<br><p style="color:white; font-size: 18px">'.Session::get('notLoggedIn').'</p>';
+            Session::set('notLoggedIn',null);
         }
 
-        if(isset($_SESSION['notAdmin'])){
-            echo '<br><p style="color:white; font-size: 18px">'.$_SESSION['notAdmin'].'</p>';
-            $_SESSION['notAdmin'] = null;
+        if(/*isset($_SESSION['notAdmin'])*/Session::has('notAdmin')){
+            echo '<br><p style="color:white; font-size: 18px">'.Session::get('notAdmin').'</p>';
+            Session::set('notLoggedIn',null);
         }
         ?>
     </div>

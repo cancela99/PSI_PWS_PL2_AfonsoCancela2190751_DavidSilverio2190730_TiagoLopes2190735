@@ -85,8 +85,9 @@ class UserController extends BaseController implements ResourceControllerInterfa
     //Função que devolve os dados do user para a vista de editar o perfil
     public function edit($id)
     {
+        $userData = Session::get('userData');
         //Verifica se o id do utilizador é o correto
-        if($_SESSION['id'] == $id){
+        if($userData->id == $id){
             $user = User::find($id);
 
             //Verifica se $user está a null
@@ -98,32 +99,32 @@ class UserController extends BaseController implements ResourceControllerInterfa
             }
         }else{
             //Senão for o id correto, devolve a vista com o id correto
-            Redirect::toRoute('user/edit', $_SESSION['id']);
+            Redirect::toRoute('user/edit', $userData->id);
         }
-
     }
 
     //Função que vai buscar os dados à vista e atualiza os dados na base de dados
     public function update($id)
     {
+        $userData = Session::get('userData');
         $user = User::find($id);
 
         //Verifica se o campo da password e da nova password estão em branco, caso estejam, altera os dados e avisa o utilizador
-        if($_POST['password'] == "" && $_POST['newPassword'] == ""){
+        if(Post::get('password') == "" && Post::get('newPassword') == ""){
 
             $post = Post::getAll();
             //Remove o campo newPassword do array
             \array_splice($post,5);
 
-            $post['password'] = $_SESSION['password'];
+            $post['password'] = $userData->password;
 
             $user->update_attributes($post);
 
             if($user->is_valid()) {
                 $user->save();
 
-                $_SESSION['updated'] = 'Informações alteradas com sucesso';
-                Redirect::toRoute('user/edit', $_SESSION['id']);
+                Session::set('updated','Informações alteradas com sucesso');
+                Redirect::toRoute('user/edit', $userData->id);
             }else {
                 //Senão devolve a vista do perfil
                 Redirect::flashToRoute('user/edit', ['user' => $user], $id);
@@ -131,8 +132,8 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
         }else{
             //Verifica se o campo da password ou se o da nova password estão em branco, se estiverem devolve a vista do perfil com uma aviso
-            if($_POST['password'] == "" || $_POST['newPassword'] == ""){
-                $_SESSION['clearCamp'] = "Impossível alterar palavra-passe. Campo vazio";
+            if(Post::get('password') == "" || Post::get('newPassword') == ""){
+                Session::set('clearCamp','Impossível alterar palavra-passe. Campo vazio');
                 Redirect::flashToRoute('user/edit', ['user' => $user], $id);
             }else{
                 //Senão faz a alteração da password
@@ -140,13 +141,13 @@ class UserController extends BaseController implements ResourceControllerInterfa
                 \array_splice($post,5);
                 $user->update_attributes($post);
 
-                $user->password = hash('sha1', $_POST['newPassword'], false);
-                $_SESSION['password'] = $user->password;
+                $user->password = hash('sha1', Post::get('newPassword'), false);
+                Session::set('password',$user->password);
                 //Verifica se o $user é válido, se for volta para a vista do perfil com um aviso
                 if($user->is_valid()){
                     $user->save();
-                    $_SESSION['updated'] = 'Informações alteradas com sucesso';
-                    Redirect::toRoute('user/edit', $_SESSION['id']);
+                    Session::set('updated','Informações alteradas com sucesso');
+                    Redirect::toRoute('user/edit', $userData->id);
                 } else {
                     //Senão volta para a vista de perfil
                     Redirect::flashToRoute('user/edit', ['user' => $user], $id);
@@ -163,42 +164,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
     //Função que faz login no site
     public function login(){
 
-        //$db = mysqli_connect('localhost', 'root', '', 'shuthebox');
-//
-        //
-        //$username = $_POST['username'];
-        //$password =  $_POST['password'];
-        ////Faz o hash da password para verificar na base de dados
-        //$passwordHashed = hash('sha1', $password, false);
-//
-        //$query = "SELECT id, username, password, admin, bloqueado FROM users WHERE username = '$username' AND password = '$passwordHashed'";
-//
-        //$loginResult = mysqli_query($db,$query);
-//
-        //$id = mysqli_fetch_object($loginResult);
-//
-        ////Verifica se a query encontra algum resultado
-        //if(mysqli_num_rows($loginResult) == 1){
-        //    //Verifica se o utilizador que está a fazer login tem a conta bloqueada, se tiver avisa
-        //    if($id->bloqueado == 1){
-        //        $_SESSION['bloqueado'] = 'Esta conta encontra-se bloqueada';
-        //        Redirect::toRoute('stbox/login');
-        //        }else{
-        //        //Senão estiver bloqueada faz login no site
-        //            $_SESSION['username'] = $username;
-        //            $_SESSION['id'] = $id->id;
-        //            $_SESSION['loggedIn'] = 'Já fez login';
-        //            $_SESSION['admin'] = $id->admin;
-        //            $_SESSION['password'] = $id->password;
-        //            Redirect::toRoute('stbox/');
-        //        }
-        //}else{
-        //    //Se a query não encontrar nenhum resultado, volta para a vista de login e avisa
-        //    $_SESSION['loginErrors'] = 'Credenciais Incorretas';
-        //    Redirect::toRoute('stbox/login');
-        //}
-
-
         $users = User::all();
         $username = Post::get('username');
         $password = Post::get('password');
@@ -211,19 +176,18 @@ class UserController extends BaseController implements ResourceControllerInterfa
             foreach ($users as $user){
                 if($user->username == $username && $user->password == $passwordHashed) {
                     if($user->bloqueado == 1){
-                        Session::set('loginErrors', null);
+                        Session::destroy();
                         Session::set('bloqueado', 'Esta conta encontra-se bloqueada');
                         Redirect::toRoute('stbox/login');
                         break;
                     }else{
                         Session::set('userData', $user);
 
-                        Session::set('username', $username);
-                        Session::set('id', $user->id);
-                        Session::set('loggedIn', 'Já fez login');
-                        Session::set('admin', $user->admin);
-                        Session::set('password', $user->password);
-                        \Tracy\Debugger::barDump(Session::get('userData'));
+                        //Session::set('username', $username);
+                        //Session::set('id', $user->id);
+                        //Session::set('loggedIn', 'Já fez login');
+                        //Session::set('admin', $user->admin);
+                        //Session::set('password', $user->password);
                         Redirect::toRoute('stbox/');
                         break;
                     }

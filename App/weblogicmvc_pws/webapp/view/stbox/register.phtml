@@ -6,7 +6,7 @@ use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
 
 //Verifica se o utilizador tem login feito
-if(isset($_SESSION['loggedIn'])){
+if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -46,8 +46,8 @@ $user = Data::get('user');
             <br>
         </div>
         <?php
-        if(isset($_SESSION['signInError'])){
-            echo '<br><p style="color:red; text-align: center; font-size: 18px">'.$_SESSION['signInError'].'</p>';
+        if(/*isset($_SESSION['signInError'])*/Session::has('signInError')){
+            echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('signInError').'</p>';
             Session::destroy();
         }
         ?>

@@ -2,9 +2,10 @@
 
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
 
 //Verifica se o utilizador tem login feito
-if(isset($_SESSION['loggedIn'])){
+if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -19,8 +20,8 @@ $top10 = Data::get('top10');
         <h3>Top 10</h3>
 
         <?php
-        if(isset($_SESSION['noTop'])){
-            echo '<br><p style="color:red; text-align: center; font-size: 18px">'.$_SESSION['noTop'].'</p>';
+        if(/*isset($_SESSION['noTop'])*/Session::has('noTop')){
+            echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('noTop').'</p>';
         }
         ?>
 
@@ -51,7 +52,7 @@ $top10 = Data::get('top10');
                         break;
                     }
             }
-            $_SESSION['noTop'] = null;?>
+            Session::set('noTop',null);?>
 
             </tbody>
         </table>

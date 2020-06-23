@@ -7,7 +7,7 @@ use ArmoredCore\WebObjects\Layout;
 
 
 //Verifica se o utilizador tem login feito
-if(isset($_SESSION['loggedIn'])){
+if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -29,25 +29,24 @@ if(isset($_SESSION['loggedIn'])){
 
 <?php
 
-if(isset($_SESSION['loginErrors'])){
-    echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['loginErrors'].'</p>';
-    $_SESSION['loginErrors'] = null;
+if(/*isset($_SESSION['loginErrors'])*/Session::has('loginErrors')){
+    echo '<br><p style="color:red; font-size: 18px">'.Session::get('loginErrors').'</p>';
+    Session::destroy();
 }
 
-if(isset($_SESSION['bloqueado'])){
-    echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['bloqueado'].'</p>';
-    $_SESSION['bloqueado'] = null;
-    session_destroy();
+if(/*isset($_SESSION['bloqueado'])*/Session::has('bloqueado')){
+    echo '<br><p style="color:red; font-size: 18px">'.Session::get('bloqueado').'</p>';
+    Session::destroy();
 }
 
-if(isset($_SESSION['notLoggedIn'])){
-    echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notLoggedIn'].'</p>';
-    $_SESSION['notLoggedIn'] = null;
+if(/*isset($_SESSION['notLoggedIn'])*/Session::has('notLoggedIn')){
+    echo '<br><p style="color:red; font-size: 18px">'.Session::get('notLoggedIn').'</p>';
+    Session::destroy();
 }
 
-if(isset($_SESSION['blankField'])){
-    echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['blankField'].'</p>';
-    $_SESSION['blankField'] = null;
+if(/*isset($_SESSION['blankField'])*/Session::has('blankField')){
+    echo '<br><p style="color:red; font-size: 18px">'.Session::get('blankField').'</p>';
+    Session::destroy();
 }
 ?>
 
@@ -59,7 +58,6 @@ if(isset($_SESSION['blankField'])){
     </form>
         <label>
             Não estás registado? Clica <a href="<?= URL::toRoute('stbox/register/')?>">AQUI</a> para te registares!
-            <!--<a href="<?= URL::toRoute('stbox/register/')?>">Não estás registado? Clica aqui para te registares!</a>-->
         </label>
 
     </div>
