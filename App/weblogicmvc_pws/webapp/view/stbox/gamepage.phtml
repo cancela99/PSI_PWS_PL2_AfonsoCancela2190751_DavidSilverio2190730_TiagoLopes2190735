@@ -7,7 +7,7 @@ use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 
 //Verifica se o utilizador tem login feito
-if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+if(Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -15,10 +15,8 @@ if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
 
 $valorDado = Data::get('valorDado');
 $numArray = Data::get('numArray');
-
-\Tracy\Debugger::barDump($numArray);
-
 ?>
+
 <h2 style="margin-top: 5%" class="text-center">Shut the Box</h2>
 <div style="background-color: #e0e0ca; border: 1px solid #8A7B52; width: 55%;" class="container mt-4 rounded">
     <div class="gameBox">

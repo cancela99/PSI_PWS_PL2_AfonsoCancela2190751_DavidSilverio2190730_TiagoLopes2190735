@@ -5,7 +5,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\Session;
 
 //Verifica se o utilizador tem login feito
-if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+if(Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -20,7 +20,7 @@ $top10 = Data::get('top10');
         <h3>Top 10</h3>
 
         <?php
-        if(/*isset($_SESSION['noTop'])*/Session::has('noTop')){
+        if(Session::has('noTop')){
             echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('noTop').'</p>';
         }
         ?>
@@ -41,16 +41,13 @@ $top10 = Data::get('top10');
                 foreach ($top10 as $top){ ?>
                     <tr>
                         <th><?=$i?></th>
-                        <th><?=$top->idusername?></th>
+                        <th><?=$top->users->username?></th>
                         <?php $data = $top->data->format('d-m-Y H:i:s');?>
                         <th><?=$data?></th>
                         <th><?=$top->pontuacao?></th>
                     </tr>
                     <?php
                     $i++;
-                    if($i == 11){
-                        break;
-                    }
             }
             Session::set('noTop',null);?>
 
@@ -58,8 +55,4 @@ $top10 = Data::get('top10');
         </table>
 
     </div>
-
-
-    </body>
-
-<?php Layout::includeLayout('footerproject');?>
+<?php Layout::includeLayout('footerproject');

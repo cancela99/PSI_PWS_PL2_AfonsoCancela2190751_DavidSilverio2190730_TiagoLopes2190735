@@ -5,7 +5,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\Session;
 
 //Verifica se o utilizador tem login feito
-if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+if(Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -14,14 +14,10 @@ if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
 $matches = Data::get('matches');
 
 ?>
-
-
 <h1 style="margin-top: 7%" class="text-center">Histórico de Partidas</h1>
 
-
-
 <?php
-if(/*isset($_SESSION['noMatches'])*/Session::has('noMatches')){
+if(Session::has('noMatches')){
     echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('noMatches').'</p>';
 }
 ?>

@@ -7,7 +7,7 @@ use ArmoredCore\WebObjects\Layout;
 
 
 //Verifica se o utilizador tem login feito
-if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+if(Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -29,28 +29,26 @@ if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
 
 <?php
 
-if(/*isset($_SESSION['loginErrors'])*/Session::has('loginErrors')){
+if(Session::has('loginErrors')){
     echo '<br><p style="color:red; font-size: 18px">'.Session::get('loginErrors').'</p>';
     Session::destroy();
 }
 
-if(/*isset($_SESSION['bloqueado'])*/Session::has('bloqueado')){
+if(Session::has('bloqueado')){
     echo '<br><p style="color:red; font-size: 18px">'.Session::get('bloqueado').'</p>';
     Session::destroy();
 }
 
-if(/*isset($_SESSION['notLoggedIn'])*/Session::has('notLoggedIn')){
+if(Session::has('notLoggedIn')){
     echo '<br><p style="color:red; font-size: 18px">'.Session::get('notLoggedIn').'</p>';
     Session::destroy();
 }
 
-if(/*isset($_SESSION['blankField'])*/Session::has('blankField')){
+if(Session::has('blankField')){
     echo '<br><p style="color:red; font-size: 18px">'.Session::get('blankField').'</p>';
     Session::destroy();
 }
 ?>
-
-
 
         <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Iniciar Sessão</button>
         <div class="mb-3">

@@ -4,7 +4,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\Session;
 
 //Verifica se o utilizador tem login feito
-if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+if(Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -17,23 +17,16 @@ if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
    </div>
     <div class="text-center">
         <?php
-        if(/*isset($_SESSION['notLoggedIn'])*/Session::has('notLoggedIn')){
+        if(Session::has('notLoggedIn')){
             echo '<br><p style="color:white; font-size: 18px">'.Session::get('notLoggedIn').'</p>';
             Session::set('notLoggedIn',null);
         }
 
-        if(/*isset($_SESSION['notAdmin'])*/Session::has('notAdmin')){
+        if(Session::has('notAdmin')){
             echo '<br><p style="color:white; font-size: 18px">'.Session::get('notAdmin').'</p>';
             Session::set('notLoggedIn',null);
         }
         ?>
     </div>
 </div>
-
-
-</body>
-
-
-
-
 <?php Layout::includeLayout('footerproject');?>

@@ -16,10 +16,10 @@ class AdminController extends BaseController{
     public function backoffice(){
 
         //Verifica se o utilizador fez login
-        if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+        if(Session::has('userData')){
             $userData = Session::get('userData');
             //Verifica se o utilizador que fez login é admin
-            if(/*$_SESSION['admin'] == 1*/$userData->admin == 1){
+            if($userData->admin == 1){
                 $users = User::all();
                 return View::make('stbox.backoffice', ['users' => $users]);
             }else{
@@ -64,40 +64,6 @@ class AdminController extends BaseController{
 
     //Função que permite procurar um utilizador no backOffice
     public function searchUser(){
-        /*$users = User::all();
-        $db = new mysqli('localhost', 'root', '', 'shuthebox');
-        $searchedUser = Post::get('username');
-
-        //Verifica se o campo de pesquisa tem algo escrito, senão tiver mostra todos os utilizadores que não são admins
-        if(Post::get('username') == ''){
-            return View::make('stbox.backoffice', ['users' => $users]);
-        }
-
-        $query = "SELECT * FROM users WHERE username LIKE '%".$searchedUser."%' AND admin = 0";
-
-        $queryResult = mysqli_query($db,$query);
-
-        //Enquanto houver dados da query ele coloca-os num array
-        while ($row[] = mysqli_fetch_object($queryResult)){
-            $i = 0;
-            $row[$i];
-            $i++;
-        }
-
-
-        $_SESSION['userSearched'] = $row;
-
-        //Se a query encontrar algum utilizador ele mostra esse utilizador na vista
-        if(mysqli_num_rows($queryResult) > 0){
-            $_SESSION['resultados'] = mysqli_num_rows($queryResult);
-            return View::make('stbox.backoffice');
-        }else{
-        //Senão mostra todos os utilizadores e devolve uma mensagem de aviso
-            $_SESSION['userSearched'] = null;
-            $_SESSION['notFound'] = 'Username não encontrado';
-            return View::make('stbox.backoffice', ['users' => $users]);
-        }*/
-
 
         $users = User::all();
         $searchedUser = Post::get('username');

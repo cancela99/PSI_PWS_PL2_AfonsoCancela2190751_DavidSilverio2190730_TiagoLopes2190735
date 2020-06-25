@@ -4,7 +4,7 @@ use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 
 //Verifica se o utilizador tem login feito
-if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+if(Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');

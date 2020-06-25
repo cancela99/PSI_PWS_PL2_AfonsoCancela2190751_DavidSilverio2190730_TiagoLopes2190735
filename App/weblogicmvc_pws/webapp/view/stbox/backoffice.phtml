@@ -8,7 +8,7 @@ use ArmoredCore\WebObjects\URL;
 
 
 //Verifica se o utilizador tem login feito
-if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+if(Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -36,15 +36,12 @@ $usersFound = Data::get('usersFound');
     </div>
 
     <?php
-    if(/*isset($_SESSION['notFound'])*/Session::has('notFound')){
+    if(Session::has('notFound')){
         echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notFound'].'</p>';
         Session::set('notFound',null);
     } ?>
 
-
-
     <br>
-
     <table class="table table-hover">
         <thead>
         <tr>

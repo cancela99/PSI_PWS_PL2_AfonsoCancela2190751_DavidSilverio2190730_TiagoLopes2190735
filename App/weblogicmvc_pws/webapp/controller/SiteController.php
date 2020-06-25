@@ -21,56 +21,8 @@ class SiteController extends BaseController
     //Faz uma query à base de dados para ir buscar o Top 10 e devolve um array com o Top 10
     public function Top10() {
 
-        /*$db = mysqli_connect('localhost', 'root', '', 'shuthebox');
-
-        $query = "SELECT * FROM matches INNER JOIN users ON matches.idUsername = users.id ORDER BY pontuacao ASC LIMIT 10";
-
-        //$query = "SELECT * FROM (SELECT * FROM matches INNER JOIN users ON matches.idUsername = users.id ORDER BY pontuacao ASC LIMIT 10) sub ORDER BY pontuacao DESC";
-
-        $queryResult = mysqli_query($db,$query);
-
-        $match = new Match();
-
-        //Enquanto a query encontrar dados, atribui os dados a um array
-        while($match = mysqli_fetch_object($queryResult)){
-            $top[] = $match;
-        }
-
-        //Se a query não encontrar nenhuns dados que coincidam com a query, a função devolve a vista do Top 10 com um aviso
-        if(mysqli_num_rows($queryResult) == 0){
-            $_SESSION['noTop'] = 'Não existem partidas concluídas no site';
-            return View::make('stbox.top10');
-        }else{
-            //Senão devolve uma vista do Top 10 com os resultados da query
-            return View::make('stbox.top10', ['top10'=>$top]);
-        }*/
-
-        $top10 = Match::all();
-        $top10Final = [];
-        $min = 0;
-        $max = 45;
-        $j = 0;
-        $users = User::all();
-
-        for ($i = $min; $i <= $max; $i++){
-            foreach ($top10 as $top){
-                if ($j != 10){
-                    if($top->pontuacao == $i){
-                        $top10Final[$j] = $top;
-                        foreach ($users as $user){
-                            if($top10Final[$j]->idusername == $user->id){
-                                $top10Final[$j]->idusername = $user->username;
-                            }
-                        }
-                        $j++;
-                    }
-                }
-            }
-        }
-
-        //$top10Final[0]->idusername = 'tiago';
-        \Tracy\Debugger::barDump($top10Final[0]);
-        return View::make('stbox.top10', ['top10'=>$top10Final]);
+        $top10 = Match::find('all',array('order' => 'pontuacao asc', 'limit' => 10));
+        return View::make('stbox.top10', ['top10'=>$top10]);
     }
 
     //Função que mostra a vista para fazer o registo
@@ -86,7 +38,7 @@ class SiteController extends BaseController
     //Função que devolve a vista de jogo
     public function Game() {
         //Verifica se o utilizador tem login feito, se tiver devolve a vista do jogo
-        if(/*isset($_SESSION['loggedIn'])*/Session::has('loggedIn')){
+        if(Session::has('userData')){
             return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "numArray" => array()]);
         }else{
             //Senão a função devolve a vista de login com um aviso
@@ -141,7 +93,7 @@ class SiteController extends BaseController
     //Função que devolve a vista do perfil
     public function Profile(){
         //Verifica se o utilizador fez login, se tiver feito login devolve a vista de perfil com os dados de utilizador
-        if(/*isset($_SESSION['loggedIn'])*/Session::has('loggedIn')){
+        if(Session::has('loggedIn')){
             $users = new User();
             return View::make('stbox.profile', ['users'=>$users]);
         }else{

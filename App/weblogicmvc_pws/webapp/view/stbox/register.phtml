@@ -6,7 +6,7 @@ use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
 
 //Verifica se o utilizador tem login feito
-if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+if(Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -46,7 +46,7 @@ $user = Data::get('user');
             <br>
         </div>
         <?php
-        if(/*isset($_SESSION['signInError'])*/Session::has('signInError')){
+        if(Session::has('signInError')){
             echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('signInError').'</p>';
             Session::destroy();
         }
@@ -57,9 +57,7 @@ $user = Data::get('user');
         Se já criou conta faça login <a href="<?= URL::toRoute('stbox/login/')?>">AQUI</a>!
     </div>
 </div>
-</body>
 
-<?php
-Layout::includeLayout('footerproject');
+<?php Layout::includeLayout('footerproject');
 
 

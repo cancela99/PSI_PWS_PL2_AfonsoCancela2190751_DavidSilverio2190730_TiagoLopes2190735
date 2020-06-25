@@ -7,12 +7,11 @@ use ArmoredCore\WebObjects\URL;
 
 
 //Verifica se o utilizador tem login feito
-if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+if(Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
 }
-\Tracy\Debugger::barDump($_SESSION);
 ?>
 
 
@@ -49,7 +48,7 @@ if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
         </div>
     </div>
     <!-- /.col-md-4 -->
-    <?php if(/*!(isset($_SESSION['loggedIn'])))*/!Session::has('userData')){?>
+    <?php if(!Session::has('userData')){?>
     <div class="col-md-4 mb-5">
         <div class="card h-100">
             <div class="card-body">
@@ -63,7 +62,7 @@ if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     </div>
     <?php }?>
 
-    <?php if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){?>
+    <?php if(Session::has('userData')){?>
     <div class="col-md-4 mb-5">
         <div class="card h-100">
             <div class="card-body">
@@ -78,7 +77,7 @@ if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     <?php }?>
 
     <!-- /.col-md-4 -->
-    <?php if(/*!(isset($_SESSION['loggedIn']))*/!Session::has('userData')){?>
+    <?php if(!Session::has('userData')){?>
     <div class="col-md-4 mb-5">
         <div class="card h-100">
             <div class="card-body">
@@ -93,7 +92,7 @@ if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     <?php }?>
     <!-- /.col-md-4 -->
 
-    <?php if(/*isset($_SESSION['loggedIn'])*/Session::has('loggedIn')){?>
+    <?php if(Session::has('userData')){?>
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">

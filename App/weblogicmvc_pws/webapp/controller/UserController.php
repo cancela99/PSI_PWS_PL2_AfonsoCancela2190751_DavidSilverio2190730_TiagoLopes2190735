@@ -71,8 +71,12 @@ class UserController extends BaseController implements ResourceControllerInterfa
                 Session::set('signInError', 'Impossível registar. Esse email já foi utilizado');
                 Redirect::toRoute('stbox/register');
             }else{
-                $user->save();
-                Redirect::toRoute('stbox/login');
+                if($user->is_valid()){
+                    $user->save();
+                    Redirect::toRoute('stbox/login');
+                }else{
+
+                }
             }
         }
     }
@@ -138,20 +142,28 @@ class UserController extends BaseController implements ResourceControllerInterfa
             }else{
                 //Senão faz a alteração da password
                 $post = Post::getAll();
-                \array_splice($post,5);
-                $user->update_attributes($post);
 
-                $user->password = hash('sha1', Post::get('newPassword'), false);
-                Session::set('password',$user->password);
-                //Verifica se o $user é válido, se for volta para a vista do perfil com um aviso
-                if($user->is_valid()){
-                    $user->save();
-                    Session::set('updated','Informações alteradas com sucesso');
-                    Redirect::toRoute('user/edit', $userData->id);
-                } else {
-                    //Senão volta para a vista de perfil
+                //Verifica se a password atual é a mesma que o utilizador escreveu
+                if($user->password == hash('sha1',Post::get('password'),false)){
+                    \array_splice($post,5);
+                    $user->update_attributes($post);
+                    $user->password = hash('sha1', Post::get('newPassword'), false);
+
+                    //Verifica se o $user é válido, se for volta para a vista do perfil com um aviso
+                    if($user->is_valid()){
+                        $user->save();
+                        Session::set('updated','Informações alteradas com sucesso');
+                        Redirect::toRoute('user/edit', $userData->id);
+                    } else {
+                        //Senão volta para a vista de perfil
+                        Redirect::flashToRoute('user/edit', ['user' => $user], $id);
+                    }
+                }else{
+                    //Senão, devolve a vista com mensagem de erro
+                    Session::set('wrongActualPass','Impossível alterar palavra-passe. Palavra-passe atual incorreta');
                     Redirect::flashToRoute('user/edit', ['user' => $user], $id);
                 }
+
             }
         }
     }
