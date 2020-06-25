@@ -2,32 +2,36 @@
 
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\View;
+
 
 class AdminController extends BaseController{
 
     //Função que mostra os utilizadores no backOffice
     public function backoffice(){
+
         //Verifica se o utilizador fez login
-        if(isset($_SESSION['loggedIn'])){
+        if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
+            $userData = Session::get('userData');
             //Verifica se o utilizador que fez login é admin
-            if($_SESSION['admin'] == 1){
+            if(/*$_SESSION['admin'] == 1*/$userData->admin == 1){
                 $users = User::all();
                 return View::make('stbox.backoffice', ['users' => $users]);
             }else{
                 //Senão for admin devolve uma vista com um erro
-                $_SESSION['notAdmin'] = "É necessário ser admin para entrar aqui";
+                Session::set('notAdmin','É necessário ser admin para entrar aqui');
                 return View::make('stbox.errorNotLoggedIn');
             }
         }else{
             //Senão fez login devolve uma vista com um erro
-            $_SESSION['notLoggedIn'] = "Faça login com uma conta de admin";
+            Session::set('notLoggedIn','Faça login com uma conta de admin');
             return View::make('stbox.errorNotLoggedIn');
         }
-
     }
 
     //Função que bloqueia os utilizadores
@@ -60,7 +64,7 @@ class AdminController extends BaseController{
 
     //Função que permite procurar um utilizador no backOffice
     public function searchUser(){
-        $users = User::all();
+        /*$users = User::all();
         $db = new mysqli('localhost', 'root', '', 'shuthebox');
         $searchedUser = Post::get('username');
 
@@ -92,6 +96,30 @@ class AdminController extends BaseController{
             $_SESSION['userSearched'] = null;
             $_SESSION['notFound'] = 'Username não encontrado';
             return View::make('stbox.backoffice', ['users' => $users]);
+        }*/
+
+
+        $users = User::all();
+        $searchedUser = Post::get('username');
+        $flag = 0;
+
+        if(Post::get('username') == ''){
+            return View::make('stbox.backoffice', ['users' => $users]);
         }
+
+        foreach ($users as $user){
+            if($user->username == $searchedUser){
+                $userFound = $user;
+                $flag = 1;
+                Session::set('userSearched', 'Utilizadores encontrados');
+                return View::make('stbox.backoffice',['usersFound'=>$userFound]);
+                break;
+            }
+        }
+        if($flag == 0){
+            Session::set('notFound','Utilizador não encontrado');
+            return View::make('stbox.backoffice',['users' => $users]);
+        }
+
     }
 }

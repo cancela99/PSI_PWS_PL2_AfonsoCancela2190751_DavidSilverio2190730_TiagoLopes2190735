@@ -2,9 +2,10 @@
 
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
 
 //Verifica se o utilizador tem login feito
-if(isset($_SESSION['loggedIn'])){
+if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
@@ -19,8 +20,8 @@ $top10 = Data::get('top10');
         <h3>Top 10</h3>
 
         <?php
-        if(isset($_SESSION['noTop'])){
-            echo '<br><p style="color:red; text-align: center; font-size: 18px">'.$_SESSION['noTop'].'</p>';
+        if(/*isset($_SESSION['noTop'])*/Session::has('noTop')){
+            echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('noTop').'</p>';
         }
         ?>
 
@@ -36,23 +37,22 @@ $top10 = Data::get('top10');
             <tbody>
 
             <?php
-            //Verifica se existe algum jogo no sistema, senão houver, devolve um aviso
-            if(!(isset($_SESSION['noTop']))){
                 $i = 1;
                 foreach ($top10 as $top){ ?>
                     <tr>
                         <th><?=$i?></th>
-                        <th><?=$top->username?></th>
-                        <?php $data = date_create($top->data);
-                        //Formata a data?>
-                        <th><?=date_format($data,"d/m/Y")?></th>
+                        <th><?=$top->idusername?></th>
+                        <?php $data = $top->data->format('d-m-Y H:i:s');?>
+                        <th><?=$data?></th>
                         <th><?=$top->pontuacao?></th>
                     </tr>
                     <?php
                     $i++;
-                }
+                    if($i == 11){
+                        break;
+                    }
             }
-            $_SESSION['noTop'] = null;?>
+            Session::set('noTop',null);?>
 
             </tbody>
         </table>

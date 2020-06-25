@@ -2,17 +2,17 @@
 
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 
 
 //Verifica se o utilizador tem login feito
-if(isset($_SESSION['loggedIn'])){
+if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
 }
-
-
+\Tracy\Debugger::barDump($_SESSION);
 ?>
 
 
@@ -21,13 +21,13 @@ if(isset($_SESSION['loggedIn'])){
 <!-- Heading Row -->
 <div class="row align-items-center my-5">
     <div class="col-lg-7">
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="<?=Asset::image('stbox.png')?>">
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="<?=Asset::image('stbox.png')?>" alt=""-->
     </div>
     <!-- /.col-lg-8 -->
     <div class="col-lg-5">
         <h1 class="font-weight-light">Bem-vindo ao Shut the Box Game</h1>
         <p>Shut The Box é um jogo de dados, fácil de jogar e de aprender</p>
-        <a href="<?=URL::toRoute('game/iniciarJogo')?>" class="btn btn-primary custum-btn" href="#">Clique para jogar</a>
+        <a href="<?=URL::toRoute('stbox/game')?>" class="btn btn-primary custum-btn" href="#">Clique para jogar</a>
     </div>
     <!-- /.col-md-4 -->
 </div>
@@ -49,7 +49,7 @@ if(isset($_SESSION['loggedIn'])){
         </div>
     </div>
     <!-- /.col-md-4 -->
-    <?php if(!(isset($_SESSION['loggedIn']))){?>
+    <?php if(/*!(isset($_SESSION['loggedIn'])))*/!Session::has('userData')){?>
     <div class="col-md-4 mb-5">
         <div class="card h-100">
             <div class="card-body">
@@ -63,7 +63,7 @@ if(isset($_SESSION['loggedIn'])){
     </div>
     <?php }?>
 
-    <?php if(isset($_SESSION['loggedIn'])){?>
+    <?php if(/*isset($_SESSION['loggedIn'])*/Session::has('userData')){?>
     <div class="col-md-4 mb-5">
         <div class="card h-100">
             <div class="card-body">
@@ -78,7 +78,7 @@ if(isset($_SESSION['loggedIn'])){
     <?php }?>
 
     <!-- /.col-md-4 -->
-    <?php if(!(isset($_SESSION['loggedIn']))){?>
+    <?php if(/*!(isset($_SESSION['loggedIn']))*/!Session::has('userData')){?>
     <div class="col-md-4 mb-5">
         <div class="card h-100">
             <div class="card-body">
@@ -93,7 +93,7 @@ if(isset($_SESSION['loggedIn'])){
     <?php }?>
     <!-- /.col-md-4 -->
 
-    <?php if(isset($_SESSION['loggedIn'])){?>
+    <?php if(/*isset($_SESSION['loggedIn'])*/Session::has('loggedIn')){?>
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
@@ -113,6 +113,5 @@ if(isset($_SESSION['loggedIn'])){
 </div>
 <!-- /.container -->
 
-</body>
 
 <?php Layout::includeLayout('footerproject'); ?>
