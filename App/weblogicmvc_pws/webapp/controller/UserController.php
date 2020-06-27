@@ -89,21 +89,26 @@ class UserController extends BaseController implements ResourceControllerInterfa
     //Função que devolve os dados do user para a vista de editar o perfil
     public function edit($id)
     {
-        $userData = Session::get('userData');
-        //Verifica se o id do utilizador é o correto
-        if($userData->id == $id){
-            $user = User::find($id);
+        if(Session::has('userData')){
+            $userData = Session::get('userData');
+            //Verifica se o id do utilizador é o correto
+            if($userData->id == $id){
+                $user = User::find($id);
 
-            //Verifica se $user está a null
-            if (is_null($user)) {
-                // redirect to standard error page
-            } else {
-                //Senão a variável $user não estiver a null, a função devolve a vista de perfil a informação do utilizador
-                View::make('stbox.profile', ['user' => $user]);
+                //Verifica se $user está a null
+                if (is_null($user)) {
+                    // redirect to standard error page
+                } else {
+                    //Senão a variável $user não estiver a null, a função devolve a vista de perfil a informação do utilizador
+                    View::make('stbox.profile', ['user' => $user]);
+                }
+            }else{
+                //Senão for o id correto, devolve a vista com o id correto
+                Redirect::toRoute('user/edit', $userData->id);
             }
         }else{
-            //Senão for o id correto, devolve a vista com o id correto
-            Redirect::toRoute('user/edit', $userData->id);
+            Session::set('notLoggedIn','É necessário realizar login');
+            View::make('stbox.errorNotLoggedIn');
         }
     }
 
@@ -133,7 +138,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
                 //Senão devolve a vista do perfil
                 Redirect::flashToRoute('user/edit', ['user' => $user], $id);
             }
-
         }else{
             //Verifica se o campo da password ou se o da nova password estão em branco, se estiverem devolve a vista do perfil com uma aviso
             if(Post::get('password') == "" || Post::get('newPassword') == ""){
@@ -163,7 +167,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
                     Session::set('wrongActualPass','Impossível alterar palavra-passe. Palavra-passe atual incorreta');
                     Redirect::flashToRoute('user/edit', ['user' => $user], $id);
                 }
-
             }
         }
     }
