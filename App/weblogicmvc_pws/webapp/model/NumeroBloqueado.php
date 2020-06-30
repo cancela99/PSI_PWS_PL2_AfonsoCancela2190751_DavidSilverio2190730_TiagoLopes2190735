@@ -1,17 +1,84 @@
 <?php
 
+use ArmoredCore\WebObjects\Session;
 
 class NumeroBloqueado
 {
-    public $numerosBloqueados;
+    public $numerosBloqueados = [];
 
     public function iniciar() {
-        $this->numerosBloqueados = [];
+        if(count($this->numerosBloqueados) == 0) {
+            $this->numerosBloqueados = [];
+        }
     }
 
     public function bloquearNumero($numArray, $somaDados) {
+        $flag = true;
+
+        $somaLocal = array_sum($numArray);
+        //$_SESSION['sum'] = $somaLocal;
+        Session::set('sum', $somaLocal);
+
+        if($somaLocal != $somaDados) {
+            if($somaLocal > $somaDados) {
+                //$_SESSION['sum'] = 0;
+                //$_SESSION['local'] = null;
+                Session::set('sum', 0);
+                Session::set('local', null);
+
+            }
+            $flag = false;
+        } else if($somaLocal == $somaDados){
+            if (!isset($_SESSION['numBloq'])) {
+                //$_SESSION['numBloq'] = [];
+            }
+            foreach ($numArray as $num) {
+                //array_push($_SESSION['numBloq'], $num);
+                $numAr[] = $num;
+                $_SESSION['numBloq'][] = $num;
+                //Session::set('numBloq', $numAr);
+
+            }
+
+            Session::set('controlDiceRoll', null);
+
+            $this->numerosBloqueados = $_SESSION['numBloq'];
+            $flag = true;
+
+        }
+
+        return $flag;
+    }
+
+    public function checkFinalJogada($numArray, $diceSum) {
+        /*$flag = false;
+
+        for($i = 0; $i < count($numArray); $i++) {
+            if($numArray[$i] == $diceSum) {
+                $flag = true;
+                break;
+            } else {
+                for($j = $i; $j < count($numArray); $j++) {
+                    if($numArray[$i] != $numArray[$j]) {
+                        if (($numArray[$i] + $numArray[$j]) == $diceSum) {
+                            $_SESSION['TRUE RESULTS -> '][] = ($numArray[$i] + $numArray[$j]) . " | " .$numArray[$i] ."+".$numArray[$j];
+                            $flag = true;
+                            break;
+                        } else {
+                            $_SESSION['FALSE RESULTS -> '][] = ($numArray[$i] + $numArray[$j]) . " | " .$numArray[$i] ."+".$numArray[$j];
+                            $flag = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $flag;*/
+
         $local = array();
 
+        // Substituir por iteração. 2 For loops, a percorrer o array e a somar.
         function extractList($numArray, &$local, $temp = array()) {
             if (count($temp) > 0 && !in_array($temp, $local))
                 $local[] = $temp;
@@ -34,19 +101,15 @@ class NumeroBloqueado
 
         extractList($numArray, $local);
 
-        $local = array_filter($local, function($v) use ($somaDados) {
-            return(array_sum($v) == $somaDados);
+        $local = array_filter($local, function($v) use ($diceSum) {
+            return(array_sum($v) == $diceSum);
         });
 
         return $local;
     }
 
-
-    public function checkFinalJogada($numArray, $somaDados) {
-
-    }
     public function getFinalPointsSum() {
-
+        return Session::get('sessionPoints');
     }
 
 }

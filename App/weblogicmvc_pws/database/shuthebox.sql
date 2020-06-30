@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 10-Jun-2020 às 23:32
+-- Tempo de geração: 15-Jun-2020 às 04:02
 -- Versão do servidor: 8.0.18
 -- versão do PHP: 7.0.33
 
@@ -32,22 +32,12 @@ DROP TABLE IF EXISTS `matches`;
 CREATE TABLE IF NOT EXISTS `matches` (
   `idJogo` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `pontuacao` int(4) UNSIGNED NOT NULL,
-  `data` datetime NOT NULL,
+  `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `vencedor` enum('G','P','E') CHARACTER SET cp1250 COLLATE cp1250_general_ci NOT NULL,
   `idUsername` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`idJogo`),
   KEY `FK_idUsername` (`idUsername`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=cp1250;
-
---
--- Extraindo dados da tabela `matches`
---
-
-INSERT INTO `matches` (`idJogo`, `pontuacao`, `data`, `vencedor`, `idUsername`) VALUES
-(1, 5, '2020-06-10 00:00:00', '', 113),
-(2, 10, '2020-06-10 00:00:00', '', 114),
-(3, 16, '0000-00-00 00:00:00', '', 113),
-(4, 16, '0000-00-00 00:00:00', '', 108);
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=cp1250;
 
 -- --------------------------------------------------------
 
@@ -72,21 +62,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=cp1250;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=cp1250;
 
 --
 -- Extraindo dados da tabela `users`
 --
 
 INSERT INTO `users` (`username`, `id`, `email`, `primeiro_nome`, `apelido`, `dataNascimento`, `password`, `dataRegisto`, `ultimoLogin`, `bloqueado`, `dataBloqueado`, `admin`) VALUES
-('teste123', 108, 'teste@teste.com', 'Teste', 'Teste', '0000-00-00', '2e6f9b0d5885b6010f9167787445617f553a735f', '2020-05-19 11:36:22', NULL, 1, '2020-06-10', 0),
-('tiagolopes22fdsfsd', 109, 'teste2@teste2.com', 'Teste', 'Lopes', '2020-03-04', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2020-05-19 12:04:45', NULL, 1, '2020-06-10', 0),
-('fdsfdsfds', 110, 'cdsfdsvss@gmail.com', 'fdfdfs', 'fdsfds', '2020-05-13', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2020-05-29 10:18:21', NULL, 0, NULL, 0),
-('sdfsdhfsd', 111, 'fdsfdsfsd@gmail.com', 'ghgjhkjl', 'fdsfsdfs', '2020-05-27', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2020-05-29 10:21:29', NULL, 0, NULL, 0),
-('tiagolopes22', 113, '22tiagolopes@gmail.com', 'Tiago', 'Lopes', '2020-06-18', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2020-06-07 17:15:12', NULL, 0, NULL, 1),
-('tininha123', 114, 'beatrizSousa@gmail.com', 'Beatriz123', 'Silva', '2000-09-02', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2020-06-09 10:18:22', NULL, 0, NULL, 0),
-('jhkhjkhjkhg', 115, 'fdsfasd@gmail.com', 'fsdfasdfdsfdsa', 'fsdfsad', '2020-06-01', '', '2020-06-10 23:31:04', NULL, 0, NULL, 0),
-('gfhjkhjkjhkjhjkjh', 119, 'gregergreger@gmail.com', 'gegerger', 'greger', '2020-06-09', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2020-06-10 23:51:42', NULL, 0, NULL, 0);
+('admin', 123, 'admin@gmail.com', 'admin', 'admin', '2020-06-15', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2020-06-15 04:59:39', NULL, 0, NULL, 1),
+('user', 124, 'user@gmail.com', 'user', 'user', '2020-06-15', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2020-06-15 05:01:03', NULL, 0, NULL, 0);
 
 --
 -- Restrições para despejos de tabelas
