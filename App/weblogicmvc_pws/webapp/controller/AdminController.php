@@ -13,6 +13,7 @@ use ArmoredCore\WebObjects\View;
 class AdminController extends BaseController{
 
     //Função que mostra os utilizadores no backOffice
+
     public function backoffice(){
 
         //Verifica se o utilizador fez login
