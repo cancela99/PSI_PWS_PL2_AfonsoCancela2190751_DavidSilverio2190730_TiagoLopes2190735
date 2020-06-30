@@ -45,15 +45,15 @@ $clickedGate = Data::get('clickedGate');
                         </div>
                     <?php } else if(!isset($_SESSION['controlDiceRoll'])){ ?>
                     <div class="btn-group">
-                        <button type="submit" class="btn btn-lg btn-warning" disabled name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                        <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="background-color: #00D3B6; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                     </div>
                     <?php } else if(isset($_SESSION['controlDiceRoll'])){ ?>
                     <div class="btn-group">
-                        <button type="submit" class="btn btn-lg btn-warning" enabled name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                        <button type="submit" class="btn btn-lg btn-dark" enabled name="portoes" style="background-color: #00D3B6; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                     </div>
                     <?php } else { ?>
                         <div class="btn-group">
-                            <button type="submit" class="btn btn-lg btn-warning" <?=$statusGate?> name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                            <button type="submit" class="btn btn-lg btn-dark" <?=$statusGate?> name="portoes" style="background-color: #00D3B6; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                         </div>
                     <?php } ?>
                 <?php } ?>

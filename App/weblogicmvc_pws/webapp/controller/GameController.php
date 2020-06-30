@@ -4,6 +4,7 @@
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
+use ArmoredCore\WebObjects\Session;
 
 class GameController extends BaseController
 {
@@ -15,8 +16,8 @@ class GameController extends BaseController
         $gameEngine->iniciarJogo();
 
         $_SESSION['gameEngine'] = $gameEngine;
-        $_SESSION['gameEngineEstado'] = $gameEngine->getEstadoJogo();
-        $_SESSION['tabuleiro'] = $gameEngine->tabuleiro;
+        /*$_SESSION['gameEngineEstado'] = $gameEngine->getEstadoJogo();
+        $_SESSION['tabuleiro'] = $gameEngine->tabuleiro;*/
         $_SESSION['controlDiceRoll'] = null;
         $_SESSION['disableSegur'] = "disable";
 
@@ -24,6 +25,12 @@ class GameController extends BaseController
             $status = "enabled";
         } else {
             $status = "disabled";
+        }
+
+        if($gameEngine->getEstadoJogo() == 1){
+            Session::set('playerColour', "#00D3B6");
+        } else if($gameEngine->getEstadoJogo() == 2) {
+            Session::set('playerColour', "#E0D600");
         }
 
         return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status, 'clickedGate' => $_SESSION, "statusGate" => "disabled"]);
@@ -55,8 +62,11 @@ class GameController extends BaseController
 
         if($isTrue == true) {
             // Os numeros foram bloqueados e adicionados ao array de numerosBloqueados.
-            $tabuleiro = $_SESSION['tabuleiro'];
-            $estadoAtual = $_SESSION['gameEngineEstado'];
+            /*$tabuleiro = $_SESSION['tabuleiro'];
+            $estadoAtual = $_SESSION['gameEngineEstado'];*/
+            $gameEngine = Session::get('gameEngine');
+            $tabuleiro = $gameEngine->tabuleiro;
+            $estadoAtual = $gameEngine->getEstadoJogo();
 
             if($estadoAtual == 1) {
                 //$tabuleiro->numBloqueadosP1 = [];
@@ -91,9 +101,9 @@ class GameController extends BaseController
 
     public function mostrarDado() {
 
-        $gameEngine = $_SESSION['gameEngine'];
-        $estadoAtual = $_SESSION['gameEngineEstado'];
-        $tabuleiro = $_SESSION['tabuleiro'];
+        $gameEngine = Session::get('gameEngine');
+        $estadoAtual = $gameEngine->getEstadoJogo();
+        $tabuleiro = $gameEngine->tabuleiro;
 
         $tabuleiro->lancarDados();
 
@@ -110,6 +120,17 @@ class GameController extends BaseController
         if (isset($_SESSION['primeiraJogada'])) {
             if ($estadoAtual == 1) {
                 $checkFinal = $tabuleiro->checkFinalJogadaP1($_SESSION['somaDados']);
+                $_SESSION['checkFinal'] = $checkFinal;
+                if($checkFinal != true) {
+                    $gameEngine->updateEstadoJogo();
+                    $this->iniciarJogo();
+                }
+
+                $_SESSION['local'] = null;
+                $_SESSION['sum'] = null;
+
+            } else if($estadoAtual == 2) {
+                $checkFinal = $tabuleiro->checkFinalJogadaP2($_SESSION['somaDados']);
                 $_SESSION['checkFinal'] = $checkFinal;
                 if($checkFinal != true) {
                     $gameEngine->updateEstadoJogo();
@@ -137,7 +158,8 @@ class GameController extends BaseController
         } else {
             $partida->vencedor = 'P';
         }
-        $partida->idusername = $_SESSION['id'];
+        $userData = Session::get('userData');
+        $partida->idusername = $userData->id;
 
         $partida->save();
     }

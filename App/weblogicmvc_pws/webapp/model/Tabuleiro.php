@@ -1,5 +1,6 @@
 <?php
 
+use ArmoredCore\WebObjects\Session;
 
 class Tabuleiro extends NumeroBloqueado
 {
@@ -29,10 +30,13 @@ class Tabuleiro extends NumeroBloqueado
     }
 
     public function checkFinalJogadaP2($soma) {
+        $arrayInteiro = array(1,2,3,4,5,6,7,8,9);
+
         $this->iniciar();
         $this->numBloqueadosP2 = $this->numerosBloqueados;
-        $unblockedGates = array_diff(array(1,2,3,4,5,6,7,8,9), $this->numBloqueadosP2);
-        $_SESSION['points'] = array_sum($unblockedGates);
+        $aux = array_diff($arrayInteiro, $_SESSION['numBloq']);
+        $unblockedGates = array_values($aux);
+        $_SESSION['sessionPoints'] = array_sum($unblockedGates);
 
         return $this->checkFinalJogada($unblockedGates, $soma);
     }
