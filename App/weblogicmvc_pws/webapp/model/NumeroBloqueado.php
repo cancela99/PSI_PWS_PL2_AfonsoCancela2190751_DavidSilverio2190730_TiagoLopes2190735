@@ -33,7 +33,6 @@ class NumeroBloqueado
                 //$_SESSION['numBloq'] = [];
             }
             foreach ($numArray as $num) {
-                
                 //array_push($_SESSION['numBloq'], $num);
                 $numAr[] = $num;
                 $_SESSION['numBloq'][] = $num;
