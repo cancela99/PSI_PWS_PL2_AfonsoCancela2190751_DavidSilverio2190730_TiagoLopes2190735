@@ -4,6 +4,7 @@ use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\View;
 
@@ -31,7 +32,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
      * @inheritDoc
      */
 
-    //Cria um novo utilizador e insere-o na base de dados
+    //Valida se os dados são válidos, cria um novo utilizador e insere-o na base de dados
     public function store()
     {
         $user = new User();
@@ -41,13 +42,16 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $user->apelido = Post::get('apelido');
         $user->datanascimento = Post::get('dataNascimento');
         $user->email =  Post::get('email');
-
         $password = Post::get('password');
         //Cria uma hash a partir da password inserida
         $user->password = hash('sha1', $password,false);
-        $user->save();
 
-        Redirect::toRoute('stbox/login');
+        if ($user->is_valid()){
+            $user->save();
+            Redirect::toRoute('stbox/login');
+        } else {
+            Redirect::flashToRoute('stbox/register', ['user' => $user]);
+        }
     }
 
     public function show($id)
@@ -136,7 +140,47 @@ class UserController extends BaseController implements ResourceControllerInterfa
     //Função que faz login no site
     public function login(){
 
-        $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
+        $username = Post::get('username');
+        $password = Post::get('password');
+        $passwordHashed = hash('sha1', $password, false);
+
+        //$user = User::find_all_by_username_and_password($username, $passwordHashed);
+
+        $find = User::all();
+
+        //if($find->is_valid()){
+        foreach ($find as $user){
+            if($user->username == $username && $user->password == $passwordHashed && $user->bloqueado != 1){
+                Redirect::toRoute('stbox/');
+                Session::set('user', $user);
+            } else {
+                Redirect::flashToRoute('stbox/login', ['loggedIn' => $user]);
+                //Redirect::toRoute('stbox/login');
+            }
+        }
+        //}
+
+        //\Tracy\Debugger::barDump($user->bloqueado);
+        \Tracy\Debugger::barDump($user);
+
+        //if($user->is_valid()){
+            /*if($user == null || $user->bloqueado == 1){
+                Redirect::toRoute('stbox/login');
+            } else {
+                Redirect::toRoute('stbox/');
+                \Tracy\Debugger::barDump($user);
+            }*/
+        //}
+
+        //if($user->is_valid()){
+            /*if ($user->){
+                Redirect::flashToRoute('user/login', ['user' => $user]);
+            }else{
+                echo "Estou aqui!";
+            }*/
+        //}
+
+        /*$db = mysqli_connect('localhost', 'root', '', 'shuthebox');
 
         $username = $_POST['username'];
         $password =  $_POST['password'];
@@ -168,13 +212,14 @@ class UserController extends BaseController implements ResourceControllerInterfa
             //Se a query não encontrar nenhum resultado, volta para a vista de login e avisa
             $_SESSION['loginErrors'] = 'Credenciais Incorretas';
             Redirect::toRoute('stbox/login');
-        }
+        }*/
     }
 
     //Função que faz logout
     public function logOut(){
-        session_destroy();
-        Redirect::toRoute('stbox/');
+        //session_destroy();
+        Session::destroy();
+        Redirect::toRoute('stbox/login');
     }
 
 }

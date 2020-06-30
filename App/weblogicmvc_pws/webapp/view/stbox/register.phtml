@@ -1,6 +1,7 @@
 <?php
 
 use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
 
@@ -12,6 +13,9 @@ if(isset($_SESSION['loggedIn'])){
 }?>
 
 <?php $user = Data::get('user');
+ErrMgr::attach($user);
+
+    \Tracy\Debugger::barDump($user);
 ?>
 
 
@@ -20,27 +24,33 @@ if(isset($_SESSION['loggedIn'])){
 <!--        <img class="mb-4" src="" alt="" width=92" height="92">-->
         <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">REGISTE-SE AQUI</h1>
         <div class="form-label-group">
-            <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio" required autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">
+            <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio"  autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">
+            <?= ErrMgr::bind('primeiro_nome') ?>
             <br>
         </div >
         <div class="form-label-group">
-            <input type="text" id="inputApelido" class="form-control" placeholder="Apelido" required autofocus name="apelido" value="<?=$user->apelido?>">
+            <input type="text" id="inputApelido" class="form-control" placeholder="Apelido"  autofocus name="apelido" value="<?=$user->apelido?>">
+            <?= ErrMgr::bind('apelido') ?>
             <br>
         </div >
         <div class="form-label-group">
             <input type="date" id="inputDataNascimento" class="form-control" placeholder="Data de Nascimento" required autofocus name="dataNascimento" value="<?=$user->datanascimento?>">
+            <?= ErrMgr::bind('datanascimento') ?>
             <br>
         </div >
         <div class="form-label-group">
             <input type="email" id="inputEmail" class="form-control" placeholder="Email" required name="email" value="<?=$user->email?>">
+            <?= ErrMgr::bind('email') ?>
             <br>
         </div>
         <div class="form-label-group">
             <input type="text" id="inputUsername" class="form-control" placeholder="Nome de utilizador" required name="username" value="<?=$user->username?>">
+            <?= ErrMgr::bind('username') ?>
             <br>
         </div>
         <div class="form-label-group">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" name="password" value="<?=$user->password?>">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" required name="password" value="<?=$user->password?>">
+            <?= ErrMgr::bind('password') ?>
             <br>
         </div><br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Registar</button>

@@ -1,7 +1,7 @@
 <?php
 
-
 use ArmoredCore\Controllers\BaseController;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
 
 class SiteController extends BaseController
@@ -35,6 +35,8 @@ class SiteController extends BaseController
             $top[] = $match;
         }
 
+        \Tracy\Debugger::barDump($top);
+
         //Se a query não encontrar nenhuns dados que coincidam com a query, a função devolve a vista do Top 10 com um aviso
         if(mysqli_num_rows($queryResult) == 0){
             $_SESSION['noTop'] = 'Não existem partidas concluídas no site';
@@ -62,7 +64,8 @@ class SiteController extends BaseController
             return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "status" => "disabled", 'clickedGate' => $_SESSION, "statusGate" => "disabled"]);
         }else{
             //Senão a função devolve a vista de login com um aviso
-            $_SESSION['notLoggedIn'] = "Faça login para poder jogar";
+            //$_SESSION['notLoggedIn'] = "Faça login para poder jogar";
+            Session::get('login', 'Tem de efetuar login');
             return View::make('stbox.login');
         }
 
@@ -70,40 +73,13 @@ class SiteController extends BaseController
 
     //Faz uma query à BD para ir buscar os valores e devolve os dados por um array
     public function Matches(){
-
-        //Verifica se o utilizador já fez login
         if(isset($_SESSION['loggedIn'])){
-
-            $user = $_SESSION['id'];
-
-            $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
-
-            $query = "SELECT * FROM matches WHERE idUsername = '$user' ORDER BY data DESC";
-
-            $queryResult = mysqli_query($db,$query);
-
-            $match = new Match();
-
-            //Enquanto a query encontrar dados, atribui os dados a um array
-            while ($match = mysqli_fetch_object($queryResult)){
-                $matches[] = $match;
-            }
-
-            //Se a query não encontrar nenhuns dados que coincidam, devolve a vista das partidas com um aviso
-            if(mysqli_num_rows($queryResult) == 0){
-                $_SESSION['noMatches'] = 'Este utilizador não tem partidas';
-                return View::make('stbox.matches');
-            }else{
-                //Senão devolve a vista das partidas com os dados encontrados na query
-                $_SESSION['numRows'] = mysqli_num_rows($queryResult);
-                return View::make('stbox.matches', ['matches' => $matches]);
-            }
+                $matches = Match::all();
+                View::make('stbox.matches', ['matches' => $matches]);
+                //\Tracy\Debugger::barDump($matches);
         }else{
-            //Se o utilizador não tiver feito login, devolve uma vista de erro, com um aviso
-            $_SESSION['notLoggedIn'] = "É necessário realizar login";
-            return View::make('stbox.errorNotLoggedIn');
+            View::make('stbox.errorNotLoggedIn');
         }
-
     }
 
     //Função que devolve uma vista de erro
@@ -125,3 +101,38 @@ class SiteController extends BaseController
     }
 
 }
+
+
+
+/*//Verifica se o utilizador já fez login
+if(isset($_SESSION['loggedIn'])){
+
+    $user = $_SESSION['id'];
+
+    $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
+
+    $query = "SELECT * FROM matches WHERE idUsername = '$user' ORDER BY data DESC";
+
+    $queryResult = mysqli_query($db,$query);
+
+    $match = new Match();
+
+    //Enquanto a query encontrar dados, atribui os dados a um array
+    while ($match = mysqli_fetch_object($queryResult)){
+        $matches[] = $match;
+    }
+
+    //Se a query não encontrar nenhuns dados que coincidam, devolve a vista das partidas com um aviso
+    if(mysqli_num_rows($queryResult) == 0){
+        $_SESSION['noMatches'] = 'Este utilizador não tem partidas';
+        return View::make('stbox.matches');
+    }else{
+        //Senão devolve a vista das partidas com os dados encontrados na query
+        $_SESSION['numRows'] = mysqli_num_rows($queryResult);
+        return View::make('stbox.matches', ['matches' => $matches]);
+    }
+}else{
+    //Se o utilizador não tiver feito login, devolve uma vista de erro, com um aviso
+    $_SESSION['notLoggedIn'] = "É necessário realizar login";
+    return View::make('stbox.errorNotLoggedIn');
+}*/

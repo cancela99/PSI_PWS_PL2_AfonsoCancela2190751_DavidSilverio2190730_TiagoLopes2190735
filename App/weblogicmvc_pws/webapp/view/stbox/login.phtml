@@ -1,16 +1,28 @@
 <?php
 
 use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
 
 
 //Verifica se o utilizador tem login feito
-if(isset($_SESSION['loggedIn'])){
+/*if(isset($_SESSION['loggedIn'])){
     Layout::includeLayout('headerLoggedIn');
 }else{
     Layout::includeLayout('headerNotLoggedIn');
+}*/
+
+if(Session::has('user')){
+    Layout::includeLayout('headerLoggedIn');
+} else {
+    Layout::includeLayout('headerNotLoggedIn');
 }
+
+$user = Data::get('user');
+ErrMgr::attach($user);
 ?>
 
 
@@ -20,11 +32,13 @@ if(isset($_SESSION['loggedIn'])){
         <img class="mb-4" src="<?= Asset::image('dices.png')?>" alt="" width=92" height="92">
         <h1 class="h3 mb-4 font-weight-normal">Shut the Box Game</h1>
 
-            <label for="inputUsername" class=""</label>
-            <input type="text" id="inputUsername"  class="form-control" placeholder="Nome de utilizador" required autofocus name="username">
+        <label for="inputUsername" class=""</label>
+        <input type="text" id="inputUsername"  class="form-control" placeholder="Nome de utilizador" autofocus name="username" value="<?= $user->username ?>">
+        <?=  ErrMgr::bind('username') ?>
 
-            <label for="inputPassword" class=""></label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" required name="password">
+        <label for="inputPassword" class=""></label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" name="password">
+        <?=  ErrMgr::bind('password') ?>
 
 <?php
 

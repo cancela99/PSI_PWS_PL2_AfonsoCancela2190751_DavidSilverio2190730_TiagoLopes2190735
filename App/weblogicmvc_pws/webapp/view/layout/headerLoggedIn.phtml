@@ -5,6 +5,8 @@ use ArmoredCore\Facades\DebugRenderer;
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\URL;
 
+$user = \ArmoredCore\WebObjects\Session::get('user');
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +35,7 @@ use ArmoredCore\WebObjects\URL;
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="<?= URL::toRoute('stbox/home')?>">Shut the Box Game<img class="img-fluid rounded ml-2 mb-4 mb-lg-0" src="<?= Asset::image('dices.png')?>" alt="" width=25" height="20"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -54,7 +56,8 @@ use ArmoredCore\WebObjects\URL;
                 <a class="nav-link" href="<?= URL::toRoute('stbox/matches')?>">Partidas</a>
             </li>
             <?php
-            if($_SESSION['admin'] == 1){ ?>
+            //if($_SESSION['admin'] == 1){
+            if ($user->admin == 1){ ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= URL::toRoute('admin/backoffice')?>">Backoffice</a>
                 </li>
@@ -66,9 +69,9 @@ use ArmoredCore\WebObjects\URL;
 
         <ul class="nav navbar-nav navbar-right">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><?=$_SESSION['username']?><span class="caret"></span></a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><?=$user->username?><span class="caret"></span></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="<?= URL::toRoute('user/edit', $_SESSION['id'])?>">Perfil</a>
+                    <a class="dropdown-item" href="<?= URL::toRoute('user/edit', $user->id)?>">Perfil</a>
                     <a class="dropdown-item" href="<?= URL::toRoute('user/logOut')?>">Terminar Sessão</a>
                 </div>
             </li>
