@@ -16,8 +16,6 @@ class GameController extends BaseController
         $gameEngine->iniciarJogo();
 
         $_SESSION['gameEngine'] = $gameEngine;
-        /*$_SESSION['gameEngineEstado'] = $gameEngine->getEstadoJogo();
-        $_SESSION['tabuleiro'] = $gameEngine->tabuleiro;*/
         $_SESSION['controlDiceRoll'] = null;
         $_SESSION['disableSegur'] = "disable";
 
@@ -34,6 +32,20 @@ class GameController extends BaseController
         }
 
         return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status, 'clickedGate' => $_SESSION, "statusGate" => "disabled"]);
+    }
+
+    public function nextPlayerTurn() {
+        $this->clear();
+        $gameEngine = Session::get('gameEngine');
+
+        $_SESSION['controlDiceRoll'] = null;
+        $_SESSION['disableSegur'] = "disable";
+
+        if($gameEngine->getEstadoJogo() == 1){
+            Session::set('playerColour', "#00D3B6");
+        } else if($gameEngine->getEstadoJogo() == 2) {
+            Session::set('playerColour', "#E0D600");
+        }
     }
 
     public function bloquearNumero() {
@@ -62,8 +74,6 @@ class GameController extends BaseController
 
         if($isTrue == true) {
             // Os numeros foram bloqueados e adicionados ao array de numerosBloqueados.
-            /*$tabuleiro = $_SESSION['tabuleiro'];
-            $estadoAtual = $_SESSION['gameEngineEstado'];*/
             $gameEngine = Session::get('gameEngine');
             $tabuleiro = $gameEngine->tabuleiro;
             $estadoAtual = $gameEngine->getEstadoJogo();
@@ -88,9 +98,6 @@ class GameController extends BaseController
         $_SESSION['valorDado'] = null;
         $_SESSION['somaDados'] = null;
         $_SESSION['numerosBloqueados'] = null;
-        //$_SESSION['gameEngineEstado'] = null;
-        //$_SESSION['gameEngine'] = null;
-        //$_SESSION['tabuleiro'] = null;
         $_SESSION['checkFinal'] = null;
         $_SESSION['primeiraJogada'] = null;
         $_SESSION['numBloq'] = null;
@@ -123,7 +130,7 @@ class GameController extends BaseController
                 $_SESSION['checkFinal'] = $checkFinal;
                 if($checkFinal != true) {
                     $gameEngine->updateEstadoJogo();
-                    $this->iniciarJogo();
+                    $this->nextPlayerTurn();
                 }
 
                 $_SESSION['local'] = null;
@@ -134,12 +141,18 @@ class GameController extends BaseController
                 $_SESSION['checkFinal'] = $checkFinal;
                 if($checkFinal != true) {
                     $gameEngine->updateEstadoJogo();
+                    $vencedor = $tabuleiro->getVencedor();
                     $points = $tabuleiro->getPointsVencedor();
-                    $this->insertDataBD($points);
+                    //$this->insertDataBD($points);
 
-                    $_SESSION['finalJogo'] = 'Jogo terminado! Acabou com '.$points.' pontos.';
+                    if($vencedor == 0 && $points == 0) {
+                        $_SESSION['finalJogo'] = 'Jogo terminado! Empate!';
+                    } else {
+                        $_SESSION['finalJogo'] = 'Jogo terminado! Jogador '.$vencedor.' ganhou por '.$points.' pontos.';
+                    }
 
                     $this->iniciarJogo();
+
                 }
 
                 $_SESSION['local'] = null;

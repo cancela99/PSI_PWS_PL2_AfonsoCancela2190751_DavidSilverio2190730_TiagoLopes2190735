@@ -42,10 +42,36 @@ class Tabuleiro extends NumeroBloqueado
     }
 
     public function getVencedor() {
+        // Vai buscar vencedor -> quem tem maior soma de numeros bloqueados
+        $vencedor = 0;
+        $p1Soma = array_sum($this->numBloqueadosP1);
+        $p2Soma = array_sum($this->numBloqueadosP2);
 
+        if($p1Soma > $p2Soma) {
+            $vencedor = 1;
+        } else if($p1Soma < $p2Soma) {
+            $vencedor = 2;
+        } else {
+            $vencedor = 0;
+        }
+
+        return $vencedor;
     }
 
     public function getPointsVencedor() {
-        return $_SESSION['sessionPoints'];
+        // vai buscar diferenca de pontos pela qual foi vencedor
+        $pontosVencedor = 0;
+        $p1Soma = array_sum($this->numBloqueadosP1);
+        $p2Soma = array_sum($this->numBloqueadosP2);
+
+        if($p1Soma > $p2Soma) {
+            $pontosVencedor = $p1Soma - $p2Soma;
+        } else if($p1Soma < $p2Soma) {
+            $pontosVencedor = $p2Soma - $p1Soma;
+        } else {
+            $pontosVencedor = 0;
+        }
+
+        return $pontosVencedor;
     }
 }
