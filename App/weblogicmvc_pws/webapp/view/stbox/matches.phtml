@@ -13,6 +13,7 @@ if(Session::has('userData')){
 }
 
 $matches = Data::get('matches');
+$user = Session::get('userData');
 
 ?>
 <h1 style="margin-top: 7%" class="text-center">Histórico de Partidas</h1>
@@ -44,13 +45,9 @@ if(Session::has('noMatches')){
                 //if(!is_null(Data::get('matches'))){?>
                 <?php foreach ($matches as $match) {
 
-                \Tracy\Debugger::barDump($match);
+                $data = $match->data->format('d-m-Y H:i:s');
 
-                $data = $match->data->format('d-m-Y');
-
-                if ($match->idusername == Session::get('id')
-                ){
-                ?>
+                if ($match->user_id == $user->id){ ?>
                     <th><?= $i ?></th>
                     <td><?= $match->pontuacao ?></td>
                     <?php

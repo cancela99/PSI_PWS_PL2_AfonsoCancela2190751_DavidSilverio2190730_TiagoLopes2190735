@@ -50,10 +50,9 @@ class SiteController extends BaseController
 
     //Faz uma query à BD para ir buscar os valores e devolve os dados por um array
     public function Matches(){
-        if(isset($_SESSION['loggedIn'])){
+        if(Session::has('userData')){
                 $matches = Match::all();
                 View::make('stbox.matches', ['matches' => $matches]);
-                //\Tracy\Debugger::barDump($matches);
         }else{
             View::make('stbox.errorNotLoggedIn');
         }
