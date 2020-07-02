@@ -166,22 +166,17 @@ class UserController extends BaseController implements ResourceControllerInterfa
                     if($user->bloqueado == 1){
                         Session::destroy();
                         Session::set('bloqueado', 'Esta conta encontra-se bloqueada');
-                        Redirect::toRoute('stbox/login');
+                        Redirect::FlashtoRoute('stbox/login', ['user' => $user]);
                         break;
                     }else{
                         Session::set('userData', $user);
-
-                        //Session::set('username', $username);
-                        //Session::set('id', $user->id);
-                        //Session::set('loggedIn', 'Já fez login');
-                        //Session::set('admin', $user->admin);
-                        //Session::set('password', $user->password);
                         Redirect::toRoute('stbox/');
                         break;
                     }
                 }else{
+                    $user->username = $username;
                     Session::set('loginErrors', 'Credenciais Incorretas');
-                    Redirect::toRoute('stbox/login');
+                    Redirect::FlashtoRoute('stbox/login', ['user' => $user]);
                 }
             }
         }

@@ -16,7 +16,6 @@ if(Session::has('userData')){
 
 $users = Data::get('users');
 $usersFound = Data::get('usersFound');
-\Tracy\Debugger::barDump($_SESSION['userSearched']);
 ?>
 
 
@@ -55,8 +54,7 @@ $usersFound = Data::get('usersFound');
 
         <?php
         //Verifica se houve alguma pesquisa
-        if(!Session::has('userSearched')){?>
-
+        if(!Session::has('userSearched') || Session::get('userSearched') == null){?>
             <?php foreach ($users as $user) {
                 if($user->admin == 0){ ?>
                     <tr>

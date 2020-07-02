@@ -10,30 +10,37 @@ class GameController extends BaseController
 {
 
     public function iniciarJogo() {
-        $this->clear();
 
-        $gameEngine = new GameEngine();
-        $gameEngine->iniciarJogo();
+        if(Session::has('userData')){
+            $this->clear();
 
-        $_SESSION['gameEngine'] = $gameEngine;
-        /*$_SESSION['gameEngineEstado'] = $gameEngine->getEstadoJogo();
-        $_SESSION['tabuleiro'] = $gameEngine->tabuleiro;*/
-        $_SESSION['controlDiceRoll'] = null;
-        $_SESSION['disableSegur'] = "disable";
+            $gameEngine = new GameEngine();
+            $gameEngine->iniciarJogo();
 
-        if($gameEngine->getEstadoJogo()) {
-            $status = "enabled";
-        } else {
-            $status = "disabled";
+            $_SESSION['gameEngine'] = $gameEngine;
+            /*$_SESSION['gameEngineEstado'] = $gameEngine->getEstadoJogo();
+            $_SESSION['tabuleiro'] = $gameEngine->tabuleiro;*/
+            $_SESSION['controlDiceRoll'] = null;
+            $_SESSION['disableSegur'] = "disable";
+
+            if($gameEngine->getEstadoJogo()) {
+                $status = "enabled";
+            } else {
+                $status = "disabled";
+            }
+
+            if($gameEngine->getEstadoJogo() == 1){
+                Session::set('playerColour', "#00D3B6");
+            } else if($gameEngine->getEstadoJogo() == 2) {
+                Session::set('playerColour', "#E0D600");
+            }
+
+            return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status, 'clickedGate' => $_SESSION, "statusGate" => "disabled"]);
+        }else{
+            Session::set('notLoggedIn','Faça login para jogar');
+            return View::make('stbox.login');
         }
 
-        if($gameEngine->getEstadoJogo() == 1){
-            Session::set('playerColour', "#00D3B6");
-        } else if($gameEngine->getEstadoJogo() == 2) {
-            Session::set('playerColour', "#E0D600");
-        }
-
-        return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status, 'clickedGate' => $_SESSION, "statusGate" => "disabled"]);
     }
 
     public function bloquearNumero() {

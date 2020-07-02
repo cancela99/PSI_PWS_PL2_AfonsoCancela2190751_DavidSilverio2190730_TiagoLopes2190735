@@ -42,7 +42,7 @@ class SiteController extends BaseController
             return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "numArray" => array()]);
         }else{
             //Senão a função devolve a vista de login com um aviso
-            Session::set('notLoggedIn','Faça login para poder jogar');
+            Session::set('notLoggedIn','Faça login para jogar');
             return View::make('stbox.login');
         }
     }
