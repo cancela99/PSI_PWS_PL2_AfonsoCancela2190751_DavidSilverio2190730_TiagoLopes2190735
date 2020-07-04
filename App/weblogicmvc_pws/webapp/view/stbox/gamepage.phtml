@@ -42,11 +42,11 @@ $clickedGate = Data::get('clickedGate');
                         <div class="btn-group">
                             <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                         </div>
-                    <?php } else if(!isset($_SESSION['controlDiceRoll'])){ ?>
+                    <?php } else if(/*!isset($_SESSION['controlDiceRoll'])*/!Session::has('controlDiceRoll')){ ?>
                     <div class="btn-group">
                         <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="background-color: #00D3B6; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                     </div>
-                    <?php } else if(isset($_SESSION['controlDiceRoll'])){ ?>
+                    <?php } else if(/*isset($_SESSION['controlDiceRoll'])*/Session::has('controlDiceRoll')){ ?>
                     <div class="btn-group">
                         <button type="submit" class="btn btn-lg btn-dark" enabled name="portoes" style="background-color: #00D3B6; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                     </div>
@@ -80,7 +80,7 @@ $clickedGate = Data::get('clickedGate');
         <form method="post" action="<?= URL::toRoute('game/mostrarDado')?>">
             <?php if(isset($_SESSION['controlDiceRoll'])) { ?>
                 <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3">
-                    <button class="btn btn-lg btn-danger btn-block" disabled <?=$status?>><?=$_SESSION['controlDiceRoll']?></button>
+                    <button class="btn btn-lg btn-danger btn-block" disabled <?=$status?>><?=Session::get('controlDiceRoll')?></button>
                 </div>
             <?php } else { ?>
                 <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3">
@@ -88,9 +88,10 @@ $clickedGate = Data::get('clickedGate');
                 </div>
                 <div class="text-center">
                     <?php
-                    if(isset($_SESSION['finalJogo'])){
-                        echo '<br><p style="color:green; font-size: 22px">'.$_SESSION['finalJogo'].'</p>';
-                        $_SESSION['finalJogo'] = null;
+                    if(/*isset($_SESSION['finalJogo'])*/Session::has('finalJogo')){
+                        echo '<br><p style="color:green; font-size: 22px">'./*$_SESSION['finalJogo']*/Session::get('finalJogo').'</p>';
+                        //$_SESSION['finalJogo'] = null;
+                        Session::set('finalJogo',null);
                     }
                     ?>
                 </div>
