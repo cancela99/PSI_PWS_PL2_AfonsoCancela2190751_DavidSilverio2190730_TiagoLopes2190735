@@ -12,6 +12,7 @@ if(Session::has('userData')){
     Layout::includeLayout('headerNotLoggedIn');
 }
 
+
 $matches = Data::get('matches');
 $user = Session::get('userData');
 
@@ -41,37 +42,33 @@ if(Session::has('noMatches')){
     <?php
         //Verifica se o utilizador tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
         $i = 1;
-            if(!(isset($_SESSION['noMatches']))){
-                //if(!is_null(Data::get('matches'))){?>
-                <?php foreach ($matches as $match) {
-
-                $data = $match->data->format('d-m-Y H:i:s');
-
-                if ($match->user_id == $user->id){ ?>
-                    <th><?= $i ?></th>
-                    <td><?= $match->pontuacao ?></td>
-                    <?php
-                    //Verificamos o campo vencedor de cada jogo e devolvemos o resultado do mesmo
-                    switch ($match->vencedor) {
-                        case 'G':
-                            echo '<td>Ganhou</td>';
-                            break;
-                        case 'P':
-                            echo '<td>Perdeu</td>';
-                            break;
-                        case 'E':
-                            echo '<td>Empatou</td>';
-                            break;
-                    } ?>
-                    <td><?= $data ?></td>
+        if(!$matches == null){
+            foreach ($matches as $match) {
+    $data = $match->data->format('d-m-Y H:i:s'); ?>
+            <th><?= $i ?></th>
+            <td><?= $match->pontuacao ?></td>
+            <?php
+            //Verificamos o campo vencedor de cada jogo e devolvemos o resultado do mesmo
+            switch ($match->vencedor) {
+                case 'G':
+                    echo '<td>Ganhou</td>';
+                    break;
+                case 'P':
+                    echo '<td>Perdeu</td>';
+                    break;
+                case 'E':
+                    echo '<td>Empatou</td>';
+                    break;
+            } ?>
+            <td><?= $data ?></td>
         </tr>
         <?php
-            $i++;
-                    }
-                }
+        $i++;
+        }
             }?>
-        </tbody>
-    </table>
+            </tbody>
+            </table>
+
 </div>
 
 

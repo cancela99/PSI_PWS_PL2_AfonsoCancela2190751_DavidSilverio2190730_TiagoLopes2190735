@@ -20,7 +20,6 @@ class SiteController extends BaseController
 
     //Faz uma query à base de dados para ir buscar o Top 10 e devolve um array com o Top 10
     public function Top10() {
-
         $top10 = Match::find('all',array('order' => 'pontuacao asc', 'limit' => 10));
         return View::make('stbox.top10', ['top10'=>$top10]);
     }
@@ -50,11 +49,28 @@ class SiteController extends BaseController
 
     //Faz uma query à BD para ir buscar os valores e devolve os dados por um array
     public function Matches(){
+
         if(Session::has('userData')){
-                $matches = Match::all();
-                View::make('stbox.matches', ['matches' => $matches]);
+            $user = Session::get('userData');
+            $matchResults = null;
+            $matches = Match::all();
+
+                foreach ($matches as $match){
+                    if($match->user_id == $user->id){
+                        $matchResults[] = $match;
+                    }
+                }
+
+                if($matchResults == null){
+                    Session::set('noMatches', 'Não tem partidas concluídas');
+                    return View::make('stbox.matches', ['matches' => $matchResults]);
+                }else{
+                    return View::make('stbox.matches', ['matches' => $matchResults]);
+                }
+
         }else{
-            View::make('stbox.errorNotLoggedIn');
+            Session::set('notLoggedIn','É necessário realizar login');
+            return View::make('stbox.errorNotLoggedIn');
         }
     }
 
@@ -72,7 +88,7 @@ class SiteController extends BaseController
             return View::make('stbox.profile', ['users'=>$users]);
         }else{
             //Senão a função devolve uma vista de erro com um aviso
-            $_SESSION['notLoggedIn'] = "É necessário realizar login";
+            Session::set('notLoggedIn','É necessário realizar login');
             return View::make('stbox.errorNotLoggedIn');
         }
     }
