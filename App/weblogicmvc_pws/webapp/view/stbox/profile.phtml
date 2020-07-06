@@ -11,14 +11,13 @@ if(Session::has('userData')){
     Layout::includeLayout('headerNotLoggedIn');
 }
 
-$user = Data::get('user');
+$user = Data::get('userInfo');
 ?>
 
 
 <body class="text-center">
 <div style="max-width: 550px; border: 1px solid grey; padding-top: 2%; background-color: whitesmoke; margin-top: 50px" class="container">
     <form class="form-signin" method="post" action="<?=URL::toRoute('user/update', $user->id)?>">
-        <!--        <img class="mb-4" src="" alt="" width=92" height="92">-->
         <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">Perfil - Informações Pessoais</h1>
         <div class="form-label-group">
             <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio" required autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">

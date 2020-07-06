@@ -83,19 +83,6 @@ class SiteController extends BaseController
     //Função que devolve a vista do perfil
     public function Profile(){
         //Verifica se o utilizador fez login, se tiver feito login devolve a vista de perfil com os dados de utilizador
-        if(isset($_SESSION['loggedIn'])){
-            $users = new User();
-            return View::make('stbox.profile', ['users'=>$users]);
-        }else{
-            //Senão a função devolve uma vista de erro com um aviso
-            Session::set('notLoggedIn','É necessário realizar login');
-            return View::make('stbox.errorNotLoggedIn');
-        }
-    }
-
-    //Função que devolve a vista do perfil
-    /*public function Profile(){
-        //Verifica se o utilizador fez login, se tiver feito login devolve a vista de perfil com os dados de utilizador
         if(Session::has('userData')){
             $users = new User();
             return View::make('stbox.profile', ['users'=>$users]);
@@ -104,7 +91,5 @@ class SiteController extends BaseController
             Session::set('notLoggedIn','É necessário realizar login');
             return View::make('stbox.errorNotLoggedIn');
         }
-    }*/
-
-
+    }
 }

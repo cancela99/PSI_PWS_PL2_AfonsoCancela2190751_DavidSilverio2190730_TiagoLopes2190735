@@ -12,6 +12,7 @@ if(Session::has('userData')){
 }else{
     Layout::includeLayout('headerNotLoggedIn');
 }
+\Tracy\Debugger::barDump(\ArmoredCore\WebObjects\Data::get('user'),'teste');
 ?>
 
 
