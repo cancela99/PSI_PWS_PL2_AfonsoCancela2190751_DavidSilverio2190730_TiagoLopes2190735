@@ -1,5 +1,6 @@
 <?php
 use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
@@ -12,6 +13,7 @@ if(Session::has('userData')){
 }
 
 $user = Data::get('userInfo');
+ErrMgr::attach($user);
 ?>
 
 
@@ -21,18 +23,22 @@ $user = Data::get('userInfo');
         <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">Perfil - Informações Pessoais</h1>
         <div class="form-label-group">
             <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio" required autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">
+            <?= ErrMgr::bind('primeiro_nome') ?>
             <br>
         </div >
         <div class="form-label-group">
             <input type="text" id="inputApelido" class="form-control" placeholder="Apelido" required autofocus name="apelido" value="<?=$user->apelido?>">
+            <?= ErrMgr::bind('apelido') ?>
             <br>
         </div >
         <div class="form-label-group">
             <input type="date" id="inputDataNascimento" class="form-control" placeholder="Data de Nascimento" required autofocus name="dataNascimento" value="<?=$user->datanascimento?>">
+            <?= ErrMgr::bind('datanascimento') ?>
             <br>
         </div >
         <div class="form-label-group">
             <input type="email" id="inputEmail" class="form-control" placeholder="Email" required name="email" value="<?=$user->email?>">
+            <?= ErrMgr::bind('email') ?>
             <br>
         </div><br>
         <h5 style="text-align: left">Alterar a palavra-passe:</h5>
@@ -46,24 +52,20 @@ $user = Data::get('userInfo');
 </div><br>
         <?php
         if(Session::has('errorProfile')){
-            echo '<p style="color:red; font-size: 18px">'.Session::get('errorProfile').'</p>';
-            Session::set('errorProfile',null);
+            echo '<p style="color:red; font-size: 22px">'.Session::get('errorProfile').'</p>';
+            Session::remove('errorProfile');
         }
         if(Session::has('updated')){
             echo '<p style="color:green; font-size: 22px">'.Session::get('updated').'</p>';
-            Session::set('updated',null);
+            Session::remove('updated');
         }
         if(Session::has('clearCamp')){
             echo '<p style="color:red; font-size: 22px">'.Session::get('clearCamp').'</p>';
-            Session::set('clearCamp',null);
+            Session::remove('clearCamp');
         }
         if(Session::has('wrongActualPass')){
             echo '<p style="color:red; font-size: 22px">'.Session::get('wrongActualPass').'</p>';
-            Session::set('wrongActualPass',null);
-        }
-        if(isset($_SESSION['wrongPassword'])){
-            echo '<p style="color:red; font-size: 22px">'.$_SESSION['wrongPassword'].'</p>';
-            $_SESSION['wrongPassword'] = null;
+            Session::remove('wrongActualPass');
         }
         ?>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar Alterações</button>

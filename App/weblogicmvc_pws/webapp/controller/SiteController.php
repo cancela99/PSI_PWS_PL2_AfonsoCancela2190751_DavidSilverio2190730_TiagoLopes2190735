@@ -21,7 +21,13 @@ class SiteController extends BaseController
     //Faz uma query à base de dados para ir buscar o Top 10 e devolve um array com o Top 10
     public function Top10() {
         $top10 = Match::find('all',array('order' => 'pontuacao asc', 'limit' => 10));
-        return View::make('stbox.top10', ['top10'=>$top10]);
+
+        if($top10 == null){
+            Session::set('noTop', 'O site não tem partidas concluídas');
+            return View::make('stbox.top10' , ['top10'=>$top10]);
+        }else{
+            return View::make('stbox.top10', ['top10'=>$top10]);
+        }
     }
 
     //Função que mostra a vista para fazer o registo

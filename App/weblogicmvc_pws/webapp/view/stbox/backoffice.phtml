@@ -37,7 +37,8 @@ $usersFound = Data::get('usersFound');
     <?php
     if(Session::has('notFound')){
         echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notFound'].'</p>';
-        Session::set('notFound',null);
+        Session::remove('notFound');
+        //Session::set('notFound',null);
     } ?>
 
     <br>
@@ -90,7 +91,9 @@ $usersFound = Data::get('usersFound');
                     } ?>
                 </tr>
         <?php }
-            Session::set('userSearched', null);
+            //Session::set('userSearched', null);
+            Session::remove('userSearched');
+                Tracy\Debugger::barDump($_SESSION,'teste');
         } ?>
 
         </tbody>

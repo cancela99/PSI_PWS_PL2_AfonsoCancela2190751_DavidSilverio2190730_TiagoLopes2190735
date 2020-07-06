@@ -9,6 +9,7 @@ if(Session::has('userData')){
 }else{
     Layout::includeLayout('headerNotLoggedIn');
 }
+
 ?>
 <body>
 <div style="background-color: #a31515; border: 1px solid #3c3836; width: 45%;" class="container mt-5 rounded">
@@ -19,12 +20,12 @@ if(Session::has('userData')){
         <?php
         if(Session::has('notLoggedIn')){
             echo '<br><p style="color:white; font-size: 18px">'.Session::get('notLoggedIn').'</p>';
-            Session::set('notLoggedIn',null);
+            Session::remove('notLoggedIn');
         }
 
         if(Session::has('notAdmin')){
             echo '<br><p style="color:white; font-size: 18px">'.Session::get('notAdmin').'</p>';
-            Session::set('notLoggedIn',null);
+            Session::remove('notAdmin');
         }
         ?>
     </div>

@@ -115,23 +115,24 @@ class UserController extends BaseController implements ResourceControllerInterfa
             \array_splice($post,5);
 
             $post['password'] = $userData->password;
+            $post['username'] = $userData->username;
 
             $user->update_attributes($post);
 
             if($user->is_valid()) {
                 $user->save();
-
                 Session::set('updated','Informações alteradas com sucesso');
                 Redirect::toRoute('user/edit', $userData->id);
             }else {
                 //Senão devolve a vista do perfil
-                Redirect::flashToRoute('user/edit', ['user' => $user], $id);
+                //Redirect::flashToRoute('user/edit', ['user' => $user], $id);
+                Redirect::FlashtoRoute('user/edit', ['userInfo' => $user], $id);
             }
         }else{
             //Verifica se o campo da password ou se o da nova password estão em branco, se estiverem devolve a vista do perfil com uma aviso
             if(Post::get('password') == "" || Post::get('newPassword') == ""){
                 Session::set('clearCamp','Impossível alterar palavra-passe. Campo vazio');
-                Redirect::flashToRoute('user/edit', ['user' => $user], $id);
+                Redirect::flashToRoute('user/edit', ['userInfo' => $user], $id);
             }else{
                 //Senão faz a alteração da password
                 $post = Post::getAll();
@@ -149,12 +150,12 @@ class UserController extends BaseController implements ResourceControllerInterfa
                         Redirect::toRoute('user/edit', $userData->id);
                     } else {
                         //Senão volta para a vista de perfil
-                        Redirect::flashToRoute('user/edit', ['user' => $user], $id);
+                        Redirect::flashToRoute('user/edit', ['userInfo' => $user], $id);
                     }
                 }else{
                     //Senão, devolve a vista com mensagem de erro
                     Session::set('wrongActualPass','Impossível alterar palavra-passe. Palavra-passe atual incorreta');
-                    Redirect::flashToRoute('user/edit', ['user' => $user], $id);
+                    Redirect::flashToRoute('user/edit', ['userInfo' => $user], $id);
                 }
             }
         }

@@ -22,7 +22,8 @@ $user = Session::get('userData');
 <?php
 if(Session::has('noMatches')){
     echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('noMatches').'</p>';
-    Session::set('noMatches',null);
+    //Session::set('noMatches',null);
+    Session::remove('noMatches');
 }
 ?>
 

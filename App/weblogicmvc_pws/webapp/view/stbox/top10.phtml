@@ -22,6 +22,7 @@ $top10 = Data::get('top10');
         <?php
         if(Session::has('noTop')){
             echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('noTop').'</p>';
+            Session::remove('noTop');
         }
         ?>
 
@@ -48,9 +49,7 @@ $top10 = Data::get('top10');
                     </tr>
                     <?php
                     $i++;
-            }
-            Session::set('noTop',null);?>
-
+            }?>
             </tbody>
         </table>
 
