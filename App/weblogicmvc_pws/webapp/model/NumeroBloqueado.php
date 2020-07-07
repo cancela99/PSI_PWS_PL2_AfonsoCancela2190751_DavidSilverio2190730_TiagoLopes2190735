@@ -51,31 +51,40 @@ class NumeroBloqueado
     }
 
     public function checkFinalJogada($numArray, $diceSum) {
-        /*$flag = false;
+
+        $flag = false;
+        $local = [];
+        $sum = 0;
 
         for($i = 0; $i < count($numArray); $i++) {
             if($numArray[$i] == $diceSum) {
-                $flag = true;
-                break;
+                //$local = $numArray[$i];
+                array_push($local, $numArray[$i]);
             } else {
-                for($j = $i; $j < count($numArray); $j++) {
+                for($j = 0; $j < count($numArray); $j++) {
                     if($numArray[$i] != $numArray[$j]) {
-                        if (($numArray[$i] + $numArray[$j]) == $diceSum) {
-                            $_SESSION['TRUE RESULTS -> '][] = ($numArray[$i] + $numArray[$j]) . " | " .$numArray[$i] ."+".$numArray[$j];
-                            $flag = true;
-                            break;
+                        $sum = $sum + $numArray[$j];
+
+                        if (($numArray[$i] + $sum) == $diceSum) {
+                            //$local = $sum;
+                            array_push($local, $sum);
                         } else {
-                            $_SESSION['FALSE RESULTS -> '][] = ($numArray[$i] + $numArray[$j]) . " | " .$numArray[$i] ."+".$numArray[$j];
-                            $flag = false;
-                            break;
+                            Session::set('falseResults', $sum);
                         }
                     }
                 }
             }
         }
 
-        return $flag;*/
+        for($i = 0; $i < count($local); $i++) {
+            if($local[$i] == $diceSum) {
+                $flag = true;
+            }
+        }
 
+        return $flag;
+
+        /*
         $local = array();
 
         // Substituir por iteração. 2 For loops, a percorrer o array e a somar.
@@ -105,7 +114,7 @@ class NumeroBloqueado
             return(array_sum($v) == $diceSum);
         });
 
-        return $local;
+        return $local; */
     }
 
     public function getFinalPointsSum() {

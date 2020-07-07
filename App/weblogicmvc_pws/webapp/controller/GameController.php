@@ -15,9 +15,11 @@ class GameController extends BaseController
         $gameEngine = new GameEngine();
         $gameEngine->iniciarJogo();
 
-        $_SESSION['gameEngine'] = $gameEngine;
+        //$_SESSION['gameEngine'] = $gameEngine;
+        Session::set('gameEngine', $gameEngine);
         $_SESSION['controlDiceRoll'] = null;
-        $_SESSION['disableSegur'] = "disable";
+        //$_SESSION['disableSegur'] = "disable";
+        Session::set('disableSegur', 'disable');
 
         if($gameEngine->getEstadoJogo()) {
             $status = "enabled";
@@ -39,7 +41,8 @@ class GameController extends BaseController
         $gameEngine = Session::get('gameEngine');
 
         $_SESSION['controlDiceRoll'] = null;
-        $_SESSION['disableSegur'] = "disable";
+        //$_SESSION['disableSegur'] = "disable";
+        Session::set('disableSegur', 'disable');
 
         if($gameEngine->getEstadoJogo() == 1){
             Session::set('playerColour', "#00D3B6");
@@ -86,8 +89,11 @@ class GameController extends BaseController
                 $tabuleiro->numBloqueadosP2 = $numerosBloqueados->numerosBloqueados;
             }
             $_SESSION['numerosBloqueados'] = $numerosBloqueados->numerosBloqueados;
+            Session::set('gameEngine', $gameEngine);
+            \Tracy\Debugger::barDump($gameEngine, "Game Engine");
         }
         $_SESSION['primeiraJogada'] = true;
+
 
         return View::make('stbox.gamepage', ['valorDado' => $_SESSION['valorDado'], 'status' => "enabled", 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
     }
@@ -109,6 +115,8 @@ class GameController extends BaseController
     public function mostrarDado() {
 
         $gameEngine = Session::get('gameEngine');
+        \Tracy\Debugger::barDump($gameEngine, "Game Engine - Lançar Dados");
+
         $estadoAtual = $gameEngine->getEstadoJogo();
         $tabuleiro = $gameEngine->tabuleiro;
 
@@ -119,15 +127,20 @@ class GameController extends BaseController
 
         $valorDado = array($resultado1, $resultado2);
 
-        $_SESSION['valorDado'] = $valorDado;
-        $_SESSION['somaDados'] = $resultado1 + $resultado2;
-        $_SESSION['controlDiceRoll'] = "Fim de turno";
-        $_SESSION['disableSegur'] = "enable";
+        //$_SESSION['valorDado'] = $valorDado;
+        Session::set('valorDado', $valorDado);
+        //$_SESSION['somaDados'] = $resultado1 + $resultado2;
+        Session::set('somaDados', $resultado1 + $resultado2);
+        //$_SESSION['controlDiceRoll'] = "Fim de turno";
+        Session::set('controlDiceRoll', 'Fim de turno');
+        //$_SESSION['disableSegur'] = "enable";
+        Session::set('disableSegur', 'enable');
 
         if (isset($_SESSION['primeiraJogada'])) {
             if ($estadoAtual == 1) {
                 $checkFinal = $tabuleiro->checkFinalJogadaP1($_SESSION['somaDados']);
-                $_SESSION['checkFinal'] = $checkFinal;
+                //$_SESSION['checkFinal'] = $checkFinal;
+                Session::set('checkFinal', $checkFinal);
                 if($checkFinal != true) {
                     $gameEngine->updateEstadoJogo();
                     $this->nextPlayerTurn();
@@ -138,7 +151,8 @@ class GameController extends BaseController
 
             } else if($estadoAtual == 2) {
                 $checkFinal = $tabuleiro->checkFinalJogadaP2($_SESSION['somaDados']);
-                $_SESSION['checkFinal'] = $checkFinal;
+                //$_SESSION['checkFinal'] = $checkFinal;
+                Session::set('checkFinal', $checkFinal);
                 if($checkFinal != true) {
                     $gameEngine->updateEstadoJogo();
                     $vencedor = $tabuleiro->getVencedor();
@@ -146,9 +160,11 @@ class GameController extends BaseController
                     //$this->insertDataBD($points);
 
                     if($vencedor == 0 && $points == 0) {
-                        $_SESSION['finalJogo'] = 'Jogo terminado! Empate!';
+                        //$_SESSION['finalJogo'] = 'Jogo terminado! Empate!';
+                        Session::set('finalJogo', 'Jogo terminado! Empate!');
                     } else {
-                        $_SESSION['finalJogo'] = 'Jogo terminado! Jogador '.$vencedor.' ganhou por '.$points.' pontos.';
+                        //$_SESSION['finalJogo'] = 'Jogo terminado! Jogador '.$vencedor.' ganhou por '.$points.' pontos.';
+                        Session::set('finalJogo', 'Jogo terminado! Jogador '.$vencedor.' ganhou por '.$points.' pontos.');
                     }
 
                     $this->iniciarJogo();
