@@ -20,7 +20,7 @@ $statusGate = Data::get('statusGate');
 $clickedGate = Data::get('clickedGate');
 
 \Tracy\Debugger::barDump($clickedGate, "SESSION");
-
+\Tracy\Debugger::barDump(Session::has('controlDiceRoll'),'teste');
 ?>
 <h2 style="margin-top: 5%" class="text-center">Shut the Box</h2>
 <div style="background-color: #e0e0ca; border: 1px solid #8A7B52; width: 55%;" class="container mt-4 rounded">
@@ -91,7 +91,8 @@ $clickedGate = Data::get('clickedGate');
                     if(/*isset($_SESSION['finalJogo'])*/Session::has('finalJogo')){
                         echo '<br><p style="color:green; font-size: 22px">'./*$_SESSION['finalJogo']*/Session::get('finalJogo').'</p>';
                         //$_SESSION['finalJogo'] = null;
-                        Session::set('finalJogo',null);
+                        //Session::set('finalJogo',null);
+                        Session::remove('finalJogo');
                     }
                     ?>
                 </div>

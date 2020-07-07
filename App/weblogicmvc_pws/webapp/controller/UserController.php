@@ -69,6 +69,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
         }else{
             if ($user->is_valid()){
                 $user->save();
+                Session::set('signInComplete', 'Registo feito com sucesso');
                 Redirect::toRoute('stbox/login');
             } else {
                 Redirect::flashToRoute('stbox/register', ['user' => $user]);

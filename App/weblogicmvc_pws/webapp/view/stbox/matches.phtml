@@ -21,7 +21,7 @@ $user = Session::get('userData');
 
 <?php
 if(Session::has('noMatches')){
-    echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('noMatches').'</p>';
+    echo '<br><p style="color:red; text-align: center; font-size: 22px">'.Session::get('noMatches').'</p>';
     //Session::set('noMatches',null);
     Session::remove('noMatches');
 }
@@ -46,7 +46,7 @@ if(Session::has('noMatches')){
         $i = 1;
         if(!$matches == null){
             foreach ($matches as $match) {
-    $data = $match->data->format('d-m-Y H:i:s'); ?>
+            $data = $match->data->format('Y-m-d H:i:s'); ?>
             <th><?= $i ?></th>
             <td><?= $match->pontuacao ?></td>
             <?php

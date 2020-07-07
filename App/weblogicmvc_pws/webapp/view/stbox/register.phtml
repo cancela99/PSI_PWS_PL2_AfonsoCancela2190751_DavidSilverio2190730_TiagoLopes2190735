@@ -23,12 +23,12 @@ ErrMgr::attach($user);
     <form class="form-signin" method="post" action="<?=Url::toRoute('user/store') ?>">
         <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">REGISTE-SE AQUI</h1>
         <div class="form-label-group">
-            <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio"  autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">
+            <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio" required autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">
             <?= ErrMgr::bind('primeiro_nome') ?>
             <br>
         </div >
         <div class="form-label-group">
-            <input type="text" id="inputApelido" class="form-control" placeholder="Apelido"  autofocus name="apelido" value="<?=$user->apelido?>">
+            <input type="text" id="inputApelido" class="form-control" placeholder="Apelido" required autofocus name="apelido" value="<?=$user->apelido?>">
             <?= ErrMgr::bind('apelido') ?>
             <br>
         </div >

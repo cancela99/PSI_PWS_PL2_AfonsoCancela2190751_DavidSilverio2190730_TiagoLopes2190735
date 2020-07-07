@@ -52,6 +52,11 @@ if(Session::has('blankField')){
     echo '<br><p style="color:red; font-size: 18px">'.Session::get('blankField').'</p>';
     Session::destroy();
 }
+
+if(Session::has('signInComplete')){
+    echo '<br><p style="color:green; font-size: 18px">'.Session::get('signInComplete').'</p>';
+    Session::destroy();
+}
 ?>
 
         <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Iniciar Sessão</button>
