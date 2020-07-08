@@ -1,6 +1,5 @@
 <?php
 
-use ArmoredCore\WebObjects\Session;
 
 class Tabuleiro extends NumeroBloqueado
 {
@@ -20,10 +19,8 @@ class Tabuleiro extends NumeroBloqueado
     public function checkFinalJogadaP1($soma) {
         $arrayInteiro = array(1,2,3,4,5,6,7,8,9);
 
-        \Tracy\Debugger::barDump($_SESSION['numBloq']);
-
-        $this->iniciar();
-        $this->numBloqueadosP1 = $this->numerosBloqueados;
+        //$this->iniciar();
+        //$this->numBloqueadosP1 = $this->numerosBloqueados;
         $aux = array_diff($arrayInteiro, $_SESSION['numBloq']);
         $unblockedGates = array_values($aux);
         $_SESSION['sessionPoints'] = array_sum($unblockedGates);
@@ -34,8 +31,8 @@ class Tabuleiro extends NumeroBloqueado
     public function checkFinalJogadaP2($soma) {
         $arrayInteiro = array(1,2,3,4,5,6,7,8,9);
 
-        $this->iniciar();
-        $this->numBloqueadosP2 = $this->numerosBloqueados;
+        //$this->iniciar();
+        //$this->numBloqueadosP2 = $this->numerosBloqueados;
         $aux = array_diff($arrayInteiro, $_SESSION['numBloq']);
         $unblockedGates = array_values($aux);
         $_SESSION['sessionPoints'] = array_sum($unblockedGates);
@@ -44,30 +41,36 @@ class Tabuleiro extends NumeroBloqueado
     }
 
     public function getVencedor() {
-        //relizar a soma dos numeros livres de ambos os players
-       /* $sumBloqP1 = array_sum($this->numBloqueadosP1);
+        // Vai buscar vencedor -> quem tem maior soma de numeros bloqueados
+        $vencedor = 0;
+        $p1Soma = array_sum($this->numBloqueadosP1);
+        $p2Soma = array_sum($this->numBloqueadosP2);
 
-        $sumBloqP2 = array_sum($this->numBloqueadosP2);
-
-        //se o a soma dos dados do P1 < P2 então P1 ganha, senão ganha P2
-        if($sumBloqP1 < $sumBloqP1){
-            //P1 VENCEU
-        } elseif($sumBloqP1 == $sumBloqP2) {
-            // EMPATE
+        if($p1Soma > $p2Soma) {
+            $vencedor = 1;
+        } else if($p1Soma < $p2Soma) {
+            $vencedor = 2;
         } else {
-            // P2 VENCEU
+            $vencedor = 0;
         }
 
-        //retornar o player vencedor*/
+        return $vencedor;
     }
 
     public function getPointsVencedor() {
-        //relizar a soma dos numeros livres de ambos os players
-        //$sumBloqP1 = array_sum($this->numBloqueadosP1);
+        // vai buscar diferenca de pontos pela qual foi vencedor
+        $pontosVencedor = 0;
+        $p1Soma = array_sum($this->numBloqueadosP1);
+        $p2Soma = array_sum($this->numBloqueadosP2);
 
-        //$sumBloqP2 = array_sum($this->numBloqueadosP2);
+        if($p1Soma > $p2Soma) {
+            $pontosVencedor = $p1Soma - $p2Soma;
+        } else if($p1Soma < $p2Soma) {
+            $pontosVencedor = $p2Soma - $p1Soma;
+        } else {
+            $pontosVencedor = 0;
+        }
 
-
-        return $_SESSION['sessionPoints'];
+        return $pontosVencedor;
     }
 }
