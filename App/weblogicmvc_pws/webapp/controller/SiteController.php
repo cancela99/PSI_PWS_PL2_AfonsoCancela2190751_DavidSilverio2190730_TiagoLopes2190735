@@ -2,6 +2,7 @@
 
 
 use ArmoredCore\Controllers\BaseController;
+use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
 
@@ -20,7 +21,6 @@ class SiteController extends BaseController
 
     //Faz uma query à base de dados para ir buscar o Top 10 e devolve um array com o Top 10
     public function Top10() {
-
         $top10 = Match::find('all',array('order' => 'pontuacao asc', 'limit' => 10));
         return View::make('stbox.top10', ['top10'=>$top10]);
     }
@@ -49,15 +49,39 @@ class SiteController extends BaseController
 
 
     //Faz uma query à BD para ir buscar os valores e devolve os dados por um array
-    public function Matches(){
-        if(isset($_SESSION['loggedIn'])){
-                $matches = Match::all();
-                View::make('stbox.matches', ['matches' => $matches]);
-                //\Tracy\Debugger::barDump($matches);
+    public function Matches($page){
+
+        $user = Session::get('userData');
+
+        if($page != null){
+            $paginaAtual = $page;
+        } else {
+            $paginaAtual = 1;
+        }
+
+        $partidas_por_pagina = 5;
+        $offset = ($paginaAtual - 1) * $partidas_por_pagina;
+        $paginaAnterior = $paginaAtual - 1;
+        $proximaPagina = $paginaAtual + 1;
+
+        if(Session::has('userData')){
+            $matches = Match::find('all', array('conditions' => array('user_id = ?', $user->id)));
+
+            $totalPartidas = count($matches);
+            $totalPaginas = ceil($totalPartidas / $partidas_por_pagina);
+
+            if($matches != null){
+                $partidas = array_slice($matches, $offset, $partidas_por_pagina, true);
+                \Tracy\Debugger::barDump($partidas, "Partidas enviadas para a vista");
+                View::make('stbox.matches', ['matches' => $partidas] + ['pages' => $totalPaginas] + ['paginaAtual' => $paginaAtual]);
+            } else {
+                View::make('stbox.matches', ['matches' => null]);
+            }
         }else{
             View::make('stbox.errorNotLoggedIn');
         }
     }
+
 
     //Função que devolve uma vista de erro
     public function Erro(){

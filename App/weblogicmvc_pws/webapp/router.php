@@ -34,11 +34,11 @@ Router::get('stbox/game', 'SiteController/Game');
 //Router::post('stbox/game', 'GameController/mostrarDado');
 Router::resource('game', 'GameController');
 
-
 Router::resource('user', 'UserController');
 
 Router::get('user/login', 'UserController');
 
 Router::resource('admin', 'AdminController');
+
 
 /************** End of URLEncoder Routing Rules ************************************/

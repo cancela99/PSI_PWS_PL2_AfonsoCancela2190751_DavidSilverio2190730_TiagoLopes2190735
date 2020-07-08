@@ -68,25 +68,24 @@ class AdminController extends BaseController{
 
         $users = User::all();
         $searchedUser = Post::get('username');
-        $flag = 0;
+        $userFinder = User::find('all', array('conditions' => "username LIKE '". $searchedUser ."%'"));
 
         if(Post::get('username') == ''){
             return View::make('stbox.backoffice', ['users' => $users]);
         }
 
-        foreach ($users as $user){
-            if($user->username == $searchedUser){
-                $userFound = $user;
-                $flag = 1;
-                Session::set('userSearched', 'Utilizadores encontrados');
-                return View::make('stbox.backoffice',['usersFound'=>$userFound]);
-                break;
-            }
-        }
-        if($flag == 0){
+        if($userFinder != null){
+            return View::make('stbox.backoffice', ['users' => $userFinder]);
+            Session::set('userSearched', 'Utilizadores encontrados');
+        } else {
             Session::set('notFound','Utilizador não encontrado');
             return View::make('stbox.backoffice',['users' => $users]);
         }
-
     }
+
+    public function clearSearch(){
+        $users = User::all();
+        return View::make('stbox.backoffice', ['users' => $users]);
+    }
+
 }

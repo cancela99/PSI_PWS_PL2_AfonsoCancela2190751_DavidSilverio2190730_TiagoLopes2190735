@@ -29,9 +29,11 @@ $userData = Session::get('userData');
 
 </head>
 
-<body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+<body style="background-color: red">
+<div id="page-container" style="position: relative;  min-height: 100vh;">
+    <div id="content-wrap" style="padding-bottom: 2.5rem; margin-bottom: 10%;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="<?= URL::toRoute('stbox/home')?>">Shut the Box Game<img class="img-fluid rounded ml-2 mb-4 mb-lg-0" src="<?= Asset::image('dices.png')?>" alt="" width=25" height="20"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -40,7 +42,7 @@ $userData = Session::get('userData');
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="<?= URL::toRoute('stbox/home')?>">Início <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="<?= URL::toRoute('stbox/home')?>">Início</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?= URL::toRoute('stbox/rules')?>">Regras</a>
@@ -49,7 +51,7 @@ $userData = Session::get('userData');
                 <a class="nav-link" href="<?= URL::toRoute('stbox/top10')?>">Top 10</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?= URL::toRoute('stbox/matches')?>">Partidas</a>
+                <a class="nav-link" href="<?= URL::toRoute('stbox/matches', 1)?>">Partidas</a>
             </li>
             <?php
             if($userData->admin == 1){ ?>
@@ -66,8 +68,8 @@ $userData = Session::get('userData');
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown"><?=$userData->username?><span class="caret"></span></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="<?= URL::toRoute('user/edit', $userData->id)?>">Perfil</a>
-                    <a class="dropdown-item" href="<?= URL::toRoute('user/logOut')?>">Terminar Sessão</a>
+                    <a class="dropdown-item" href="<?= URL::toRoute('user/edit', $userData->id)?>">Perfil <i class="fa fa-user"></i></a>
+                    <a class="dropdown-item" href="<?= URL::toRoute('user/logOut')?>">Terminar Sessão <i class="fa fa-sign-out"></i></a>
                 </div>
             </li>
         </ul>

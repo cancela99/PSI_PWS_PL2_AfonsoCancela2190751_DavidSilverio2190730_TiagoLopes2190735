@@ -16,33 +16,36 @@ class NumeroBloqueado
         $flag = true;
 
         $somaLocal = array_sum($numArray);
-        //$_SESSION['sum'] = $somaLocal;
-        Session::set('sum', $somaLocal);
+        $_SESSION['sum'] = $somaLocal;
+        //Session::set(['sum'], $somaLocal);
 
         if($somaLocal != $somaDados) {
             if($somaLocal > $somaDados) {
                 //$_SESSION['sum'] = 0;
-                //$_SESSION['local'] = null;
-                Session::set('sum', 0);
-                Session::set('local', null);
+               // $_SESSION['local'] = null;
+                Session::set(['sum'], 0);
+                Session::set(['local'], null);
 
             }
             $flag = false;
         } else if($somaLocal == $somaDados){
-            if (!isset($_SESSION['numBloq'])) {
+            //!Session::has('numBloq')
+            if(!isset($_SESSION['numBloq'])) {
                 //$_SESSION['numBloq'] = [];
             }
             foreach ($numArray as $num) {
                 //array_push($_SESSION['numBloq'], $num);
                 $numAr[] = $num;
+
+                //Session::set('numBloq', $num);
                 $_SESSION['numBloq'][] = $num;
-                //Session::set('numBloq', $numAr);
 
             }
 
-            Session::set('controlDiceRoll', null);
+            //Session::set('controlDiceRoll', null);
+            $_SESSION['controlDiceRoll'] = null;
 
-            $this->numerosBloqueados = $_SESSION['numBloq'];
+            $this->numerosBloqueados = $_SESSION['numBloq']; /*Session::get('numBloq');*/
             $flag = true;
 
         }
@@ -76,7 +79,7 @@ class NumeroBloqueado
 
         return $flag;*/
 
-        $local = array();
+        /*$local = array();
 
         // Substituir por iteração. 2 For loops, a percorrer o array e a somar.
         function extractList($numArray, &$local, $temp = array()) {
@@ -105,8 +108,87 @@ class NumeroBloqueado
             return(array_sum($v) == $diceSum);
         });
 
-        return $local;
+        return $local;*/
+
+
+
+
+
+        //For loop a percorrer o array dos numeros livres e a somar, de forma a retornar o resultado de todas as possíveis somas
+
+        //array de numeros livres
+        \Tracy\Debugger::barDump($numArray);
+
+        //soma dos dados
+        \Tracy\Debugger::barDump($diceSum);
+
+        //array que vai receber todas as possibilidades de soma
+        $sumResults = [];
+
+        $flag = null;
+
+        foreach ($numArray as $livre) {
+            if ($livre == $diceSum) {
+                $flag = true;
+                break;
+            }
+        }
+
+        if($flag != true) {
+            foreach ($numArray as $i){
+                foreach ($numArray as $j){
+                    foreach ($numArray as $h){
+                        foreach ($numArray as $k){
+                            if($i != $j && $j != $h && $h != $k && $i != $h && $i != $k && $j != $k) {
+                                $soma = ($i + $j + $h + $k);
+                                if($soma == $diceSum){
+                                    $flag = true;
+                                    array_push($sumResults, $soma);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach ($numArray as $i){
+                foreach ($numArray as $j){
+                    foreach ($numArray as $h){
+                        if($i != $j && $j != $h && $i != $h){
+                            $soma = ($i + $j + $h);
+                            if($soma == $diceSum){
+                                $flag = true;
+                                array_push($sumResults, $soma);
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach ($numArray as $i){
+                foreach ($numArray as $j){
+                    if($i != $j){
+                        $soma = ($i +$j);
+                        if($soma == $diceSum){
+                            $flag = true;
+                            array_push($sumResults, $soma);
+                        }
+                    }
+                }
+            }
+        }
+
+        //procurar no array de somas se alguma soma == somaDados
+        /*if(in_array($diceSum, $sumResults)){
+            $flag = true;
+        } else {
+            $flag = false;
+        }*/
+
+        \Tracy\Debugger::barDump($sumResults);
+        return $flag;
     }
+
 
     public function getFinalPointsSum() {
         return Session::get('sessionPoints');

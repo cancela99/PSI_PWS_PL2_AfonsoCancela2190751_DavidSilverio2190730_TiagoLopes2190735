@@ -13,6 +13,10 @@ if(Session::has('userData')){
 
 $top10 = Data::get('top10');
 
+
+//$user = Session::get('userData');
+\Tracy\Debugger::barDump($top10);
+
 ?>
 
     <body>
@@ -38,13 +42,14 @@ $top10 = Data::get('top10');
 
             <?php
                 $i = 1;
-                foreach ($top10 as $top){ ?>
+                foreach ($top10 as $top){?>
                     <tr>
                         <th><?=$i?></th>
-                        <th><?=$top->users->username?></th>
+                        <?php $username = (User::find($top->user_id)->username)?>
+                        <td><?= $username?></td>
                         <?php $data = $top->data->format('d-m-Y H:i:s');?>
-                        <th><?=$data?></th>
-                        <th><?=$top->pontuacao?></th>
+                        <td><?=$data?></td>
+                        <td><?=$top->pontuacao?></td>
                     </tr>
                     <?php
                     $i++;

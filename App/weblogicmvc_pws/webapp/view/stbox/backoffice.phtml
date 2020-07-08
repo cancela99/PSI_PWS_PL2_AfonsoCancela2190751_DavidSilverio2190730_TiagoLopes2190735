@@ -15,7 +15,7 @@ if(Session::has('userData')){
 }
 
 $users = Data::get('users');
-$usersFound = Data::get('usersFound');
+//$usersFound = Data::get('usersFound');
 
 ?>
 
@@ -32,12 +32,15 @@ $usersFound = Data::get('usersFound');
                 <input type="text" id="inputUsername" class="form-control" style="width: 250px" placeholder="Pesquise por um utilizador" name="username">
                 <button class="btn btn-info"><i class="fa fa-search"></i></button>
             </form>
+            <form action="<?=URL::toRoute('admin/clearSearch')?>" method="post">
+                <button class="btn btn-primary ml-1">Limpar</button>
+            </form>
         </div>
     </div>
 
     <?php
     if(Session::has('notFound')){
-        echo '<br><p style="color:red; font-size: 18px">'.$_SESSION['notFound'].'</p>';
+        echo '<br><p style="color:red; font-size: 18px">'.Session::get('notFound').'</p>';
         Session::set('notFound',null);
     } ?>
 
@@ -55,7 +58,7 @@ $usersFound = Data::get('usersFound');
 
         <?php
         //Verifica se houve alguma pesquisa
-        if(!(isset($_SESSION['userSearched']))){ ?>
+        //if(Session::has('userSearched')){ ?>
 
             <?php foreach ($users as $user) {
                 if($user->admin == 0){ ?>
@@ -75,25 +78,7 @@ $usersFound = Data::get('usersFound');
                     </tr>
                 <?php }
             } ?>
-        <?php }else{ ?>
-                <?php if($usersFound->admin == 0){?>
-                <tr>
-                    <td><?=$usersFound->username?></td>
-                    <?php if($usersFound->bloqueado != 0){?>
-                        <td style="padding-left: 45px"><i style="color: red" class="fa fa-ban"></i></td>
-                    <?php }else{ ?>
-                        <td></td>
-                    <?php }?>
-                    <td><?=$usersFound->databloqueado?></td>
-                    <?php if($usersFound->bloqueado == 0) {
-                        echo '<form action="'. URL::toRoute('admin/blockUser', $usersFound->id) .'"><td><button class="btn btn-default"><i style="color: red" class="fa fa-times-circle"></i></button></td></form>';
-                    }else{
-                        echo '<form action="'. URL::toRoute('admin/unblockUser', $usersFound->id) .'"><td><button class="btn btn-default"><i style="color: green" class="fa fa-check-circle"></i></button></td></form>';
-                    } ?>
-                </tr>
-        <?php }
-            Session::set('userSearched', null);
-        } ?>
+
 
         </tbody>
     </table>

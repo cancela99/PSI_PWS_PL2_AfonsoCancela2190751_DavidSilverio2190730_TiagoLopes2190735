@@ -1,5 +1,6 @@
 <?php
 use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
@@ -12,20 +13,23 @@ if(Session::has('userData')){
 }
 
 $user = Data::get('user');
+ErrMgr::attach($user);
 ?>
 
 
 <body class="text-center">
 <div style="max-width: 550px; border: 1px solid grey; padding-top: 2%; background-color: whitesmoke; margin-top: 50px" class="container">
     <form class="form-signin" method="post" action="<?=URL::toRoute('user/update', $user->id)?>">
-        <!--        <img class="mb-4" src="" alt="" width=92" height="92">-->
+        <!--<img class="mb-4" src="" alt="" width=92" height="92">-->
         <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">Perfil - Informações Pessoais</h1>
         <div class="form-label-group">
-            <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio" required autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">
+            <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio"  autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">
+            <?= ErrMgr::bind('primeiro_nome') ?>
             <br>
         </div >
         <div class="form-label-group">
-            <input type="text" id="inputApelido" class="form-control" placeholder="Apelido" required autofocus name="apelido" value="<?=$user->apelido?>">
+            <input type="text" id="inputApelido" class="form-control" placeholder="Apelido"  autofocus name="apelido" value="<?=$user->apelido?>">
+            <?= ErrMgr::bind('apelido') ?>
             <br>
         </div >
         <div class="form-label-group">
@@ -34,16 +38,23 @@ $user = Data::get('user');
         </div >
         <div class="form-label-group">
             <input type="email" id="inputEmail" class="form-control" placeholder="Email" required name="email" value="<?=$user->email?>">
+            <?= ErrMgr::bind('email') ?>
             <br>
+        </div>
+        <div>
+            <input type="checkbox" name="changePassword" value="">
+            <label for="changePassword"> Alterar Password</label><br>
         </div><br>
         <h5 style="text-align: left">Alterar a palavra-passe:</h5>
         <div class="form-label-group">
             <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe atual"  value="" name="password">
+            <?= ErrMgr::bind('password')?>
             <br>
         </div>
         <div class="form-label-group">
-        <input type="password" id="newPassword" class="form-control" placeholder="Nova Palavra-passe"  value="" name="newPassword">
-        <br>
+            <input type="password" id="newPassword" class="form-control" placeholder="Nova Palavra-passe"  value="" name="newPassword">
+            <?= ErrMgr::bind('password')?>
+            <br>
 </div><br>
         <?php
         if(Session::has('errorProfile')){
@@ -62,9 +73,10 @@ $user = Data::get('user');
             echo '<p style="color:red; font-size: 22px">'.Session::get('wrongActualPass').'</p>';
             Session::set('wrongActualPass',null);
         }
-        if(isset($_SESSION['wrongPassword'])){
-            echo '<p style="color:red; font-size: 22px">'.$_SESSION['wrongPassword'].'</p>';
-            $_SESSION['wrongPassword'] = null;
+        //isset($_SESSION['wrongPassword'])
+        if(Session::has('wrongPassword')){
+            echo '<p style="color:red; font-size: 22px">'.Session::get('wrongPassword').'</p>';
+            Session::set('wrongPassword', null);
         }
         ?>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar Alterações</button>

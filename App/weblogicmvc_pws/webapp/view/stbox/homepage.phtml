@@ -17,100 +17,93 @@ if(Session::has('userData')){
 
 <div style="padding-top: 56px" class="container">
 
-<!-- Heading Row -->
-<div class="row align-items-center my-5">
-    <div class="col-lg-7">
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="<?=Asset::image('stbox.png')?>" alt=""-->
+    <div class="row align-items-center my-5">
+        <div class="col-lg-7">
+            <img class="img-fluid rounded mb-4 mb-lg-0" src="<?=Asset::image('stbox.png')?>" alt=""-->
+        </div>
+        <div class="col-lg-5">
+            <h1 class="font-weight-light">Bem-vindo ao Shut the Box Game</h1>
+            <p>Shut The Box é um jogo de dados, fácil de jogar e de aprender</p>
+            <a href="<?=URL::toRoute('stbox/game')?>" class="btn btn-primary custum-btn" href="#">Clique para jogar</a>
+        </div>
+
     </div>
-    <!-- /.col-lg-8 -->
-    <div class="col-lg-5">
-        <h1 class="font-weight-light">Bem-vindo ao Shut the Box Game</h1>
-        <p>Shut The Box é um jogo de dados, fácil de jogar e de aprender</p>
-        <a href="<?=URL::toRoute('stbox/game')?>" class="btn btn-primary custum-btn" href="#">Clique para jogar</a>
-    </div>
-    <!-- /.col-md-4 -->
-</div>
     <br>
-<!-- /.row -->
 
-
-<!-- Content Row -->
-<div class="row">
-    <div class="col-md-4 mb-5">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="card-title">Regras</h2>
-                <p class="card-text">Veja as regras do jogo, na nossa página de regras.</p>
-            </div>
-            <div class="card-footer">
-                <a href="<?= URL::toRoute('stbox/rules')?>" class="btn btn-primary btn-sm">Veja as regras aqui</a>
-            </div>
-        </div>
-    </div>
-    <!-- /.col-md-4 -->
-    <?php if(!Session::has('userData')){?>
-    <div class="col-md-4 mb-5">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="card-title">Inicie a sua sessão aqui!</h2>
-                <p class="card-text">Para usufruir das várias funcionalidades do site, inicie sessão.</p>
-            </div>
-            <div class="card-footer">
-                <a href="<?= URL::toRoute('stbox/login')?>" class="btn btn-primary btn-sm">Inicie sessão aqui</a>
-            </div>
-        </div>
-    </div>
-    <?php }?>
-
-    <?php if(Session::has('userData')){?>
-    <div class="col-md-4 mb-5">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="card-title">Top 10</h2>
-                <p class="card-text">Veja na página de Top 10 quais são os melhores jogadores.</p>
-            </div>
-            <div class="card-footer">
-                <a href="<?= URL::toRoute('stbox/top10')?>" class="btn btn-primary btn-sm">Veja o Top 10 aqui</a>
-            </div>
-        </div>
-    </div>
-    <?php }?>
-
-    <!-- /.col-md-4 -->
-    <?php if(!Session::has('userData')){?>
-    <div class="col-md-4 mb-5">
-        <div class="card h-100">
-            <div class="card-body">
-                <h2 class="card-title">Não estás registado?</h2>
-                <p class="card-text">Para conseguires jogar, tens de estar registado no site.</p>
-            </div>
-            <div class="card-footer">
-                <a href="<?= URL::toRoute('stbox/register')?>" class="btn btn-primary btn-sm">Regista-te aqui</a>
-            </div>
-        </div>
-    </div>
-    <?php }?>
-    <!-- /.col-md-4 -->
-
-    <?php if(Session::has('userData')){?>
+    <div class="row">
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="card-title">Histórico de Partidas</h2>
-                    <p class="card-text">Consulta aqui as suas mais recentes partidas.</p>
+                    <h2 class="card-title">Regras</h2>
+                    <p class="card-text">Veja as regras do jogo, na nossa página de regras.</p>
                 </div>
                 <div class="card-footer">
-                    <a href="<?= URL::toRoute('stbox/matches')?>" class="btn btn-primary btn-sm">Veja o histórico aqui</a>
+                    <a href="<?= URL::toRoute('stbox/rules')?>" class="btn btn-primary btn-sm">Veja as regras aqui</a>
                 </div>
             </div>
         </div>
-    <?php }?>
 
-</div>
-<!-- /.row -->
+        <?php if(!Session::has('userData')){?>
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Inicie a sua sessão aqui!</h2>
+                    <p class="card-text">Para usufruir das várias funcionalidades do site, inicie sessão.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="<?= URL::toRoute('stbox/login')?>" class="btn btn-primary btn-sm">Inicie sessão aqui</a>
+                </div>
+            </div>
+        </div>
+        <?php }?>
 
+        <?php if(Session::has('userData')){?>
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Top 10</h2>
+                    <p class="card-text">Veja na página de Top 10 quais são os melhores jogadores.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="<?= URL::toRoute('stbox/top10')?>" class="btn btn-primary btn-sm">Veja o Top 10 aqui</a>
+                </div>
+            </div>
+        </div>
+        <?php }?>
+
+        <!-- /.col-md-4 -->
+        <?php if(!Session::has('userData')){?>
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="card-title">Não estás registado?</h2>
+                    <p class="card-text">Para conseguires jogar, tens de estar registado no site.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="<?= URL::toRoute('stbox/register')?>" class="btn btn-primary btn-sm">Regista-te aqui</a>
+                </div>
+            </div>
+        </div>
+        <?php }?>
+        <!-- /.col-md-4 -->
+
+        <?php if(Session::has('userData')){?>
+            <div class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">Histórico de Partidas</h2>
+                        <p class="card-text">Consulta aqui as suas mais recentes partidas.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="<?= URL::toRoute('stbox/matches')?>" class="btn btn-primary btn-sm">Veja o histórico aqui</a>
+                    </div>
+                </div>
+            </div>
+        <?php }?>
+
+    </div>
 </div>
-<!-- /.container -->
+
 
 
 <?php Layout::includeLayout('footerproject'); ?>
