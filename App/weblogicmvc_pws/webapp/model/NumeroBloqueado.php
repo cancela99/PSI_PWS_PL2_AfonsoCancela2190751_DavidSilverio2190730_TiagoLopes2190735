@@ -14,6 +14,7 @@ class NumeroBloqueado
 
     public function bloquearNumero($numArray, $somaDados) {
         $flag = true;
+        
 
         $somaLocal = array_sum($numArray);
         //$_SESSION['sum'] = $somaLocal;
