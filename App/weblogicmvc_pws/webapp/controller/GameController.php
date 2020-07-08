@@ -154,6 +154,7 @@ class GameController extends BaseController
                     $gameEngine->updateEstadoJogo();
                     $vencedor = $tabuleiro->getVencedor();
                     $points = $tabuleiro->getPointsVencedor();
+
                     //$this->insertDataBD($points);
 
                     if($vencedor == 0 && $points == 0) {
@@ -174,7 +175,7 @@ class GameController extends BaseController
             }
         }
 
-        return View::make('stbox.gamepage', ['valorDado' => $valorDado, 'status' => "enabled", 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
+        return View::make('stbox.gamepage', ['valorDado' => $valorDado, 'status' => 'enabled', 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
     }
 
     public function insertDataBD($points) {

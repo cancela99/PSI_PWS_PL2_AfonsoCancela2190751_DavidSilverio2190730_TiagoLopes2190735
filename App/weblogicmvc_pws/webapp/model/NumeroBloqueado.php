@@ -28,8 +28,8 @@ class NumeroBloqueado
 
             }
             $flag = false;
-        } else if($somaLocal == $somaDados){
-            if (!isset($_SESSION['numBloq'])) {
+        } else if($somaLocal == $somaDados) {
+            if(!isset($_SESSION['numBloq'])) {
                 //$_SESSION['numBloq'] = [];
             }
             foreach ($numArray as $num) {
