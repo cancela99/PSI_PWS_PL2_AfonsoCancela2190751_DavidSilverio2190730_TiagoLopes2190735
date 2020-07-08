@@ -14,7 +14,7 @@ use Exception;
  */
 class ErrorManager implements ErrorManagerInterface, ComponentRegisterInterface
 {
-    private $_preTag = '<div class="alert alert-danger alert-dismissable fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>! </strong>';
+    private $_preTag = '<div class="alert alert-danger fade show"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>! </strong>';
     private $_endTag = '</div>';
     private $_dataobject = null;
 

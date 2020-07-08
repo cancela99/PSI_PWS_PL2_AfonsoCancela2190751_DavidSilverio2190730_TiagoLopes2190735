@@ -1,6 +1,7 @@
 <?php
 
 use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
@@ -13,6 +14,7 @@ if(Session::has('userData')){
 }
 
 $user = Data::get('user');
+ErrMgr::attach($user);
 ?>
 
 
@@ -22,35 +24,35 @@ $user = Data::get('user');
 <!--        <img class="mb-4" src="" alt="" width=92" height="92">-->
         <h1 style="padding-bottom: 2%;" class="h2 mb-3 font-weight-normal">REGISTE-SE AQUI</h1>
         <div class="form-label-group">
-            <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio" autofocus name="primeiro_nome">
+            <input type="text" id="inputPrimeiroNome" class="form-control" placeholder="Nome próprio"  autofocus name="primeiro_nome" value="<?=$user->primeiro_nome?>">
+            <?= ErrMgr::bind('primeiro_nome') ?>
             <br>
         </div >
         <div class="form-label-group">
-            <input type="text" id="inputApelido" class="form-control" placeholder="Apelido" name="apelido">
+            <input type="text" id="inputApelido" class="form-control" placeholder="Apelido"  autofocus name="apelido" value="<?=$user->apelido?>">
+            <?= ErrMgr::bind('apelido') ?>
             <br>
         </div >
         <div class="form-label-group">
-            <input type="date" id="inputDataNascimento" class="form-control" placeholder="Data de Nascimento" name="dataNascimento">
+            <input type="date" id="inputDataNascimento" class="form-control" placeholder="Data de Nascimento" required autofocus name="dataNascimento" value="<?=$user->datanascimento?>">
+            <?= ErrMgr::bind('datanascimento') ?>
             <br>
         </div >
         <div class="form-label-group">
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email" name="email">
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email" required name="email" value="<?=$user->email?>">
+            <?= ErrMgr::bind('email') ?>
             <br>
         </div>
         <div class="form-label-group">
-            <input type="text" id="inputUsername" class="form-control" placeholder="Nome de utilizador" name="username">
+            <input type="text" id="inputUsername" class="form-control" placeholder="Nome de utilizador" required name="username" value="<?=$user->username?>">
+            <?= ErrMgr::bind('username') ?>
             <br>
         </div>
         <div class="form-label-group">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" name="password">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" required name="password" value="<?=$user->password?>">
+            <?= ErrMgr::bind('password') ?>
             <br>
-        </div>
-        <?php
-        if(Session::has('signInError')){
-            echo '<br><p style="color:red; text-align: center; font-size: 18px">'.Session::get('signInError').'</p>';
-            Session::destroy();
-        }
-        ?>
+        </div><br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Registar</button>
     </form>
     <div class="mt-4 mb-2 text-muted">

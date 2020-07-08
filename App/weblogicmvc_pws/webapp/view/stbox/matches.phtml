@@ -3,6 +3,7 @@
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\Session;
+use ActiveRecord\DateTime;
 
 //Verifica se o utilizador tem login feito
 if(Session::has('userData')){
@@ -37,34 +38,41 @@ if(Session::has('noMatches')){
 
         <tr>
     <?php
-    $i = Session::get('numRows');;
-    //Verifica se o utilizador tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
-    if(!(isset($_SESSION['noMatches']))){ ?>
-        <?php foreach ($matches as $match) {
-             ?>
-                <th><?= $i ?></th>
-                <td><?=$match->pontuacao?></td>
-                <?php
-                //Verificamos o campo vencedor de cada jogo e devolvemos o resultado do memso
-                switch($match->vencedor){
-                case 'G':
-                    echo '<td>Ganhou</td>';
-                    break;
-                case 'P':
-                    echo '<td>Perdeu</td>';
-                    break;
-                case 'E':
-                    echo '<td>Empatou</td>';
-                    break; } ?>
-                <?php $data = date_create($match->data);
-                //Formata a data?>
-                <th style="font-weight: normal"><?=date_format($data,"d/m/Y")?></th>
-            </tr>
-            <?php $i--; }?>
+        //Verifica se o utilizador tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
+        $i = 1;
+            if(!(isset($_SESSION['noMatches']))){
+                //if(!is_null(Data::get('matches'))){?>
+                <?php foreach ($matches as $match) {
 
-    <?php }
-    $_SESSION['noMatches'] = null;
-    ?>
+                \Tracy\Debugger::barDump($match);
+
+                $data = $match->data->format('d-m-Y');
+
+                if ($match->idusername == Session::get('id')
+                ){
+                ?>
+                    <th><?= $i ?></th>
+                    <td><?= $match->pontuacao ?></td>
+                    <?php
+                    //Verificamos o campo vencedor de cada jogo e devolvemos o resultado do mesmo
+                    switch ($match->vencedor) {
+                        case 'G':
+                            echo '<td>Ganhou</td>';
+                            break;
+                        case 'P':
+                            echo '<td>Perdeu</td>';
+                            break;
+                        case 'E':
+                            echo '<td>Empatou</td>';
+                            break;
+                    } ?>
+                    <td><?= $data ?></td>
+        </tr>
+        <?php
+            $i++;
+                    }
+                }
+            }?>
         </tbody>
     </table>
 </div>

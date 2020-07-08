@@ -32,52 +32,25 @@ class UserController extends BaseController implements ResourceControllerInterfa
      * @inheritDoc
      */
 
-    //Cria um novo utilizador e insere-o na base de dados
+    //Valida se os dados são válidos, cria um novo utilizador e insere-o na base de dados
     public function store()
     {
-        $users = User::all();
         $user = new User();
-        $flag = 0;
 
-        //Verifica se os campos estão em branco, caso estejam, devolve uma mensagem de erro
-        if(Post::get('username') == "" || Post::get('primeiro_nome') == "" || Post::get('apelido') == "" || Post::get('dataNascimento') == "" || Post::get('email') == "" || Post::get('password') == ""){
-            Session::set('signInError', 'Impossível registar. Campos vazios');;
-            Redirect::toRoute('stbox/register');
-        }else{
-            $user->username = Post::get('username');
-            $user->primeiro_nome = Post::get('primeiro_nome');
-            $user->apelido = Post::get('apelido');
-            $user->datanascimento = Post::get('dataNascimento');
-            $user->email =  Post::get('email');
-            $password = Post::get('password');
-            //Cria uma hash a partir da password inserida
-            $user->password = hash('sha1', $password,false);
+        $user->username = Post::get('username');
+        $user->primeiro_nome = Post::get('primeiro_nome');
+        $user->apelido = Post::get('apelido');
+        $user->datanascimento = Post::get('dataNascimento');
+        $user->email =  Post::get('email');
+        $password = Post::get('password');
+        //Cria uma hash a partir da password inserida
+        $user->password = hash('sha1', $password,false);
 
-            //Verifica se o username e se o email que o utilizador escreveu já existe na base de dados, caso exista altera o valor da flag
-            foreach ($users as $registeredUser){
-                if($registeredUser->username == $user->username){
-                    $flag = 1;
-                }
-                if($registeredUser->email == $user->email){
-                    $flag = 2;
-                }
-            }
-
-            //Verifica se o valor da flag foi alterado, caso tenha sido alterado, devolve a vista com uma mensagem de erro
-            if($flag == 1){
-                Session::set('signInError', 'Impossível registar. Esse nome de utilizador já foi utilizado');
-                Redirect::toRoute('stbox/register');
-            }else if ($flag == 2){
-                Session::set('signInError', 'Impossível registar. Esse email já foi utilizado');
-                Redirect::toRoute('stbox/register');
-            }else{
-                if($user->is_valid()){
-                    $user->save();
-                    Redirect::toRoute('stbox/login');
-                }else{
-
-                }
-            }
+        if ($user->is_valid()){
+            $user->save();
+            Redirect::toRoute('stbox/login');
+        } else {
+            Redirect::flashToRoute('stbox/register', ['user' => $user]);
         }
     }
 
@@ -216,8 +189,9 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     //Função que faz logout
     public function logOut(){
-        session_destroy();
-        Redirect::toRoute('stbox/');
+        //session_destroy();
+        Session::destroy();
+        Redirect::toRoute('stbox/login');
     }
 
 }

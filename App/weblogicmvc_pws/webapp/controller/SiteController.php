@@ -45,49 +45,37 @@ class SiteController extends BaseController
             Session::set('notLoggedIn','Faça login para poder jogar');
             return View::make('stbox.login');
         }
-
     }
+
 
     //Faz uma query à BD para ir buscar os valores e devolve os dados por um array
     public function Matches(){
-
-        //Verifica se o utilizador já fez login
         if(isset($_SESSION['loggedIn'])){
-
-            $user = $_SESSION['id'];
-
-            $db = mysqli_connect('localhost', 'root', '', 'shuthebox');
-
-            $query = "SELECT * FROM matches WHERE idUsername = '$user' ORDER BY data DESC";
-
-            $queryResult = mysqli_query($db,$query);
-
-            $match = new Match();
-
-            //Enquanto a query encontrar dados, atribui os dados a um array
-            while ($match = mysqli_fetch_object($queryResult)){
-                $matches[] = $match;
-            }
-
-            //Se a query não encontrar nenhuns dados que coincidam, devolve a vista das partidas com um aviso
-            if(mysqli_num_rows($queryResult) == 0){
-                $_SESSION['noMatches'] = 'Este utilizador não tem partidas';
-                return View::make('stbox.matches');
-            }else{
-                //Senão devolve a vista das partidas com os dados encontrados na query
-                $_SESSION['numRows'] = mysqli_num_rows($queryResult);
-                return View::make('stbox.matches', ['matches' => $matches]);
-            }
+                $matches = Match::all();
+                View::make('stbox.matches', ['matches' => $matches]);
+                //\Tracy\Debugger::barDump($matches);
         }else{
-            //Se o utilizador não tiver feito login, devolve uma vista de erro, com um aviso
-            $_SESSION['notLoggedIn'] = "É necessário realizar login";
-            return View::make('stbox.errorNotLoggedIn');
+            View::make('stbox.errorNotLoggedIn');
         }
     }
 
     //Função que devolve uma vista de erro
     public function Erro(){
         return View::make('stbox.errorNotLoggedIn');
+    }
+
+
+    //Função que devolve a vista do perfil
+    public function Profile(){
+        //Verifica se o utilizador fez login, se tiver feito login devolve a vista de perfil com os dados de utilizador
+        if(isset($_SESSION['loggedIn'])){
+            $users = new User();
+            return View::make('stbox.profile', ['users'=>$users]);
+        }else{
+            //Senão a função devolve uma vista de erro com um aviso
+            $_SESSION['notLoggedIn'] = "É necessário realizar login";
+            return View::make('stbox.errorNotLoggedIn');
+        }
     }
 
     //Função que devolve a vista do perfil
@@ -102,4 +90,6 @@ class SiteController extends BaseController
             return View::make('stbox.errorNotLoggedIn');
         }
     }*/
+
+
 }
