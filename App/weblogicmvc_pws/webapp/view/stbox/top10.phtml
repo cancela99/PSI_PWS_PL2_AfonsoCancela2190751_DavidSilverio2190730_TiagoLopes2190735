@@ -3,6 +3,7 @@
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\URL;
 
 //Verifica se o utilizador tem login feito
 if(Session::has('userData')){
@@ -17,27 +18,29 @@ $top10 = Data::get('top10');
 
     <body>
     <div style="margin-top: 5%" class="container">
-        <h3>Top 10</h3>
+        <h1 class="text-center">Top 10</h1>
 
         <?php
-        if(Session::has('noTop')){
-            echo '<br><p style="color:red; text-align: center; font-size: 22px">'.Session::get('noTop').'</p>';
-            Session::remove('noTop');
-        }
-        ?>
-
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Nome de utilizador</th>
-                <th>Data</th>
-                <th>Pontos</th>
-            </tr>
-            </thead>
-            <tbody>
-
+        if(Session::has('noTop')){?>
+            <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 40%; padding: 3%;" class="container mt-5 rounded text-center">
+                <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('noTop') ?> <i class="fa fa-exclamation-circle"></i></h5>
+                <p style="font-size: 22px">Clica <a style="color: white" href="<?= URL::toRoute('game/iniciarJogo')?>">aqui</a> para jogar!</p>
+            </div>
             <?php
+        }
+        if(!Session::has('noTop')){?>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome de utilizador</th>
+                    <th>Data</th>
+                    <th>Pontos</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <?php
                 $i = 1;
                 foreach ($top10 as $top){ ?>
                     <tr>
@@ -49,9 +52,13 @@ $top10 = Data::get('top10');
                     </tr>
                     <?php
                     $i++;
-            }?>
-            </tbody>
-        </table>
+                }?>
+                </tbody>
+            </table>
+            <?php
+            Session::remove('noTop');
+        }
+        ?>
 
     </div>
 <?php Layout::includeLayout('footerproject');

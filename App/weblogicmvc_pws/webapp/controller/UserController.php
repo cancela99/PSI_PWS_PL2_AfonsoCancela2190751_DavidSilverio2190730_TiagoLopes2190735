@@ -126,7 +126,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
                 Redirect::toRoute('user/edit', $userData->id);
             }else {
                 //Senão devolve a vista do perfil
-                //Redirect::flashToRoute('user/edit', ['user' => $user], $id);
                 Redirect::FlashtoRoute('user/edit', ['userInfo' => $user], $id);
             }
         }else{

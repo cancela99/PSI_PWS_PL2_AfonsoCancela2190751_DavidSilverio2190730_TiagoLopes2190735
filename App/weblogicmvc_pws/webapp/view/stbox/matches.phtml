@@ -4,6 +4,7 @@ use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\Session;
 use ActiveRecord\DateTime;
+use ArmoredCore\WebObjects\URL;
 
 //Verifica se o utilizador tem login feito
 if(Session::has('userData')){
@@ -15,63 +16,74 @@ if(Session::has('userData')){
 
 $matches = Data::get('matches');
 $user = Session::get('userData');
+\Tracy\Debugger::barDump($_SESSION);
 
 ?>
 <h1 style="margin-top: 7%" class="text-center">Histórico de Partidas</h1>
 
 <?php
 if(Session::has('noMatches')){
-    echo '<br><p style="color:red; text-align: center; font-size: 22px">'.Session::get('noMatches').'</p>';
-    //Session::set('noMatches',null);
+    ?>
+    <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 30%; padding: 3%;" class="container mt-5 rounded text-center">
+        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('noMatches') ?> <i class="fa fa-exclamation-circle"></i></h5>
+        <p style="font-size: 22px">Clica <a style="color: white" href="<?= URL::toRoute('game/iniciarJogo')?>">aqui</a> para jogar!</p>
+    </div>
+    <?php
+}
+
+
+if(!Session::has('noMatches')){?>
+    <div class="container mt-5">
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Pontuação</th>
+                <th>Resultado</th>
+                <th>Data</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <?php
+                //Verifica se o utilizador tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
+                $i = 1;
+                if(!$matches == null){
+                foreach ($matches as $match) {
+                $data = $match->data->format('Y-m-d H:i:s'); ?>
+                <th><?= $i ?></th>
+                <td><?= $match->pontuacao ?></td>
+                <?php
+                //Verificamos o campo vencedor de cada jogo e devolvemos o resultado do mesmo
+                switch ($match->vencedor) {
+                    case 'G':
+                        echo '<td>Ganhou</td>';
+                        break;
+                    case 'P':
+                        echo '<td>Perdeu</td>';
+                        break;
+                    case 'E':
+                        echo '<td>Empatou</td>';
+                        break;
+                } ?>
+                <td><?= $data ?></td>
+            </tr>
+            <?php
+            $i++;
+            }
+            }?>
+            </tbody>
+        </table>
+
+    </div>
+    <?php
     Session::remove('noMatches');
 }
 ?>
 
-<div class="container mt-5">
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Pontuação</th>
-            <th>Resultado</th>
-            <th>Data</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        <tr>
-    <?php
-        //Verifica se o utilizador tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
-        $i = 1;
-        if(!$matches == null){
-            foreach ($matches as $match) {
-            $data = $match->data->format('Y-m-d H:i:s'); ?>
-            <th><?= $i ?></th>
-            <td><?= $match->pontuacao ?></td>
-            <?php
-            //Verificamos o campo vencedor de cada jogo e devolvemos o resultado do mesmo
-            switch ($match->vencedor) {
-                case 'G':
-                    echo '<td>Ganhou</td>';
-                    break;
-                case 'P':
-                    echo '<td>Perdeu</td>';
-                    break;
-                case 'E':
-                    echo '<td>Empatou</td>';
-                    break;
-            } ?>
-            <td><?= $data ?></td>
-        </tr>
-        <?php
-        $i++;
-        }
-            }?>
-            </tbody>
-            </table>
-
-</div>
 
 
 <?php Layout::includeLayout('footerproject'); ?>

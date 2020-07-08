@@ -55,7 +55,11 @@ ErrMgr::attach($user);
         <button class="btn btn-lg btn-primary btn-block" type="submit">Registar</button>
         <?php
         if(Session::has('signInError')){
-            echo '<br><p style="color:red; font-size: 18px">'.Session::get('signInError').'</p>';
+            //echo '<br><p style="color:red; font-size: 18px">'.Session::get('signInError').'</p>';?>
+            <div style="background-color: #e66767; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
+                <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('signInError') ?> <i class="fa fa-exclamation-circle"></i></h5>
+            </div>
+            <?php
             Session::remove('signInError');
         }
         ?>
