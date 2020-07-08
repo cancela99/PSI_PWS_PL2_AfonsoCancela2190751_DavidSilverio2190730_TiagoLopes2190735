@@ -22,7 +22,7 @@ class Tabuleiro extends NumeroBloqueado
 
        // $this->iniciar();
         $this->numBloqueadosP1 = $this->numerosBloqueados;
-        \Tracy\Debugger::barDump($this->numerosBloqueados, "numerosBloqueados");
+        \Tracy\Debugger::barDump($this->numBloqueadosP1, "numerosBloqueadosP1");
         $aux = array_diff($arrayInteiro, $_SESSION['numBloq']);
         $unblockedGates = array_values($aux);
         $_SESSION['sessionPoints'] = array_sum($unblockedGates);
@@ -35,6 +35,7 @@ class Tabuleiro extends NumeroBloqueado
 
         $this->iniciar();
         $this->numBloqueadosP2 = $this->numerosBloqueados;
+        \Tracy\Debugger::barDump($this->numerosBloqueados, "numerosBloqueados");
         $aux = array_diff($arrayInteiro, $_SESSION['numBloq']);
         $unblockedGates = array_values($aux);
         $_SESSION['sessionPoints'] = array_sum($unblockedGates);

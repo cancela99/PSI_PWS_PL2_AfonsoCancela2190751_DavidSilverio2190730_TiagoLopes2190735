@@ -88,7 +88,7 @@ class GameController extends BaseController
                 //$tabuleiro->numBloqueadosP2 = [];
                 $tabuleiro->numBloqueadosP2 = $numerosBloqueados->numerosBloqueados;
             }
-            $_SESSION['numerosBloqueados'] = $numerosBloqueados->numerosBloqueados;
+            //$_SESSION['numerosBloqueados'] = $numerosBloqueados->numerosBloqueados;
             Session::set('gameEngine', $gameEngine);
             \Tracy\Debugger::barDump($gameEngine, "Game Engine");
         }
@@ -108,8 +108,6 @@ class GameController extends BaseController
         $_SESSION['primeiraJogada'] = null;
         $_SESSION['numBloq'] = null;
         $_SESSION['FLAG'] = null;
-
-        //return View::make('stbox.gamepage', ['valorDado' => $_SESSION['valorDado'], 'status' => "enabled", 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
     }
 
     public function mostrarDado() {
@@ -127,13 +125,9 @@ class GameController extends BaseController
 
         $valorDado = array($resultado1, $resultado2);
 
-        //$_SESSION['valorDado'] = $valorDado;
         Session::set('valorDado', $valorDado);
-        //$_SESSION['somaDados'] = $resultado1 + $resultado2;
         Session::set('somaDados', $resultado1 + $resultado2);
-        //$_SESSION['controlDiceRoll'] = "Fim de turno";
         Session::set('controlDiceRoll', 'Fim de turno');
-        //$_SESSION['disableSegur'] = "enable";
         Session::set('disableSegur', 'enable');
 
         if (isset($_SESSION['primeiraJogada'])) {
@@ -142,10 +136,12 @@ class GameController extends BaseController
                 //$_SESSION['checkFinal'] = $checkFinal;
                 Session::set('checkFinal', $checkFinal);
                 if($checkFinal != true) {
+                    Session::set('gameEngine', $gameEngine);
                     $gameEngine->updateEstadoJogo();
                     $this->nextPlayerTurn();
                 }
 
+                Session::set('gameEngine', $gameEngine);
                 $_SESSION['local'] = null;
                 $_SESSION['sum'] = null;
 
@@ -154,6 +150,7 @@ class GameController extends BaseController
                 //$_SESSION['checkFinal'] = $checkFinal;
                 Session::set('checkFinal', $checkFinal);
                 if($checkFinal != true) {
+                    Session::set('gameEngine', $gameEngine);
                     $gameEngine->updateEstadoJogo();
                     $vencedor = $tabuleiro->getVencedor();
                     $points = $tabuleiro->getPointsVencedor();
@@ -171,6 +168,7 @@ class GameController extends BaseController
 
                 }
 
+                Session::set('gameEngine', $gameEngine);
                 $_SESSION['local'] = null;
                 $_SESSION['sum'] = null;
             }
