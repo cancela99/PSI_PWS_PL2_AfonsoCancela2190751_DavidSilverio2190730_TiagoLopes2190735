@@ -39,10 +39,10 @@ if(!Session::has('noMatches')){?>
     <?php
         //Verifica se o utilizador em questão tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
         $i = 1;
-            if(Session::has('userData')){ ?>
-                <?php if($matches != null){ ?>
-                   <!-- <div class="form-inline mb-3">
-                        <form action="<?=URL::toRoute('matches/listMatches')?>" method="post">
+            if(Session::has('userData')) { ?>
+                <?php if ($matches != null) { ?>
+                    <!-- <div class="form-inline mb-3">
+                        <form action="<?= URL::toRoute('matches/listMatches') ?>" method="post">
                             <select class="form-control" name="list">
                                 <option value="1" >Todos</option>
                                 <option value="2">Últimos 10 jogos</option>
@@ -65,76 +65,89 @@ if(!Session::has('noMatches')){?>
                         <tbody>
 
                         <tr>
-                            <?php foreach ($matches as $match) {
+                            <?php foreach ($matches
+
+                            as $match) {
 
                             $data = $match->data->format('d-m-Y');
 
-                            if ($match->user_id == $user->id){?>
+                            if ($match->user_id == $user->id){
+                            ?>
                             <th><?= $i ?></th>
                             <td><?= $match->pontuacao ?></td>
-                                <?php
-                                switch ($match->vencedor) {
-                                    case 'G':
-                                        echo '<td>Ganhou</td>';
-                                        break;
-                                    case 'P':
-                                        echo '<td>Perdeu</td>';
-                                        break;
-                                    case 'E':
-                                        echo '<td>Empatou</td>';
-                                        break;
-                                } ?>
+                            <?php
+                            switch ($match->vencedor) {
+                                case 'G':
+                                    echo '<td>Ganhou</td>';
+                                    break;
+                                case 'P':
+                                    echo '<td>Perdeu</td>';
+                                    break;
+                                case 'E':
+                                    echo '<td>Empatou</td>';
+                                    break;
+                            } ?>
                             <td><?= $data ?></td>
                         </tr>
-                            <?php
-                            $i++;
-                            }
+                        <?php
+                        $i++;
+                        }
                         } ?>
                         </tbody>
                     </table>
-                        <div class="mt-5">
-                             <nav aria-label="page navigation">
-                                 <ul class="pagination justify-content-center">
-                                     <?php
-                                         if($paginaAtual == 1) { ?>
-                                             <li class="page-item disabled">
-                                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
-                                             </li>
-                                         <?php } else { ?>
-                                             <li class="page-item">
-                                                 <a class="page-link" href="<?=URL::toRoute('stbox/matches', $paginaAtual - 1)?>">Anterior</a>
-                                             </li>
-                                         <?php }
-                                     ?>
-                                     <?php
-                                     //Se o nº da paginação for igual ao da página é alterada a cor deste
-                                         for($j=1; $j <= $pages; $j++){
-                                             if($j == $paginaAtual){ ?>
-                                                 <li name="paginaAtual" class="page-item active"><a class="page-link" aria-current="page" href="<?=URL::toRoute('stbox/matches', $j)?>"><?= $j ?></a></li>
-                                            <?php } else { ?>
-                                                 <li name="paginaAtual" class="page-item"><a class="page-link" href="<?=URL::toRoute('stbox/matches', $j)?>"><?= $j ?></a></li>
-                                             <?php  }
-                                         }
+                    <div class="mt-5">
+                        <nav aria-label="page navigation">
+                            <ul class="pagination justify-content-center">
+                                <?php
+                                if ($paginaAtual == 1) { ?>
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                                    </li>
+                                <?php } else { ?>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="<?= URL::toRoute('stbox/matches', $paginaAtual - 1) ?>">Anterior</a>
+                                    </li>
+                                <?php }
+                                ?>
+                                <?php
+                                //Se o nº da paginação for igual ao da página é alterada a cor deste
+                                for ($j = 1; $j <= $pages; $j++) {
+                                    if ($j == $paginaAtual) { ?>
+                                        <li name="paginaAtual" class="page-item active"><a class="page-link"
+                                                                                           aria-current="page"
+                                                                                           href="<?= URL::toRoute('stbox/matches', $j) ?>"><?= $j ?></a>
+                                        </li>
+                                    <?php } else { ?>
+                                        <li name="paginaAtual" class="page-item"><a class="page-link"
+                                                                                    href="<?= URL::toRoute('stbox/matches', $j) ?>"><?= $j ?></a>
+                                        </li>
+                                    <?php }
+                                }
 
-                                     if($paginaAtual >= $pages) { ?>
-                                         <li class="page-item disabled">
-                                             <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Próximo</a>
-                                         </li>
-                                     <?php } else { ?>
-                                         <li class="page-item">
-                                             <a class="page-link" href="<?=URL::toRoute('stbox/matches', $paginaAtual + 1)?>">Próximo</a>
-                                         </li>
-                                     <?php }
-                                     ?>
-                                 </ul>
-                             </nav>
-                        </div>
+                                if ($paginaAtual >= $pages) { ?>
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Próximo</a>
+                                    </li>
+                                <?php } else { ?>
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="<?= URL::toRoute('stbox/matches', $paginaAtual + 1) ?>">Próximo</a>
+                                    </li>
+                                <?php }
+                                ?>
+                            </ul>
+                        </nav>
+                    </div>
                 <?php } else { ?>
-                    <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 58%; padding: 3%;" class="container mt-5 rounded text-center">
-                        <h5 style="color: whitesmoke;">Sem partidas realizadas <i class="fa fa-exclamation-circle"></i></h5>
-                        <p>Clica <a href="<?= URL::toRoute('game/iniciarJogo')?>">aqui</a> para jogar!</p>
+                    <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 58%; padding: 3%;"
+                         class="container mt-5 rounded text-center">
+                        <h5 style="color: whitesmoke;">Sem partidas realizadas <i class="fa fa-exclamation-circle"></i>
+                        </h5>
+                        <p>Clica <a href="<?= URL::toRoute('game/iniciarJogo') ?>">aqui</a> para jogar!</p>
                     </div>
                 <?php }
+            }
             }?>
 </div>
 

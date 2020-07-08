@@ -26,7 +26,9 @@ $clickedGate = Data::get('clickedGate');
 <div style="background-color: #e0e0ca; border: 1px solid #8A7B52; width: 55%;" class="container mt-4 rounded">
     <div class="gameBox">
         <div class="row">
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <?=Session::get('playerColour') == "#00D3B6" ? "<label><b>Jogador 1</b></label>" : "<label><b>Jogador 2</b></label>" ?>
+            </div>
             <div class="col-md-4 text-center">
                 <form method="post" action="<?=URL::toRoute('game/iniciarJogo')?>">
                     <button type="submit" class="btn btn-success text-center" style="margin: 5px;">PLAY</button>
@@ -37,25 +39,25 @@ $clickedGate = Data::get('clickedGate');
         <div style="margin: 20px;" >
             <div class="btn-group">
                 <form method="post" action="<?=URL::toRoute('game/bloquearNumero')?>">
-                <?php for($i = 1; $i < 10; $i++){ ?>
-                    <?php if(isset($_SESSION['numBloq']) && in_array($i, $_SESSION['numBloq'])) { ?>
-                        <div class="btn-group">
-                            <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
-                        </div>
-                    <?php } else if(/*!isset($_SESSION['controlDiceRoll'])*/!Session::has('controlDiceRoll')){ ?>
-                    <div class="btn-group">
-                        <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="background-color: #00D3B6; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
-                    </div>
-                    <?php } else if(/*isset($_SESSION['controlDiceRoll'])*/Session::has('controlDiceRoll')){ ?>
-                    <div class="btn-group">
-                        <button type="submit" class="btn btn-lg btn-dark" enabled name="portoes" style="background-color: #00D3B6; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
-                    </div>
-                    <?php } else { ?>
-                        <div class="btn-group">
-                            <button type="submit" class="btn btn-lg btn-dark" <?=$statusGate?> name="portoes" style="background-color: #00D3B6; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
-                        </div>
+                    <?php for($i = 1; $i < 10; $i++){ ?>
+                        <?php if(isset($_SESSION['numBloq']) && in_array($i, $_SESSION['numBloq'])) { ?>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                            </div>
+                        <?php } else if(!isset($_SESSION['controlDiceRoll'])){ ?>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="background-color: <?=Session::get('playerColour');?>; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                            </div>
+                        <?php } else if(isset($_SESSION['controlDiceRoll'])){ ?>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-lg btn-dark" enabled name="portoes" style="background-color: <?=Session::get('playerColour');?>; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                            </div>
+                        <?php } else { ?>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-lg btn-dark" <?=$statusGate?> name="portoes" style="background-color: <?=Session::get('playerColour');?>; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                            </div>
+                        <?php } ?>
                     <?php } ?>
-                <?php } ?>
                 </form>
             </div>
         </div>

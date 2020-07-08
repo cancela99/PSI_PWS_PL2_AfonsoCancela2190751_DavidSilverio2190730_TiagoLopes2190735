@@ -14,42 +14,58 @@ class GameController extends BaseController
         if(Session::has('userData')){
             $this->clear();
 
-        $gameEngine = new GameEngine();
 
-        if($gameEngine->getEstadoJogo() == 0) {
-            $gameEngine->iniciarJogo();
+            $gameEngine = new GameEngine();
 
-            //Session::set('gameEngine', $gameEngine);
-            $_SESSION['gameEngine'] = $gameEngine;
+            if($gameEngine->getEstadoJogo() == 0) {
+                $gameEngine->iniciarJogo();
 
-            /*$_SESSION['gameEngineEstado'] = $gameEngine->getEstadoJogo();
-            $_SESSION['tabuleiro'] = $gameEngine->tabuleiro;*/
+                //Session::set('gameEngine', $gameEngine);
+                $_SESSION['gameEngine'] = $gameEngine;
 
-            //Session::set('controlDiceRoll', null);
-            $_SESSION['controlDiceRoll'] = null;
+                /*$_SESSION['gameEngineEstado'] = $gameEngine->getEstadoJogo();
+                $_SESSION['tabuleiro'] = $gameEngine->tabuleiro;*/
 
-            //Session::set('disableSegur', "disable");
-            $_SESSION['disableSegur'] = "disable";
-        }
+                //Session::set('controlDiceRoll', null);
+                $_SESSION['controlDiceRoll'] = null;
 
-            if($gameEngine->getEstadoJogo()) {
-                $status = "enabled";
-            } else {
-                $status = "disabled";
+                //Session::set('disableSegur', "disable");
+                $_SESSION['disableSegur'] = "disable";
             }
 
-            if($gameEngine->getEstadoJogo() == 1){
-                Session::set('playerColour', "#00D3B6");
-            } else if($gameEngine->getEstadoJogo() == 2) {
-                Session::set('playerColour', "#E0D600");
-            }
+                if($gameEngine->getEstadoJogo()) {
+                    $status = "enabled";
+                } else {
+                    $status = "disabled";
+                }
 
-            return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status, 'clickedGate' => $_SESSION, "statusGate" => "disabled"]);
+                if($gameEngine->getEstadoJogo() == 1){
+                    Session::set('playerColour', "#00D3B6");
+                } else if($gameEngine->getEstadoJogo() == 2) {
+                    Session::set('playerColour', "#E0D600");
+                }
+
+                return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status, 'clickedGate' => $_SESSION, "statusGate" => "disabled"]);
         }else{
             Session::set('notLoggedIn','Faça login para jogar');
             return View::make('stbox.login');
         }
 
+    }
+
+    public function nextPlayerTurn() {
+        $this->clear();
+        $gameEngine = Session::get('gameEngine');
+
+        $_SESSION['controlDiceRoll'] = null;
+        //$_SESSION['disableSegur'] = "disable";
+        Session::set('disableSegur', 'disable');
+
+        if($gameEngine->getEstadoJogo() == 1){
+            Session::set('playerColour', "#00D3B6");
+        } else if($gameEngine->getEstadoJogo() == 2) {
+            Session::set('playerColour', "#E0D600");
+        }
     }
 
     public function bloquearNumero() {
@@ -154,17 +170,11 @@ class GameController extends BaseController
                 $checkFinal = $tabuleiro->checkFinalJogadaP1($_SESSION['somaDados']);
                 $_SESSION['checkFinal'] = $checkFinal;
                 if($checkFinal != true) {
+                    Session::set('gameEngine', $gameEngine);
                     $gameEngine->updateEstadoJogo();
-
-                    $points = $tabuleiro->getPointsVencedor();
-                    $this->insertDataBD($points);
-
-                    //Session::set('finalJogo', 'Jogo terminado! Acabou com '.$points.' pontos.');
-                    $_SESSION['finalJogo'] = 'Jogo terminado! Acabou com'.$points.' pontos.';
-
-                    $this->iniciarJogo();
+                    $this->nextPlayerTurn();
                 }
-
+                Session::set('gameEngine', $gameEngine);
                 Session::set('local', null);
                 Session::set('sum', null);
                 //$_SESSION['local'] = null;
@@ -176,16 +186,24 @@ class GameController extends BaseController
                 //$_SESSION['checkFinal'] = $checkFinal;
 
                 if($checkFinal != true) {
+                    Session::set('gameEngine', $gameEngine);
                     $gameEngine->updateEstadoJogo();
+                    $vencedor = $tabuleiro->getVencedor();
                     $points = $tabuleiro->getPointsVencedor();
-                    $this->insertDataBD($points);
 
-                    Session::set('finalJogo', 'Jogo terminado! Acabou com '.$points.' pontos.');
-                    //$_SESSION['finalJogo'] = 'Jogo terminado! Acabou com'.$points.' pontos.';
+                    //$this->insertDataBD($points);
+
+                    if($vencedor == 0 && $points == 0) {
+                        //$_SESSION['finalJogo'] = 'Jogo terminado! Empate!';
+                        Session::set('finalJogo', 'Jogo terminado! Empate!');
+                    } else {
+                        //$_SESSION['finalJogo'] = 'Jogo terminado! Jogador '.$vencedor.' ganhou por '.$points.' pontos.';
+                        Session::set('finalJogo', 'Jogo terminado! Jogador '.$vencedor.' ganhou por '.$points.' pontos.');
+                    }
 
                     $this->iniciarJogo();
                 }
-
+                Session::set('gameEngine', $gameEngine);
                 Session::set('local', null);
                 Session::set('sum', null);
                 //$_SESSION['local'] = null;
