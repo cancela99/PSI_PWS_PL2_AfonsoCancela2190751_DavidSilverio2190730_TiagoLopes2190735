@@ -17,17 +17,19 @@ if(Session::has('userData')){
 
 <div style="padding-top: 56px" class="container">
 
-    <div class="row align-items-center my-5">
-        <div class="col-lg-7">
-            <img class="img-fluid rounded mb-4 mb-lg-0" src="<?=Asset::image('stbox.png')?>" alt=""-->
-        </div>
-        <div class="col-lg-5">
-            <h1 class="font-weight-light">Bem-vindo ao Shut the Box Game</h1>
-            <p>Shut The Box é um jogo de dados, fácil de jogar e de aprender</p>
-            <a href="<?=URL::toRoute('stbox/game')?>" class="btn btn-primary custum-btn" href="#">Clique para jogar</a>
-        </div>
-
+<!-- Heading Row -->
+<div class="row align-items-center my-5">
+    <div class="col-lg-7">
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="<?=Asset::image('stboxGame.png')?>" alt=""-->
     </div>
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-5">
+        <h1 class="font-weight-light">Bem-vindo ao Shut the Box Game</h1>
+        <p>Shut The Box é um jogo de dados, fácil de jogar e de aprender</p>
+        <a href="<?=URL::toRoute('game/iniciarJogo')?>" class="btn btn-primary custum-btn" href="#">Clique para jogar</a>
+    </div>
+    <!-- /.col-md-4 -->
+</div>
     <br>
 
     <div class="row">

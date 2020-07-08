@@ -15,8 +15,7 @@ if(Session::has('userData')){
 }
 
 $users = Data::get('users');
-//$usersFound = Data::get('usersFound');
-
+$usersFound = Data::get('usersFound');
 ?>
 
 
@@ -39,9 +38,12 @@ $users = Data::get('users');
     </div>
 
     <?php
-    if(Session::has('notFound')){
-        echo '<br><p style="color:red; font-size: 18px">'.Session::get('notFound').'</p>';
-        Session::set('notFound',null);
+    if(Session::has('notFound')){?>
+        <div style="background-color: #e66767; border: 1px solid #3c3836; width: 35%; padding: 1%;" class=" mt-5 rounded text-center">
+            <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('notFound') ?> <i class="fa fa-exclamation-circle"></i></h5>
+        </div>
+        <?php
+        Session::remove('notFound');
     } ?>
 
     <br>
@@ -58,8 +60,7 @@ $users = Data::get('users');
 
         <?php
         //Verifica se houve alguma pesquisa
-        //if(Session::has('userSearched')){ ?>
-
+        if(!Session::has('userSearched') || Session::get('userSearched') == null){?>
             <?php foreach ($users as $user) {
                 if($user->admin == 0){ ?>
                     <tr>
@@ -78,12 +79,30 @@ $users = Data::get('users');
                     </tr>
                 <?php }
             } ?>
-
+        <?php }else{ ?>
+                <?php if($usersFound->admin == 0){?>
+                <tr>
+                    <td><?=$usersFound->username?></td>
+                    <?php if($usersFound->bloqueado != 0){?>
+                        <td style="padding-left: 45px"><i style="color: red" class="fa fa-ban"></i></td>
+                    <?php }else{ ?>
+                        <td></td>
+                    <?php }?>
+                    <td><?=$usersFound->databloqueado?></td>
+                    <?php if($usersFound->bloqueado == 0) {
+                        echo '<form action="'. URL::toRoute('admin/blockUser', $usersFound->id) .'"><td><button class="btn btn-default"><i style="color: red" class="fa fa-times-circle"></i></button></td></form>';
+                    }else{
+                        echo '<form action="'. URL::toRoute('admin/unblockUser', $usersFound->id) .'"><td><button class="btn btn-default"><i style="color: green" class="fa fa-check-circle"></i></button></td></form>';
+                    } ?>
+                </tr>
+        <?php }
+            //Session::set('userSearched', null);
+            Session::remove('userSearched');
+                Tracy\Debugger::barDump($_SESSION,'teste');
+        } ?>
 
         </tbody>
     </table>
 </div>
-
-</body>
 
 <?php Layout::includeLayout('footerproject'); ?>

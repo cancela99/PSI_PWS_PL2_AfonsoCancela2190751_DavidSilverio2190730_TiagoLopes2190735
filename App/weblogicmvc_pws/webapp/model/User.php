@@ -12,14 +12,9 @@ class User extends \ActiveRecord\Model
     );
 
     /*static $validates_uniqueness_of = array(
-        array(
-            array('username', 'email'), 'message' => 'O username e/ou e-mail já pertence a um utilizador'
-        )
-    );*/
-
-    /*static $validates_uniqueness_of = array(
         array('username', 'message' => 'O nome de utilizador em questão já se encontra em uso.'),
         array('email', 'message' => 'O e-mail em questão já se encontra em uso')
+        array(array())
     );*/
 
     static $validates_format_of = array(

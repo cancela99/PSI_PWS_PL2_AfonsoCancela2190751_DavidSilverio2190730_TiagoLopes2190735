@@ -22,7 +22,13 @@ class SiteController extends BaseController
     //Faz uma query à base de dados para ir buscar o Top 10 e devolve um array com o Top 10
     public function Top10() {
         $top10 = Match::find('all',array('order' => 'pontuacao asc', 'limit' => 10));
-        return View::make('stbox.top10', ['top10'=>$top10]);
+
+        if($top10 == null){
+            Session::set('noTop', 'O site não tem partidas concluídas');
+            return View::make('stbox.top10' , ['top10'=>$top10]);
+        }else{
+            return View::make('stbox.top10', ['top10'=>$top10]);
+        }
     }
 
     //Função que mostra a vista para fazer o registo
@@ -42,7 +48,7 @@ class SiteController extends BaseController
             return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "numArray" => array()]);
         }else{
             //Senão a função devolve a vista de login com um aviso
-            Session::set('notLoggedIn','Faça login para poder jogar');
+            Session::set('notLoggedIn','Faça login para jogar');
             return View::make('stbox.login');
         }
     }
@@ -78,10 +84,10 @@ class SiteController extends BaseController
                 View::make('stbox.matches', ['matches' => null]);
             }
         }else{
-            View::make('stbox.errorNotLoggedIn');
+            Session::set('notLoggedIn','É necessário realizar login');
+            return View::make('stbox.errorNotLoggedIn');
         }
     }
-
 
     //Função que devolve uma vista de erro
     public function Erro(){
@@ -92,19 +98,6 @@ class SiteController extends BaseController
     //Função que devolve a vista do perfil
     public function Profile(){
         //Verifica se o utilizador fez login, se tiver feito login devolve a vista de perfil com os dados de utilizador
-        if(isset($_SESSION['loggedIn'])){
-            $users = new User();
-            return View::make('stbox.profile', ['users'=>$users]);
-        }else{
-            //Senão a função devolve uma vista de erro com um aviso
-            $_SESSION['notLoggedIn'] = "É necessário realizar login";
-            return View::make('stbox.errorNotLoggedIn');
-        }
-    }
-
-    //Função que devolve a vista do perfil
-    /*public function Profile(){
-        //Verifica se o utilizador fez login, se tiver feito login devolve a vista de perfil com os dados de utilizador
         if(Session::has('userData')){
             $users = new User();
             return View::make('stbox.profile', ['users'=>$users]);
@@ -113,7 +106,5 @@ class SiteController extends BaseController
             Session::set('notLoggedIn','É necessário realizar login');
             return View::make('stbox.errorNotLoggedIn');
         }
-    }*/
-
-
+    }
 }

@@ -1,6 +1,8 @@
 <?php
 
+use ArmoredCore\MagicBlankModel;
 use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Layout;
@@ -12,6 +14,8 @@ if(Session::has('userData')){
 }else{
     Layout::includeLayout('headerNotLoggedIn');
 }
+
+$user = Data::get('userError');
 ?>
 
 
@@ -22,30 +26,50 @@ if(Session::has('userData')){
         <h1 class="h3 mb-4 font-weight-normal">Shut the Box Game</h1>
 
             <label for="inputUsername" class=""</label>
-            <input type="text" id="inputUsername"  class="form-control" placeholder="Nome de utilizador" required autofocus name="username">
+            <input type="text" id="inputUsername"  class="form-control" placeholder="Nome de utilizador" required autofocus name="username" value="<?php if(!$user instanceof MagicBlankModel)echo $user?>">
 
             <label for="inputPassword" class=""></label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" required name="password">
 
 <?php
 
-if(Session::has('loginErrors')){
-    echo '<br><p style="color:red; font-size: 18px">'.Session::get('loginErrors').'</p>';
+if(Session::has('loginErrors')){?>
+    <div style="background-color: #e66767; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
+        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('loginErrors') ?> <i class="fa fa-exclamation-circle"></i></h5>
+    </div>
+    <?php
     Session::destroy();
 }
 
-if(Session::has('bloqueado')){
-    echo '<br><p style="color:red; font-size: 18px">'.Session::get('bloqueado').'</p>';
+if(Session::has('bloqueado')){?>
+    <div style="background-color: #e66767; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
+        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('bloqueado') ?> <i class="fa fa-exclamation-circle"></i></h5>
+    </div>
+    <?php
     Session::destroy();
 }
 
-if(Session::has('notLoggedIn')){
-    echo '<br><p style="color:red; font-size: 18px">'.Session::get('notLoggedIn').'</p>';
+if(Session::has('notLoggedIn')){?>
+    <div style="background-color: #e66767; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
+        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('notLoggedIn') ?> <i class="fa fa-exclamation-circle"></i></h5>
+    </div>
+    <?php
     Session::destroy();
 }
 
-if(Session::has('blankField')){
-    echo '<br><p style="color:red; font-size: 18px">'.Session::get('blankField').'</p>';
+if(Session::has('blankField')){?>
+    <div style="background-color: #e66767; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
+        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('blankField') ?> <i class="fa fa-exclamation-circle"></i></h5>
+    </div>
+    <?php
+    Session::destroy();
+}
+
+if(Session::has('signInComplete')){?>
+    <div style="background-color: #7ce075; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
+        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('signInComplete') ?></h5>
+    </div>
+    <?php
     Session::destroy();
 }
 ?>
