@@ -66,8 +66,8 @@ if(Session::has('blankField')){?>
 }
 
 if(Session::has('signInComplete')){?>
-    <div style="background-color: #7ce075; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
-        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('signInComplete') ?></h5>
+    <div style="background-color: #7ce075; border: 1px solid #3c3836; width: 90%; padding: 3%;" class="container mt-5 rounded text-center">
+        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('signInComplete') ?> <i class="fa fa-check"></i></h5>
     </div>
     <?php
     Session::destroy();

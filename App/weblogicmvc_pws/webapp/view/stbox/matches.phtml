@@ -87,12 +87,12 @@ if(!Session::has('noMatches')){?>
                                 <?php
                                 if ($paginaAtual == 1) { ?>
                                     <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><</a>
                                     </li>
                                 <?php } else { ?>
                                     <li class="page-item">
                                         <a class="page-link"
-                                           href="<?= URL::toRoute('stbox/matches', $paginaAtual - 1) ?>">Anterior</a>
+                                           href="<?= URL::toRoute('stbox/matches', $paginaAtual - 1) ?>"><</a>
                                     </li>
                                 <?php }
                                 ?>
@@ -100,25 +100,22 @@ if(!Session::has('noMatches')){?>
                                 //Se o nº da paginação for igual ao da página é alterada a cor deste
                                 for ($j = 1; $j <= $pages; $j++) {
                                     if ($j == $paginaAtual) { ?>
-                                        <li name="paginaAtual" class="page-item active"><a class="page-link"
-                                                                                           aria-current="page"
-                                                                                           href="<?= URL::toRoute('stbox/matches', $j) ?>"><?= $j ?></a>
+                                        <li name="paginaAtual" class="page-item active"><a class="page-link" aria-current="page" href="<?= URL::toRoute('stbox/matches', $j) ?>"><?= $j ?></a>
                                         </li>
                                     <?php } else { ?>
-                                        <li name="paginaAtual" class="page-item"><a class="page-link"
-                                                                                    href="<?= URL::toRoute('stbox/matches', $j) ?>"><?= $j ?></a>
+                                        <li name="paginaAtual" class="page-item"><a class="page-link" href="<?= URL::toRoute('stbox/matches', $j) ?>"><?= $j ?></a>
                                         </li>
                                     <?php }
                                 }
 
                                 if ($paginaAtual >= $pages) { ?>
                                     <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Próximo</a>
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">></a>
                                     </li>
                                 <?php } else { ?>
                                     <li class="page-item">
                                         <a class="page-link"
-                                           href="<?= URL::toRoute('stbox/matches', $paginaAtual + 1) ?>">Próximo</a>
+                                           href="<?= URL::toRoute('stbox/matches', $paginaAtual + 1) ?>">></a>
                                     </li>
                                 <?php }
                                 ?>

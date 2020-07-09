@@ -61,8 +61,9 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
         //Verifica se o valor da flag foi alterado, caso tenha sido alterado, devolve a vista com uma mensagem de erro
         if($flag == 1){
-            Session::set('signInError', 'Impossível registar. Esse nome de utilizador já foi utilizado');
-            Redirect::FlashtoRoute('stbox/register', ['user' => $user]);
+            //Session::set('signInError', 'Impossível registar. Esse nome de utilizador já foi utilizado');
+            $erro = 'Impossível registar. Esse nome de utilizador já foi utilizado';
+            View::make('stbox/register', ['user' => $user, 'registerError' => $erro]);
         }else if ($flag == 2){
             Session::set('signInError', 'Impossível registar. Esse email já foi utilizado');
             Redirect::FlashtoRoute('stbox/register', ['user' => $user]);

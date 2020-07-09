@@ -24,8 +24,8 @@ class SiteController extends BaseController
         $top10 = Match::find('all',array('conditions'=> array('vencedor = ?','G'), 'order' => 'pontuacao desc', 'limit' => 10));
 
         if($top10 == null){
-            Session::set('noTop', 'O site não tem partidas concluídas');
-            return View::make('stbox.top10' , ['top10'=>$top10]);
+            $erro = 'O site não tem partidas concluídas';
+            return View::make('stbox.top10' , ['top10'=>$top10, 'top10erro'=>$erro]);
         }else{
             return View::make('stbox.top10', ['top10'=>$top10]);
         }

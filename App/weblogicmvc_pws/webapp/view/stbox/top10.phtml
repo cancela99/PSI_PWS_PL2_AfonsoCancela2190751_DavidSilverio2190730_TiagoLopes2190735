@@ -13,11 +13,7 @@ if(Session::has('userData')){
 }
 
 $top10 = Data::get('top10');
-
-
-//$user = Session::get('userData');
-\Tracy\Debugger::barDump($top10);
-
+$erro = Data::get('top10erro');
 ?>
 
     <body>
@@ -25,13 +21,6 @@ $top10 = Data::get('top10');
         <h1 class="text-center mb-5">Top 10</h1>
 
         <?php
-        if(Session::has('noTop')){?>
-            <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 40%; padding: 3%;" class="container mt-5 rounded text-center">
-                <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('noTop') ?> <i class="fa fa-exclamation-circle"></i></h5>
-                <p style="font-size: 22px">Clica <a style="color: white" href="<?= URL::toRoute('game/iniciarJogo')?>">aqui</a> para jogar!</p>
-            </div>
-            <?php
-        }
         if($top10 != null){?>
             <table class="table table-hover">
                 <thead>
@@ -60,9 +49,12 @@ $top10 = Data::get('top10');
                 }?>
                 </tbody>
             </table>
+            <?php }else{ ?>
+            <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 40%; padding: 3%;" class="container mt-5 rounded text-center">
+                <h5 style="color: whitesmoke; font-size: 22px"><?php echo $erro ?> <i class="fa fa-exclamation-circle"></i></h5>
+                <p style="font-size: 22px">Clica <a style="color: white" href="<?= URL::toRoute('game/iniciarJogo')?>">aqui</a> para jogar!</p>
+            </div>
             <?php
-        }
-        Session::remove('noTop');
-        ?>
+        } ?>
     </div>
 <?php Layout::includeLayout('footerproject');
