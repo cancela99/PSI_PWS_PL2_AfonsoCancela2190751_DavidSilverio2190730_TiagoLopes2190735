@@ -20,17 +20,17 @@ class GameController extends BaseController
             if($gameEngine->getEstadoJogo() == 0) {
                 $gameEngine->iniciarJogo();
 
-                //Session::set('gameEngine', $gameEngine);
-                $_SESSION['gameEngine'] = $gameEngine;
+                Session::set('gameEngine', $gameEngine);
+                //$_SESSION['gameEngine'] = $gameEngine;
 
                 /*$_SESSION['gameEngineEstado'] = $gameEngine->getEstadoJogo();
                 $_SESSION['tabuleiro'] = $gameEngine->tabuleiro;*/
 
-                //Session::set('controlDiceRoll', null);
-                $_SESSION['controlDiceRoll'] = null;
+                Session::set('controlDiceRoll', null);
+                //$_SESSION['controlDiceRoll'] = null;
 
-                //Session::set('disableSegur', "disable");
-                $_SESSION['disableSegur'] = "disable";
+                Session::set('disableSegur', "disable");
+                //$_SESSION['disableSegur'] = "disable";
             }
 
                 if($gameEngine->getEstadoJogo()) {
@@ -58,6 +58,7 @@ class GameController extends BaseController
         $gameEngine = Session::get('gameEngine');
 
         $_SESSION['controlDiceRoll'] = null;
+        //Session::set('controlDiceRoll',null);
         //$_SESSION['disableSegur'] = "disable";
         Session::set('disableSegur', 'disable');
 
@@ -160,15 +161,21 @@ class GameController extends BaseController
 
         $valorDado = array($resultado1, $resultado2);
 
-        $_SESSION['valorDado'] = $valorDado;
-        $_SESSION['somaDados'] = $resultado1 + $resultado2;
-        $_SESSION['controlDiceRoll'] = "Fim de turno";
-        $_SESSION['disableSegur'] = "enable";
+        //$_SESSION['valorDado'] = $valorDado;
+        //$_SESSION['somaDados'] = $resultado1 + $resultado2;
+        //$_SESSION['controlDiceRoll'] = "Fim de turno";
+        //$_SESSION['disableSegur'] = "enable";
+
+        Session::set('valorDado', $valorDado);
+        Session::set('somaDados', $resultado1 + $resultado2);
+        Session::set('controlDiceRoll', 'Fim de turno');
+        Session::set('disableSegur', 'enable');
 
         if (isset($_SESSION['primeiraJogada'])) {
             if ($estadoAtual == 1) {
                 $checkFinal = $tabuleiro->checkFinalJogadaP1($_SESSION['somaDados']);
-                $_SESSION['checkFinal'] = $checkFinal;
+                //$_SESSION['checkFinal'] = $checkFinal;
+                Session::set('checkFinal', $checkFinal);
                 if($checkFinal != true) {
                     Session::set('gameEngine', $gameEngine);
                     $gameEngine->updateEstadoJogo();
@@ -191,7 +198,7 @@ class GameController extends BaseController
                     $vencedor = $tabuleiro->getVencedor();
                     $points = $tabuleiro->getPointsVencedor();
 
-                    //$this->insertDataBD($points);
+                    $this->insertDataBD($points, $vencedor);
 
                     if($vencedor == 0 && $points == 0) {
                         //$_SESSION['finalJogo'] = 'Jogo terminado! Empate!';
@@ -214,17 +221,28 @@ class GameController extends BaseController
         return View::make('stbox.gamepage', ['valorDado' => $valorDado, 'status' => "enabled", 'clickedGate' => $_SESSION, "statusGate" => "enabled"]);
     }
 
-    public function insertDataBD($points) {
+    public function insertDataBD($points, $vencedor) {
         $partida = new Match();
         $partida->pontuacao = $points;
-        if($points == 0) {
+
+        if($vencedor == 1){
+            $partida->vencedor = 'G';
+        }else if($vencedor == 0){
+            $partida->vencedor = 'E';
+        }else{
+            $partida->vencedor = 'P';
+        }
+
+        /*if($points == 0) {
             $partida->vencedor = 'G';
         } else {
             $partida->vencedor = 'P';
-        }
-        $userData = Session::get('userData');
-        $partida->idusername = $userData->id;
+        }*/
 
-        $partida->save();
+        $userData = Session::get('userData');
+        $partida->user_id = $userData->id;
+        if($partida->is_valid()){
+            $partida->save();
+        }
     }
 }

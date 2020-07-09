@@ -16,15 +16,15 @@ class NumeroBloqueado
         $flag = true;
 
         $somaLocal = array_sum($numArray);
-        $_SESSION['sum'] = $somaLocal;
-        //Session::set(['sum'], $somaLocal);
+        //$_SESSION['sum'] = $somaLocal;
+        Session::set('sum', $somaLocal);
 
         if($somaLocal != $somaDados) {
             if($somaLocal > $somaDados) {
                 //$_SESSION['sum'] = 0;
                // $_SESSION['local'] = null;
-                Session::set(['sum'], 0);
-                Session::set(['local'], null);
+                Session::set('sum', 0);
+                Session::set('local', null);
 
             }
             $flag = false;
@@ -42,8 +42,8 @@ class NumeroBloqueado
 
             }
 
-            //Session::set('controlDiceRoll', null);
-            $_SESSION['controlDiceRoll'] = null;
+            Session::set('controlDiceRoll', null);
+            //$_SESSION['controlDiceRoll'] = null;
 
             $this->numerosBloqueados = $_SESSION['numBloq']; /*Session::get('numBloq');*/
             $flag = true;
@@ -55,7 +55,7 @@ class NumeroBloqueado
 
     public function checkFinalJogada($numArray, $diceSum) {
 
-        $local = array();
+        /*$local = array();
 
         // Substituir por iteração. 2 For loops, a percorrer o array e a somar.
         function extractList($numArray, &$local, $temp = array()) {
@@ -84,10 +84,10 @@ class NumeroBloqueado
             return(array_sum($v) == $diceSum);
         });
 
-        return $local;
+        return $local;*/
 
 
-/*
+
 
 
         //For loop a percorrer o array dos numeros livres e a somar, de forma a retornar o resultado de todas as possíveis somas
@@ -159,10 +159,10 @@ class NumeroBloqueado
             $flag = true;
         } else {
             $flag = false;
-        }
+        }*/
 
         \Tracy\Debugger::barDump($sumResults);
-        return $flag;*/
+        return $flag;
     }
 
 

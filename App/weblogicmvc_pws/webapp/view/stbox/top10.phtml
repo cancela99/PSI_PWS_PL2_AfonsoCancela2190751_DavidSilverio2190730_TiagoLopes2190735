@@ -22,7 +22,7 @@ $top10 = Data::get('top10');
 
     <body>
     <div style="margin-top: 5%" class="container">
-        <h1 class="text-center">Top 10</h1>
+        <h1 class="text-center mb-5">Top 10</h1>
 
         <?php
         if(Session::has('noTop')){?>
@@ -32,7 +32,7 @@ $top10 = Data::get('top10');
             </div>
             <?php
         }
-        if(!Session::has('noTop')){?>
+        if($top10 != null){?>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -61,9 +61,8 @@ $top10 = Data::get('top10');
                 </tbody>
             </table>
             <?php
-            Session::remove('noTop');
         }
+        Session::remove('noTop');
         ?>
-
     </div>
 <?php Layout::includeLayout('footerproject');

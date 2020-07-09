@@ -38,21 +38,9 @@ if(!Session::has('noMatches')){?>
 
     <?php
         //Verifica se o utilizador em questão tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
-        $i = 1;
             if(Session::has('userData')) { ?>
-                <?php if ($matches != null) { ?>
-                    <!-- <div class="form-inline mb-3">
-                        <form action="<?= URL::toRoute('matches/listMatches') ?>" method="post">
-                            <select class="form-control" name="list">
-                                <option value="1" >Todos</option>
-                                <option value="2">Últimos 10 jogos</option>
-                                <option value="3">Pontuação ascendente</option>
-                                <option value="4">Pontuação descendente</option>
-                            </select>
-                            <button type="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div> -->
-
+                <?php if ($matches != null) {
+                    $i = $paginaAtual * 5 - 4;?>
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -65,11 +53,9 @@ if(!Session::has('noMatches')){?>
                         <tbody>
 
                         <tr>
-                            <?php foreach ($matches
+                            <?php foreach ($matches as $match) {
 
-                            as $match) {
-
-                            $data = $match->data->format('d-m-Y');
+                            $data = $match->data->format('d-m-Y H:i:s');
 
                             if ($match->user_id == $user->id){
                             ?>
@@ -139,7 +125,8 @@ if(!Session::has('noMatches')){?>
                             </ul>
                         </nav>
                     </div>
-                <?php } else { ?>
+                <?php } else {
+                    $i = 1;?>
                     <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 58%; padding: 3%;"
                          class="container mt-5 rounded text-center">
                         <h5 style="color: whitesmoke;">Sem partidas realizadas <i class="fa fa-exclamation-circle"></i>
