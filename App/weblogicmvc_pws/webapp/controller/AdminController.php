@@ -78,8 +78,8 @@ class AdminController extends BaseController{
             return View::make('stbox.backoffice', ['users' => $userFinder]);
             Session::set('userSearched', 'Utilizadores encontrados');
         } else {
-            Session::set('notFound','Utilizador não encontrado');
-            return View::make('stbox.backoffice',['users' => $users]);
+            $erro = 'Utilizador não encontrado';
+            return View::make('stbox.backoffice',['users' => $users, 'backofficeError' => $erro]);
         }
     }
 

@@ -61,17 +61,16 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
         //Verifica se o valor da flag foi alterado, caso tenha sido alterado, devolve a vista com uma mensagem de erro
         if($flag == 1){
-            //Session::set('signInError', 'Impossível registar. Esse nome de utilizador já foi utilizado');
             $erro = 'Impossível registar. Esse nome de utilizador já foi utilizado';
             View::make('stbox/register', ['user' => $user, 'registerError' => $erro]);
         }else if ($flag == 2){
-            Session::set('signInError', 'Impossível registar. Esse email já foi utilizado');
-            Redirect::FlashtoRoute('stbox/register', ['user' => $user]);
+            $erro = 'Impossível registar. Esse email já foi utilizado';
+            View::make('stbox/register', ['user' => $user, 'registerError' => $erro]);
         }else{
             if ($user->is_valid()){
                 $user->save();
-                Session::set('signInComplete', 'Registo feito com sucesso');
-                Redirect::toRoute('stbox/login');
+                $aviso = 'Registo feito com sucesso';
+                View::make('stbox/login', ['loginWarning' => $aviso]);
             } else {
                 Redirect::flashToRoute('stbox/register', ['user' => $user]);
             }
@@ -110,7 +109,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $user = User::find($id);
 
         //Verifica se o campo da password e da nova password estão em branco, caso estejam, altera os dados e avisa o utilizador
-        /*if(Post::get('password') != "" && Post::get('newPassword') != ""){
+        if(Post::get('password') == "" && Post::get('newPassword') == ""){
 
             $post = Post::getAll();
             //Remove o campo newPassword do array
@@ -129,19 +128,17 @@ class UserController extends BaseController implements ResourceControllerInterfa
                 //Senão devolve a vista do perfil
                 Redirect::FlashtoRoute('user/edit', ['userInfo' => $user], $id);
             }
-        }else{*/
+        }else{
             //Verifica se o campo da password ou se o da nova password estão em branco, se estiverem devolve a vista do perfil com uma aviso
-        if(isset($_POST['changePassword'])){
             if(Post::get('password') == "" || Post::get('newPassword') == ""){
-                Session::set('clearCamp','Impossível alterar palavra-passe. Campo vazio');
+                Session::set('error','Impossível alterar palavra-passe. Campo vazio');
                 Redirect::flashToRoute('user/edit', ['userInfo' => $user], $id);
             }else{
                 //Senão faz a alteração da password
                 $post = Post::getAll();
 
                 //Verifica se a password atual é a mesma que o utilizador escreveu
-                //$user->password == hash('sha1',Post::get('password'),false)
-                if(sha1(Post::get('password')) == $userData->password){
+                if($user->password == hash('sha1',Post::get('password'),false)){
                     \array_splice($post,5);
                     $user->update_attributes($post);
                     $user->password = hash('sha1', Post::get('newPassword'), false);
@@ -157,23 +154,9 @@ class UserController extends BaseController implements ResourceControllerInterfa
                     }
                 }else{
                     //Senão, devolve a vista com mensagem de erro
-                    Session::set('wrongActualPass','Impossível alterar palavra-passe. Palavra-passe atual incorreta');
+                    Session::set('error','Impossível alterar palavra-passe. Palavra-passe atual incorreta');
                     Redirect::flashToRoute('user/edit', ['userInfo' => $user], $id);
                 }
-            }
-        } else {
-            $post = Post::getAll();
-            \array_splice($post,5);
-            \array_splice($post,4);
-            $user->update_attributes($post);
-
-            if($user->is_valid()){
-                $user->save();
-                Session::set('updated','Informações alteradas com sucesso');
-                Redirect::toRoute('user/edit', $userData->id);
-            } else {
-                //Senão volta para a vista de perfil
-                Redirect::flashToRoute('user/edit', ['user' => $user], $id);
             }
         }
     }
@@ -191,17 +174,17 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $passwordHashed = hash('sha1', $password,false);
 
         if($username == "" || $password == ""){
-            Session::set('blankField', 'Campo em branco');
-            Redirect::toRoute('stbox/login');
+            $erro = 'Campo em branco';
+            View::make('stbox/login', ['userError' => $username, 'loginError' => $erro]);
         }else{
             $user = User::find_by_username_and_password($username, $passwordHashed);
             if($user == null){
-                Session::set('loginErrors', 'Credenciais Incorretas');
-                Redirect::FlashtoRoute('stbox/login', ['userError' => $username]);
+                $erro = 'Credenciais Incorretas';
+                View::make('stbox/login', ['userError' => $username, 'loginError' => $erro]);
             }else{
                 if($user->bloqueado == 1){
-                    Session::set('bloqueado', 'Esta conta encontra-se bloqueada');
-                    Redirect::FlashtoRoute('stbox/login', ['userError' => $username]);
+                    $erro = 'Esta conta encontra-se bloqueada';
+                    View::make('stbox/login', ['userError' => $username, 'loginError' => $erro]);
                 }else{
                     Session::set('userData', $user);
                     Redirect::toRoute('stbox/');

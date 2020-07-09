@@ -78,10 +78,10 @@ class SiteController extends BaseController
 
             if($matches != null){
                 $partidas = array_slice($matches, $offset, $partidas_por_pagina, true);
-                \Tracy\Debugger::barDump($partidas, "Partidas enviadas para a vista");
                 View::make('stbox.matches', ['matches' => $partidas] + ['pages' => $totalPaginas] + ['paginaAtual' => $paginaAtual]);
             } else {
-                View::make('stbox.matches', ['matches' => null]);
+                $aviso = 'Sem partidas realizadas';
+                View::make('stbox.matches', ['matches' => null, 'matchesWarning' => $aviso]);
             }
         }else{
             Session::set('notLoggedIn','É necessário realizar login');
