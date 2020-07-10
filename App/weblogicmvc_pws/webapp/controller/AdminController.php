@@ -68,12 +68,15 @@ class AdminController extends BaseController{
 
         $users = User::all();
         $searchedUser = Post::get('username');
+        //Faz-se um finder para ir buscar os users que tenham um username parecido com o o escrito
         $userFinder = User::find('all', array('conditions' => "username LIKE '". $searchedUser ."%'"));
 
+        //Se não for escrito nada, devovle todos os users
         if(Post::get('username') == ''){
             return View::make('stbox.backoffice', ['users' => $users]);
         }
 
+        //Verifica se o finder encontrou algum resultado
         if($userFinder != null){
             return View::make('stbox.backoffice', ['users' => $userFinder]);
             Session::set('userSearched', 'Utilizadores encontrados');

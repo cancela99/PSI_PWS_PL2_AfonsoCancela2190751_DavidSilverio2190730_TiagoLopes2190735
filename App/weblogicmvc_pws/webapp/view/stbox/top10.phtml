@@ -21,6 +21,7 @@ $erro = Data::get('top10erro');
         <h1 class="text-center mb-5">Top 10</h1>
 
         <?php
+        //Verifica se existe alguma partida no site
         if($top10 != null){?>
             <table class="table table-hover">
                 <thead>
@@ -38,6 +39,7 @@ $erro = Data::get('top10erro');
                 foreach ($top10 as $top){?>
                     <tr>
                         <th><?=$i?></th>
+                        //Faz-se um find para ir buscar o username através do id do user
                         <?php $username = (User::find($top->user_id)->username)?>
                         <td><?= $username?></td>
                         <?php $data = $top->data->format('d-m-Y H:i:s');?>
@@ -50,6 +52,7 @@ $erro = Data::get('top10erro');
                 </tbody>
             </table>
             <?php }else{ ?>
+            //Senão devolve uma mensagem de aviso
             <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 40%; padding: 3%;" class="container mt-5 rounded text-center">
                 <h5 style="color: whitesmoke; font-size: 22px"><?php echo $erro ?> <i class="fa fa-exclamation-circle"></i></h5>
                 <p style="font-size: 22px">Clica <a style="color: white" href="<?= URL::toRoute('game/iniciarJogo')?>">aqui</a> para jogar!</p>

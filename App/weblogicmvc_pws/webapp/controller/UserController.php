@@ -67,11 +67,13 @@ class UserController extends BaseController implements ResourceControllerInterfa
             $erro = 'Impossível registar. Esse email já foi utilizado';
             View::make('stbox/register', ['user' => $user, 'registerError' => $erro]);
         }else{
+            //Verifica se o user é valido, consoante as validações do modelo
             if ($user->is_valid()){
                 $user->save();
                 $aviso = 'Registo feito com sucesso';
                 View::make('stbox/login', ['loginWarning' => $aviso]);
             } else {
+                //Senão devolve a vista com os dados
                 Redirect::flashToRoute('stbox/register', ['user' => $user]);
             }
         }
@@ -85,18 +87,20 @@ class UserController extends BaseController implements ResourceControllerInterfa
     //Função que devolve os dados do user para a vista de editar o perfil
     public function edit($id)
     {
+        //Verifica se o utilizador tem login feito
         if(Session::has('userData')){
             $userData = Session::get('userData');
+
             //Verifica se o id do utilizador é o correto
             if($userData->id == $id){
                 $user = User::find($id);
-                //Senão a variável $user não estiver a null, a função devolve a vista de perfil a informação do utilizador
                 return View::make('stbox.profile', ['userInfo' => $user]);
             }else{
                 //Senão for o id correto, devolve a vista com o id correto
                 Redirect::toRoute('user/edit', $userData->id);
             }
         }else{
+            //Senão devolve uma vista com uma mensagem de aviso
             Session::set('notLoggedIn','É necessário realizar login');
             View::make('stbox.errorNotLoggedIn');
         }
@@ -120,6 +124,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
             $user->update_attributes($post);
 
+            //Verifica se o user é válido, consoante as validações do modelo
             if($user->is_valid()) {
                 $user->save();
                 Session::set('updated','Informações alteradas com sucesso');
@@ -173,19 +178,24 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $password = Post::get('password');
         $passwordHashed = hash('sha1', $password,false);
 
+        //Verifica se algum dos campos estão em branco, se estiverem devolve a vista com uma mensagem de erro
         if($username == "" || $password == ""){
             $erro = 'Campo em branco';
             View::make('stbox/login', ['userError' => $username, 'loginError' => $erro]);
         }else{
+            //Senão faz um finder para procurar um utilizador com o respetivo username e password
             $user = User::find_by_username_and_password($username, $passwordHashed);
+            //Verifica se o finder encontrou algum resultado, se não encontrar devolve a vista com uma mensagem de erro
             if($user == null){
                 $erro = 'Credenciais Incorretas';
                 View::make('stbox/login', ['userError' => $username, 'loginError' => $erro]);
             }else{
+                //Senão verifica se o utilizador tem a conta bloqueado, se a conta encontrar-se bloqueado devolve a vista com uma mensagem de erro
                 if($user->bloqueado == 1){
                     $erro = 'Esta conta encontra-se bloqueada';
                     View::make('stbox/login', ['userError' => $username, 'loginError' => $erro]);
                 }else{
+                    //Senão devolve a página inicial com o login feito
                     Session::set('userData', $user);
                     Redirect::toRoute('stbox/');
                 }

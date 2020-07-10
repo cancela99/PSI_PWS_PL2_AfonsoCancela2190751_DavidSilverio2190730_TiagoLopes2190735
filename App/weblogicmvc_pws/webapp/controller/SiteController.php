@@ -21,12 +21,15 @@ class SiteController extends BaseController
 
     //Faz uma query à base de dados para ir buscar o Top 10 e devolve um array com o Top 10
     public function Top10() {
+        //Finder dinâmico para filtrar os dados que queremos da BD
         $top10 = Match::find('all',array('conditions'=> array('vencedor = ?','G'), 'order' => 'pontuacao desc', 'limit' => 10));
 
+        //Verifica se o finder encontrou alguma partida
         if($top10 == null){
             $erro = 'O site não tem partidas concluídas';
             return View::make('stbox.top10' , ['top10'=>$top10, 'top10erro'=>$erro]);
         }else{
+            //Senão devolve a vista com aviso
             return View::make('stbox.top10', ['top10'=>$top10]);
         }
     }
@@ -70,20 +73,25 @@ class SiteController extends BaseController
         $paginaAnterior = $paginaAtual - 1;
         $proximaPagina = $paginaAtual + 1;
 
+        //Verifica se o utilizador tem login feito
         if(Session::has('userData')){
+            //Finder dinâmico para filtrar os dados da BD
             $matches = Match::find('all', array('conditions' => array('user_id = ?', $user->id)));
 
             $totalPartidas = count($matches);
             $totalPaginas = ceil($totalPartidas / $partidas_por_pagina);
 
+            //Verifica se o finder encontrou alguma partida
             if($matches != null){
                 $partidas = array_slice($matches, $offset, $partidas_por_pagina, true);
                 View::make('stbox.matches', ['matches' => $partidas] + ['pages' => $totalPaginas] + ['paginaAtual' => $paginaAtual]);
             } else {
+                //Senão devolve a vista com um aviso
                 $aviso = 'Sem partidas realizadas';
                 View::make('stbox.matches', ['matches' => null, 'matchesWarning' => $aviso]);
             }
         }else{
+            //Senão devolve uma mensagem de erro
             Session::set('notLoggedIn','É necessário realizar login');
             return View::make('stbox.errorNotLoggedIn');
         }

@@ -37,6 +37,7 @@ $erro = Data::get('backofficeError');
     </div>
 
     <?php
+    //Devolve as mensagens de erro, caso haja alguma
     if(!$erro instanceof MagicBlankModel){?>
         <div style="background-color: #e66767; border: 1px solid #3c3836; width: 35%; padding: 1%;" class=" mt-5 rounded text-center">
             <h5 style="color: whitesmoke; font-size: 22px"><?php echo $erro ?> <i class="fa fa-exclamation-circle"></i></h5>

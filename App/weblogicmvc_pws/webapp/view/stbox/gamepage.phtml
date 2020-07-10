@@ -39,15 +39,15 @@ $clickedGate = Data::get('clickedGate');
             <div class="btn-group">
                 <form method="post" action="<?=URL::toRoute('game/bloquearNumero')?>">
                     <?php for($i = 1; $i < 10; $i++){ ?>
-                        <?php if(isset($_SESSION['numBloq']) && in_array($i, $_SESSION['numBloq'])) { ?>
+                        <?php if(true == Session::get('numBloq') && in_array($i, Session::get('numBloq'))) { ?>
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                             </div>
-                        <?php } else if(!isset($_SESSION['controlDiceRoll'])){ ?>
+                        <?php } else if(false == Session::has('controlDiceRoll')){ ?>
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="background-color: <?=Session::get('playerColour');?>; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                             </div>
-                        <?php } else if(isset($_SESSION['controlDiceRoll'])){ ?>
+                        <?php } else if(true == Session::has('controlDiceRoll')){ ?>
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-lg btn-dark" enabled name="portoes" style="background-color: <?=Session::get('playerColour');?>; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                             </div>
@@ -79,7 +79,7 @@ $clickedGate = Data::get('clickedGate');
         </div>
 
         <form method="post" action="<?= URL::toRoute('game/mostrarDado')?>">
-            <?php if(isset($_SESSION['controlDiceRoll'])) { ?>
+            <?php if(Session::get('controlDiceRoll') != null) { ?>
                 <div style="margin-right: 250px; margin-left: 250px;" class=" mt-2 ml-5 mr-5 mb-3">
                     <button class="btn btn-lg btn-danger btn-block" disabled <?=$status?>><?=Session::get('controlDiceRoll')?></button>
                 </div>
@@ -89,12 +89,12 @@ $clickedGate = Data::get('clickedGate');
                 </div>
                 <div class="text-center">
                     <?php
-                    if(/*isset($_SESSION['finalJogo'])*/Session::has('finalJogo')){?>
+                    //Mostra o resultado do jogo
+                    if(Session::has('finalJogo')){?>
                         <div style="background-color: #7ce075; border: 1px solid #3c3836; width: 90%; padding: 2%; margin-bottom: 30px" class="container mt-5 rounded text-center">
                             <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('finalJogo') ?> <i class="fa fa-check"></i></h5>
                         </div>
                         <?php
-                        //$_SESSION['finalJogo'] = null;
                         //Session::set('finalJogo',null);
                         Session::remove('finalJogo');
                     }
