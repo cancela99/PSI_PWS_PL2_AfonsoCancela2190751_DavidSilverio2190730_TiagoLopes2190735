@@ -69,20 +69,29 @@ class SiteController extends BaseController
         }
 
         $partidas_por_pagina = 5;
+
+        //descobre o offset para cada página de acordo com o nº de partidas p/ página
         $offset = ($paginaAtual - 1) * $partidas_por_pagina;
+
         $paginaAnterior = $paginaAtual - 1;
         $proximaPagina = $paginaAtual + 1;
 
         //Verifica se o utilizador tem login feito
         if(Session::has('userData')){
+
+            $user = Session::get('userData');
             //Finder dinâmico para filtrar os dados da BD
             $matches = Match::find('all', array('conditions' => array('user_id = ?', $user->id)));
 
             $totalPartidas = count($matches);
+
+            //retorna o valor arredondado mais alto do nº de páginas
             $totalPaginas = ceil($totalPartidas / $partidas_por_pagina);
 
+            //Verifica se existem partidas
             //Verifica se o finder encontrou alguma partida
             if($matches != null){
+                //extrai do array matches as partidas de acordo com o offset
                 $partidas = array_slice($matches, $offset, $partidas_por_pagina, true);
                 View::make('stbox.matches', ['matches' => $partidas] + ['pages' => $totalPaginas] + ['paginaAtual' => $paginaAtual]);
             } else {

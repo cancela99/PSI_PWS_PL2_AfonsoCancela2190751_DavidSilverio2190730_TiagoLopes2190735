@@ -25,13 +25,21 @@ class NumeroBloqueado
             }
             $flag = false;
         } else if($somaLocal == $somaDados){
-            foreach ($numArray as $num) {
-                $_SESSION['numBloq'][] = $num;
+            if(Session::get('numBloq') == null) {
+                Session::set('numBloq', []);
             }
+
+            $jogadaAnterior = Session::get('numBloq');
+
+            $jogadaAtual = $numArray;
+
+            $mergeNumBloq = array_merge($jogadaAnterior, $jogadaAtual);
+
+            Session::set('numBloq', $mergeNumBloq);
 
             Session::set('controlDiceRoll', null);
 
-            $this->numerosBloqueados = $_SESSION['numBloq']; /*Session::get('numBloq');*/
+            $this->numerosBloqueados = Session::get('numBloq');
             $flag = true;
 
         }
