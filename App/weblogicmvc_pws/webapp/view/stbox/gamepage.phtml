@@ -19,6 +19,7 @@ $status = Data::get('status');
 $statusGate = Data::get('statusGate');
 $clickedGate = Data::get('clickedGate');
 
+
 \Tracy\Debugger::barDump($clickedGate, "SESSION");
 ?>
 <h2 style="margin-top: 5%" class="text-center">Shut the Box</h2>
@@ -52,7 +53,7 @@ $clickedGate = Data::get('clickedGate');
                                 <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                                 <?php } ?>
                                 </div>
-                        <?php } else if(false == Session::has('controlDiceRoll')){ ?>
+                        <?php } else if(Session::get('controlDiceRoll') == null /*false == Session::has('controlDiceRoll')*/){ ?>
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="background-color: <?=Session::get('playerColour');?>; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
                             </div>

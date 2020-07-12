@@ -3,65 +3,8 @@
 use ArmoredCore\WebObjects\URL;
 
 ?>
-<!-- <footer class="py-3 bg-dark text-white-50">
-    <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <p>Desenvolvedores:</p>
-                <small>Afonso Cancela</small><br>
-                <small>David Silvério</small><br>
-                <small>Tiago Lopes</small>
-            </div>
-            <div class="col text-center mt-4" style="font-size: 20px;">
-                <p>Instituto Politécnico de Leiria</p>
-            </div>
-            <div class="col text-center">
-                <p>Professora:</p>
-                <small>Joana Pedrosa</small>
-            </div>
-        </div>
-    </div>
-</footer> -->
-
-<!-- <footer class="fixed-bottom position-relative bg-dark text-white"
-    <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <h6>Desenvolvedores:</h6>
-                <small>Afonso Cancela</small><br>
-                <small>David Silvério</small><br>
-                <small>Tiago Lopes</small>
-            </div>
-            <div class="col text-center">
-                <h5>Instituto Politécnico de Leiria</h5>
-            </div>
-            <div class="col text-center">
-                <h6>Professora:</h6>
-                <small>Joana Pedrosa</small>
-            </div>
-        </div>
-    </div>
-</footer> -->
-<!-- <footer style="margin-top: 20%" class="footer py-3 bg-dark text-white">
-    <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <h6>Desenvolvedores:</h6>
-                <small>Afonso Cancela</small><br>
-                <small>David Silvério</small><br>
-                <small>Tiago Lopes</small>
-            </div>
-            <div class="col text-center">
-                <h5>Instituto Politécnico de Leiria</h5>
-            </div>
-            <div class="col text-center">
-                <h6>Professora:</h6>
-                <small>Joana Pedrosa</small>
-            </div>
-        </div>
-</footer> -->
 </div>
-<footer style="position: absolute; bottom: 0; width: 100%; height: 2.5rem;" class="footer py-3 bg-primary text-white-50">
+<!-- <footer style="position: absolute; bottom: 0; width: 100%; height: 2.5rem;" class="footer py-3 bg-primary text-white-50">
     <div class="container bg-primary" style="width: 100%;">
         <div class="row bg-primary" style="width: 100%;">
             <div class="col-md-6 mt-md-0 mt-3">
@@ -102,7 +45,50 @@ use ArmoredCore\WebObjects\URL;
     <div style="background-color: #0C70B7" class="footer-copyright text-center py-3 text-white-50">© 2020 Copyright:
         <a style="color: whitesmoke" href="https://www.ipleiria.pt/"> Politécnico de Leiria</a>
     </div>
+</footer> -->
+
+<footer style="" class="footer py-3 bg-primary">
+    <div class="container bg-primary">
+        <div class="row bg-primary">
+            <div class="col-md-6 mt-md-0 mt-3 text-white">
+                <h5 class="text-uppercase">Shut The Box</h5>
+                <a>Shut The Box é um jogo de tabuleiro simples e divertido com uma essência cativante capaz de entusiasmar os mais diversos jogadores.</a>
+            </div>
+
+            <!-- <hr class="clearfix w-100 d-md-none pb-3"> -->
+
+            <div class="col-md-3 mb-md-0 mb-3 text-white">
+                <h5 class="text-uppercase">Links</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a style="color: whitesmoke" href="<?= URL::toRoute('stbox/home')?>">Home</a>
+                    </li>
+                    <li>
+                        <a style="color: #81a2be" href="<?= URL::toRoute('stbox/rules')?>">Regras</a>
+                    </li>
+                    <li>
+                        <a style="color: #81a2be" href="<?= URL::toRoute('stbox/top10')?>">Top 10</a>
+                    </li>
+                    <li>
+                        <a style="color: #81a2be" href="<?= URL::toRoute('stbox/game')?>">Shut The Box</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 mb-md-0 mb-3 text-white">
+                <h5 class="text-uppercase">Desenvolvedores</h5>
+                <small>Afonso Cancela</small><br>
+                <small>David Silvério</small><br>
+                <small>Tiago Lopes</small>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #0C70B7" class="footer-copyright text-center py-3 text-white-50">© 2020 Copyright:
+        <a style="color: whitesmoke" href="https://www.ipleiria.pt/"> Politécnico de Leiria</a>
+    </div>
 </footer>
+
 
 </div>
 

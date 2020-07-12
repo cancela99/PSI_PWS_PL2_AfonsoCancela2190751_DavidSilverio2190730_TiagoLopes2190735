@@ -40,6 +40,7 @@ class NumeroBloqueado
 
             Session::set('controlDiceRoll', null);
 
+
             $this->numerosBloqueados = Session::get('numBloq');
             $flag = true;
 
@@ -50,11 +51,6 @@ class NumeroBloqueado
 
     public function checkFinalJogada($numArray, $diceSum) {
         //For loop a percorrer o array dos numeros livres e a somar, de forma a retornar o resultado de todas as possíveis somas
-
-        //array de numeros livres
-        \Tracy\Debugger::barDump($numArray);
-        //soma dos dados
-        \Tracy\Debugger::barDump($diceSum);
 
         //array que vai receber todas as possibilidades de soma
         $sumResults = [];

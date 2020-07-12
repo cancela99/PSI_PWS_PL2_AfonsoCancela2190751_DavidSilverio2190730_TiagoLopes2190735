@@ -3,6 +3,7 @@
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
+use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\View;
 use ArmoredCore\WebObjects\Session;
 
@@ -18,11 +19,7 @@ class GameController extends BaseController
 
             if($gameEngine->getEstadoJogo() == 0) {
 
-                \Tracy\Debugger::barDump(Session::get('checkFinal'), "Check Final Antes do Iniciar Jogo");
-
-                if(Session::get('checkFinal') == null){
-                    $gameEngine->iniciarJogo();
-                }
+                $gameEngine->iniciarJogo();
 
                 Session::set('gameEngine', $gameEngine);
                 Session::set('controlDiceRoll', null);
@@ -41,7 +38,12 @@ class GameController extends BaseController
                     Session::set('playerColour', "#E0D600");
                 }
 
-                return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status, 'clickedGate' => Session::get('gameEngine'), "statusGate" => "disabled"]);
+                if(Session::has('finalJogo')){
+                    URL::toRoute('game/iniciarJogo');
+                }else {
+                    return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status, 'clickedGate' => Session::get('gameEngine'), "statusGate" => "disabled"]);
+                }
+
         }else{
             Session::set('notLoggedIn','Faça login para jogar');
             return View::make('stbox.login');
@@ -81,7 +83,7 @@ class GameController extends BaseController
             Session::set('local', []);
         }
 
-
+        //Bloquear e desbloquear um numero
         if(in_array((int)$numero, Session::get('local')) == false) {
 
             $local = Session::get('local');
@@ -137,6 +139,7 @@ class GameController extends BaseController
         Session::set('primeiraJogada', null);
         Session::set('numBloq', null);
         Session::set('FLAG', null);
+        Session::set('controlDiceRoll', null);
 
     }
 
@@ -201,6 +204,7 @@ class GameController extends BaseController
                     }
 
                     $this->iniciarJogo();
+
                 }
 
                 Session::set('gameEngine', $gameEngine);
