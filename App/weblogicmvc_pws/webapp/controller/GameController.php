@@ -162,6 +162,7 @@ class GameController extends BaseController
                         Session::set('finalJogo', 'Jogo terminado! Jogador '.$vencedor.' ganhou por '.$points.' pontos.');
                     }
 
+                    
                     $this->iniciarJogo();
                 }
                 Session::set('gameEngine', $gameEngine);
