@@ -17,7 +17,6 @@ if(Session::has('userData')){
 $user = Data::get('user');
 ErrMgr::attach($user);
 $erro = Data::get('registerError');
-\Tracy\Debugger::barDump($erro,'erro');
 ?>
 
 
@@ -57,13 +56,12 @@ $erro = Data::get('registerError');
         </div><br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Registar</button>
         <?php
+        //Mostra uma mensagem de erro, caso haja algum
         if(!$erro instanceof MagicBlankModel){ ?>
             <div style="background-color: #e66767; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
                 <h5 style="color: whitesmoke; font-size: 22px"><?php echo $erro ?> <i class="fa fa-exclamation-circle"></i></h5>
             </div>
-            <?php
-        }
-        ?>
+            <?php } ?>
     </form>
     <div class="mt-4 mb-2 text-muted">
         Se já criou conta faça login <a href="<?= URL::toRoute('stbox/login/')?>">AQUI</a>!

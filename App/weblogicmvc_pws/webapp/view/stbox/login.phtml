@@ -16,6 +16,8 @@ if(Session::has('userData')){
 }
 
 $user = Data::get('userError');
+$aviso = Data::get('loginWarning');
+$erro = Data::get('loginError');
 ?>
 
 
@@ -32,51 +34,21 @@ $user = Data::get('userError');
             <input type="password" id="inputPassword" class="form-control" placeholder="Palavra-passe" required name="password">
 
 <?php
-
-if(Session::has('loginErrors')){?>
+//Mostra as mensagens de erro, caso haja algum
+if(!$erro instanceof MagicBlankModel){?>
     <div style="background-color: #e66767; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
-        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('loginErrors') ?> <i class="fa fa-exclamation-circle"></i></h5>
+        <h5 style="color: whitesmoke; font-size: 22px"><?php echo $erro ?> <i class="fa fa-exclamation-circle"></i></h5>
     </div>
     <?php
-    Session::destroy();
 }
-
-if(Session::has('bloqueado')){?>
-    <div style="background-color: #e66767; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
-        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('bloqueado') ?> <i class="fa fa-exclamation-circle"></i></h5>
-    </div>
-    <?php
-    Session::destroy();
-}
-
-if(Session::has('notLoggedIn')){?>
-    <div style="background-color: #e66767; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
-        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('notLoggedIn') ?> <i class="fa fa-exclamation-circle"></i></h5>
-    </div>
-    <?php
-    Session::destroy();
-}
-
-if(Session::has('blankField')){?>
-    <div style="background-color: #e66767; border: 1px solid #3c3836; width: 80%; padding: 3%;" class="container mt-5 rounded text-center">
-        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('blankField') ?> <i class="fa fa-exclamation-circle"></i></h5>
-    </div>
-    <?php
-    Session::destroy();
-}
-
-if(Session::has('signInComplete')){?>
+//Mostra as mensagens de aviso, caso haja algum
+if(!$aviso instanceof MagicBlankModel){?>
     <div style="background-color: #7ce075; border: 1px solid #3c3836; width: 90%; padding: 3%;" class="container mt-5 rounded text-center">
-        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('signInComplete') ?> <i class="fa fa-check"></i></h5>
+        <h5 style="color: whitesmoke; font-size: 22px"><?php echo $aviso ?> <i class="fa fa-check"></i></h5>
     </div>
-    <?php
-    Session::destroy();
-}
-?>
-
+    <?php } ?>
         <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Iniciar Sessão</button>
-        <div class="mb-3">
-        </div>
+        <div class="mb-3"></div>
     </form>
         <label>
             Não estás registado? Clica <a href="<?= URL::toRoute('stbox/register/')?>">AQUI</a> para te registares!

@@ -1,5 +1,6 @@
 <?php
 
+use ArmoredCore\MagicBlankModel;
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\Session;
@@ -16,12 +17,10 @@ if(Session::has('userData')){
 
 $users = Data::get('users');
 $usersFound = Data::get('usersFound');
+$erro = Data::get('backofficeError');
 ?>
 
-
 <h1 style="margin-top: 7%" class="text-center">Backoffice</h1>
-
-
 
 <div class="container mt-5">
 
@@ -38,12 +37,12 @@ $usersFound = Data::get('usersFound');
     </div>
 
     <?php
-    if(Session::has('notFound')){?>
+    //Devolve as mensagens de erro, caso haja alguma
+    if(!$erro instanceof MagicBlankModel){?>
         <div style="background-color: #e66767; border: 1px solid #3c3836; width: 35%; padding: 1%;" class=" mt-5 rounded text-center">
-            <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('notFound') ?> <i class="fa fa-exclamation-circle"></i></h5>
+            <h5 style="color: whitesmoke; font-size: 22px"><?php echo $erro ?> <i class="fa fa-exclamation-circle"></i></h5>
         </div>
         <?php
-        Session::remove('notFound');
     } ?>
 
     <br>
@@ -96,9 +95,6 @@ $usersFound = Data::get('usersFound');
                     } ?>
                 </tr>
         <?php }
-            //Session::set('userSearched', null);
-            Session::remove('userSearched');
-                Tracy\Debugger::barDump($_SESSION,'teste');
         } ?>
 
         </tbody>

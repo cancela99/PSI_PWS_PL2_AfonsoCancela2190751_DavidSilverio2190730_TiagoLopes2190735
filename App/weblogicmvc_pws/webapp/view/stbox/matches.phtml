@@ -15,125 +15,108 @@ if(Session::has('userData')){
 
 $user = Session::get('userData');
 $matches = Data::get('matches');
-
 $pages = Data::get('pages');
 $paginaAtual = Data::get('paginaAtual');
-
+$aviso = Data::get('matchesWarning');
 ?>
+
 <h1 style="margin-top: 5%" class="text-center">Histórico de Partidas</h1>
-
-<?php
-if(Session::has('noMatches')){
-    ?>
-    <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 30%; padding: 3%;" class="container mt-5 rounded text-center">
-        <h5 style="color: whitesmoke; font-size: 22px"><?php echo Session::get('noMatches') ?> <i class="fa fa-exclamation-circle"></i></h5>
-        <p style="font-size: 22px">Clica <a style="color: white" href="<?= URL::toRoute('game/iniciarJogo')?>">aqui</a> para jogar!</p>
-    </div>
-    <?php
-}
-
-
-if(!Session::has('noMatches')){?>
     <div class="container mt-5">
-
     <?php
-        //Verifica se o utilizador em questão tem alguma partida realizada, senão tiver nenhuma, avisa o utilizador
+            //Verifica se o utilizador tem login feito
             if(Session::has('userData')) { ?>
-                <?php if ($matches != null) {
+                <?php
+                //Verifica se o utilizador tem alguma partida realizada
+                if ($matches != null) {
                     $i = $paginaAtual * 5 - 4;?>
                     <table class="table table-hover">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Pontuação</th>
-                            <th>Resultado</th>
-                            <th>Data</th>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Pontuação</th>
+                                <th>Resultado</th>
+                                <th>Data</th>
+                            </tr>
                         </thead>
                         <tbody>
-
-                        <tr>
-                            <?php foreach ($matches as $match) {
-
-                            $data = $match->data->format('d-m-Y H:i:s');
-
-                            if ($match->user_id == $user->id){
-                            ?>
-                            <th><?= $i ?></th>
-                            <td><?= $match->pontuacao ?></td>
-                            <?php
-                            switch ($match->vencedor) {
-                                case 'G':
-                                    echo '<td>Ganhou</td>';
-                                    break;
-                                case 'P':
-                                    echo '<td>Perdeu</td>';
-                                    break;
-                                case 'E':
-                                    echo '<td>Empatou</td>';
-                                    break;
-                            } ?>
-                            <td><?= $data ?></td>
-                        </tr>
-                        <?php
-                        $i++;
-                        }
-                        } ?>
+                            <tr>
+                                <?php
+                                foreach ($matches as $match) {
+                                    $data = $match->data->format('d-m-Y H:i:s');
+                                    if ($match->user_id == $user->id){ ?>
+                                        <th><?= $i ?></th>
+                                        <td><?= $match->pontuacao ?></td>
+                                        <?php
+                                        switch ($match->vencedor) {
+                                            case 'G':
+                                                echo '<td>Ganhou</td>';
+                                                break;
+                                            case 'P':
+                                                echo '<td>Perdeu</td>';
+                                                break;
+                                            case 'E':
+                                                echo '<td>Empatou</td>';
+                                                break;
+                                        } ?>
+                                        <td><?= $data ?></td>
+                            </tr>
+                                    <?php
+                                    $i++;
+                                    }
+                                } ?>
                         </tbody>
                     </table>
                     <div class="mt-5">
                         <nav aria-label="page navigation">
                             <ul class="pagination justify-content-center">
                                 <?php
+                                //Se a página atual for a 1, bloqueia o botão para recuar
                                 if ($paginaAtual == 1) { ?>
                                     <li class="page-item disabled">
                                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><</a>
                                     </li>
-                                <?php } else { ?>
+                                <?php
+                                } else { ?>
                                     <li class="page-item">
-                                        <a class="page-link"
-                                           href="<?= URL::toRoute('stbox/matches', $paginaAtual - 1) ?>"><</a>
+                                        <a class="page-link" href="<?= URL::toRoute('stbox/matches', $paginaAtual - 1) ?>"><</a>
                                     </li>
                                 <?php }
-                                ?>
-                                <?php
                                 //Se o nº da paginação for igual ao da página é alterada a cor deste
                                 for ($j = 1; $j <= $pages; $j++) {
                                     if ($j == $paginaAtual) { ?>
-                                        <li name="paginaAtual" class="page-item active"><a class="page-link" aria-current="page" href="<?= URL::toRoute('stbox/matches', $j) ?>"><?= $j ?></a>
+                                        <li name="paginaAtual" class="page-item active">
+                                            <a class="page-link" aria-current="page" href="<?= URL::toRoute('stbox/matches', $j) ?>"><?= $j ?></a>
                                         </li>
                                     <?php } else { ?>
-                                        <li name="paginaAtual" class="page-item"><a class="page-link" href="<?= URL::toRoute('stbox/matches', $j) ?>"><?= $j ?></a>
+                                        <li name="paginaAtual" class="page-item">
+                                            <a class="page-link" href="<?= URL::toRoute('stbox/matches', $j) ?>"><?= $j ?></a>
                                         </li>
                                     <?php }
                                 }
-
+                                //Se a pagina atual for maior ou igual ao número total de páginas, bloqueia o botão de avançar a página
                                 if ($paginaAtual >= $pages) { ?>
                                     <li class="page-item disabled">
                                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">></a>
                                     </li>
                                 <?php } else { ?>
                                     <li class="page-item">
-                                        <a class="page-link"
-                                           href="<?= URL::toRoute('stbox/matches', $paginaAtual + 1) ?>">></a>
+                                        <a class="page-link" href="<?= URL::toRoute('stbox/matches', $paginaAtual + 1) ?>">></a>
                                     </li>
-                                <?php }
-                                ?>
+                                <?php } ?>
                             </ul>
                         </nav>
                     </div>
-                <?php } else {
+                <?php
+                } else {
+                    //Senão o utilizador não tiver partidas realizadas devolve uma mensagem de aviso
                     $i = 1;?>
-                    <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 58%; padding: 3%;"
-                         class="container mt-5 rounded text-center">
-                        <h5 style="color: whitesmoke;">Sem partidas realizadas <i class="fa fa-exclamation-circle"></i>
-                        </h5>
-                        <p>Clica <a href="<?= URL::toRoute('game/iniciarJogo') ?>">aqui</a> para jogar!</p>
+                    <div style="background-color: #668bb0; border: 1px solid #3c3836; width: 50%; padding: 3%;" class="container mt-5 rounded text-center">
+                        <h5 style="color: whitesmoke; font-size: 22px"><?php echo $aviso ?> <i class="fa fa-exclamation-circle"></i></h5>
+                        <p style="font-size: 22px">Clica <a style="color: white" href="<?= URL::toRoute('game/iniciarJogo')?>">aqui</a> para jogar!</p>
                     </div>
                 <?php }
-            }
-            }?>
-</div>
+            } ?>
+    </div>
 
 
 <?php Layout::includeLayout('footerproject'); ?>
