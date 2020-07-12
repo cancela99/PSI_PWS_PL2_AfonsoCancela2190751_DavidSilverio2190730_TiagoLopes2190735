@@ -90,6 +90,19 @@ class GameController extends BaseController
 
             Session::set('local', $local);
 
+        } else {
+            $local = Session::get('local');
+
+            $key = array_search($numero, $local);
+
+            array_splice($local, $key, 1);
+
+            Session::set('local', $local);
+
+            $remove = Session::get('sum');
+
+            $remove -= $numero;
+            Session::set('sum', $remove);
         }
 
         $isTrue = $numerosBloqueados->bloquearNumero(Session::get('local'), Session::get('somaDados'));

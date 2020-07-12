@@ -39,10 +39,19 @@ $clickedGate = Data::get('clickedGate');
             <div class="btn-group">
                 <form method="post" action="<?=URL::toRoute('game/bloquearNumero')?>">
                     <?php for($i = 1; $i < 10; $i++){ ?>
-                        <?php if(true == Session::get('numBloq') && in_array($i, Session::get('numBloq'))) { ?>
+                        <?php if(true == Session::get('local') && in_array($i, Session::get('local'))) {
+                            $btnColor = '#A4A4A4';
+                        } else {
+                            $btnColor = null;
+                        }
+                        if(true == Session::get('numBloq') && in_array($i, Session::get('numBloq')) || true == Session::get('local') && in_array($i, Session::get('local'))) { ?>
                             <div class="btn-group">
+                                <?php if($btnColor != null) { ?>
+                                <button type="submit" class="btn btn-lg btn-dark" name="portoes" style="background-color: <?= $btnColor ?>; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
+                                <?php } else {?>
                                 <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>
-                            </div>
+                                <?php } ?>
+                                </div>
                         <?php } else if(false == Session::has('controlDiceRoll')){ ?>
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-lg btn-dark" disabled name="portoes" style="background-color: <?=Session::get('playerColour');?>; padding: 30px; margin: 15px;" value="<?=$i?>" id="button<?=$i?>" style="margin-right: 20px; padding: 30px;"><?=$i?></button>

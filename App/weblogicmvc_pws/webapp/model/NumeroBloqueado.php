@@ -29,6 +29,7 @@ class NumeroBloqueado
                 Session::set('numBloq', []);
             }
 
+            //Faz o merge de todos os numeros bloqueados com os numeros bloqueados na jogada atual
             $jogadaAnterior = Session::get('numBloq');
 
             $jogadaAtual = $numArray;

@@ -3,6 +3,7 @@
 
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\WebObjects\Post;
+use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
 
@@ -60,24 +61,19 @@ class SiteController extends BaseController
     //Faz uma query à BD para ir buscar os valores e devolve os dados por um array
     public function Matches($page){
 
-        $user = Session::get('userData');
-
-        if($page != null){
-            $paginaAtual = $page;
-        } else {
-            $paginaAtual = 1;
-        }
-
-        $partidas_por_pagina = 5;
-
-        //descobre o offset para cada página de acordo com o nº de partidas p/ página
-        $offset = ($paginaAtual - 1) * $partidas_por_pagina;
-
-        $paginaAnterior = $paginaAtual - 1;
-        $proximaPagina = $paginaAtual + 1;
-
         //Verifica se o utilizador tem login feito
         if(Session::has('userData')){
+
+            if($page != null){
+                $paginaAtual = $page;
+            } else {
+                $paginaAtual = 1;
+            }
+
+            $partidas_por_pagina = 5;
+
+            //descobre o offset para cada página de acordo com o nº de partidas p/ página
+            $offset = ($paginaAtual - 1) * $partidas_por_pagina;
 
             $user = Session::get('userData');
             //Finder dinâmico para filtrar os dados da BD
@@ -88,12 +84,19 @@ class SiteController extends BaseController
             //retorna o valor arredondado mais alto do nº de páginas
             $totalPaginas = ceil($totalPartidas / $partidas_por_pagina);
 
+
             //Verifica se existem partidas
             //Verifica se o finder encontrou alguma partida
             if($matches != null){
                 //extrai do array matches as partidas de acordo com o offset
                 $partidas = array_slice($matches, $offset, $partidas_por_pagina, true);
-                View::make('stbox.matches', ['matches' => $partidas] + ['pages' => $totalPaginas] + ['paginaAtual' => $paginaAtual]);
+                if($page > $totalPaginas){
+                    Redirect::toRoute('stbox/matches', $totalPaginas);
+                } else if ($page < 1){
+                    Redirect::toRoute('stbox/matches', 1);
+                } else {
+                    View::make('stbox.matches', ['matches' => $partidas] + ['pages' => $totalPaginas] + ['paginaAtual' => $paginaAtual]);
+                }
             } else {
                 //Senão devolve a vista com um aviso
                 $aviso = 'Sem partidas realizadas';
