@@ -15,37 +15,35 @@ class NumeroBloqueado
     public function bloquearNumero($numArray, $somaDados) {
         $flag = true;
 
+        $local = Session::get('local');
+
         $somaLocal = array_sum($numArray);
-        //$_SESSION['sum'] = $somaLocal;
         Session::set('sum', $somaLocal);
 
         if($somaLocal != $somaDados) {
             if($somaLocal > $somaDados) {
-                //$_SESSION['sum'] = 0;
-               // $_SESSION['local'] = null;
                 Session::set('sum', 0);
                 Session::set('local', null);
-
             }
             $flag = false;
         } else if($somaLocal == $somaDados){
             //!Session::has('numBloq')
-            if(!isset($_SESSION['numBloq'])) {
-                //$_SESSION['numBloq'] = [];
+            if(Session::get('numBloq') == null) {
+                Session::set('numBloq', []);
             }
-            foreach ($numArray as $num) {
-                //array_push($_SESSION['numBloq'], $num);
-                $numAr[] = $num;
 
-                //Session::set('numBloq', $num);
-                $_SESSION['numBloq'][] = $num;
+            $jogadaAnterior = Session::get('numBloq');
 
-            }
+            $jogadaAtual = $numArray;
+
+            $mergeNumBloq = array_merge($jogadaAnterior, $jogadaAtual);
+
+            Session::set('numBloq', $mergeNumBloq);
+
 
             Session::set('controlDiceRoll', null);
-            //$_SESSION['controlDiceRoll'] = null;
 
-            $this->numerosBloqueados = $_SESSION['numBloq']; /*Session::get('numBloq');*/
+            $this->numerosBloqueados = Session::get('numBloq');
             $flag = true;
 
         }
@@ -88,15 +86,7 @@ class NumeroBloqueado
 
 
 
-
-
         //For loop a percorrer o array dos numeros livres e a somar, de forma a retornar o resultado de todas as possíveis somas
-
-        //array de numeros livres
-        \Tracy\Debugger::barDump($numArray);
-
-        //soma dos dados
-        \Tracy\Debugger::barDump($diceSum);
 
         //array que vai receber todas as possibilidades de soma
         $sumResults = [];
@@ -161,7 +151,7 @@ class NumeroBloqueado
             $flag = false;
         }*/
 
-        \Tracy\Debugger::barDump($sumResults);
+        \Tracy\Debugger::barDump($sumResults, "Total de somas");
         return $flag;
     }
 

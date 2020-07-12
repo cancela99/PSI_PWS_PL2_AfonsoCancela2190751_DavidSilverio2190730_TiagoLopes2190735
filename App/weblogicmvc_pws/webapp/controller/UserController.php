@@ -168,8 +168,8 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
             if($user->is_valid()){
                 $user->save();
-                Session::set('updated','Informações alteradas com sucesso');
-                Redirect::toRoute('user/edit', $userData->id);
+                //Session::set('updated','Informações alteradas com sucesso');
+                //Redirect::toRoute('user/edit', $userData->id);
             } else {
                 //Senão volta para a vista de perfil
                 Redirect::flashToRoute('user/edit', ['user' => $user], $id);
