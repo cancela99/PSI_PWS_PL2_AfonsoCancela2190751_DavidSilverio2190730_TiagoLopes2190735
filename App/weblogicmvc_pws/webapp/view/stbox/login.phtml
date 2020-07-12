@@ -22,7 +22,7 @@ $erro = Data::get('loginError');
 
 
     <body class="text-center">
-    <div class="container" style="margin-top: 100px">
+    <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
     <form class="form-signin" method="post" action="<?=Url::toRoute('user/login')?>">
         <img class="mb-4" src="<?= Asset::image('dices.png')?>" alt="" width=92" height="92">
         <h1 class="h3 mb-4 font-weight-normal">Shut the Box Game</h1>
@@ -47,14 +47,14 @@ if(!$aviso instanceof MagicBlankModel){?>
         <h5 style="color: whitesmoke; font-size: 22px"><?php echo $aviso ?> <i class="fa fa-check"></i></h5>
     </div>
     <?php } ?>
-        <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Iniciar Sessão</button>
-        <div class="mb-3"></div>
+        <button class="btn btn-lg btn-primary btn-block mt-4 mb-3" type="submit">Iniciar Sessão</button>
     </form>
         <label>
             Não estás registado? Clica <a href="<?= URL::toRoute('stbox/register/')?>">AQUI</a> para te registares!
         </label>
 
     </div>
-    </body>
+
+
 <?php
 Layout::includeLayout('footerproject');
