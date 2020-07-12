@@ -18,7 +18,11 @@ class GameController extends BaseController
 
             if($gameEngine->getEstadoJogo() == 0) {
 
-                $gameEngine->iniciarJogo();
+                \Tracy\Debugger::barDump(Session::get('checkFinal'), "Check Final Antes do Iniciar Jogo");
+
+                if(Session::get('checkFinal') == null){
+                    $gameEngine->iniciarJogo();
+                }
 
                 Session::set('gameEngine', $gameEngine);
 
@@ -141,10 +145,6 @@ class GameController extends BaseController
 
         $numerosBlock = Session::get('numBloq');
 
-        \Tracy\Debugger::barDump($numerosBlock, "Numeros Bloqueados Geral");
-
-        \Tracy\Debugger::barDump(Session::get('local'), "Numeros Bloqueados Local");
-
         if(Session::get('numBloq') == null && ($tabuleiro->valorDado1 && $tabuleiro->valorDado2) == null){
             $tabuleiro->lancarDados();
         } else {
@@ -193,12 +193,17 @@ class GameController extends BaseController
 
                     if($vencedor == 0 && $points == 0) {
                         Session::set('finalJogo', 'Jogo terminado! Empate!');
+                        //return View::make('stbox.gamepage', ['teste' => "Jogo terminado! Empate!"]);
+                        //Redirect::toRoute('stbox.gamepage', "Jogo terminado! Empate!");
                     } else {
                         Session::set('finalJogo', 'Jogo terminado! Jogador '.$vencedor.' ganhou por '.$points.' pontos.');
+                        //return View::make('stbox.gamepage', ['teste' => "Jogo terminado! Jogador ".$vencedor." ganhou por ".$points." pontos."]);
+                        //Redirect::toRoute('stbox.gamepage', "Jogo terminado! Empate!");
                     }
 
                     //$this->iniciarJogo();
                 }
+
                 Session::set('gameEngine', $gameEngine);
                 Session::set('local', null);
                 Session::set('sum', null);

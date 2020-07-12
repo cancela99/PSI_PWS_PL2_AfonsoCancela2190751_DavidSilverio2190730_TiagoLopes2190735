@@ -15,8 +15,6 @@ class NumeroBloqueado
     public function bloquearNumero($numArray, $somaDados) {
         $flag = true;
 
-        $local = Session::get('local');
-
         $somaLocal = array_sum($numArray);
         Session::set('sum', $somaLocal);
 
@@ -39,7 +37,6 @@ class NumeroBloqueado
             $mergeNumBloq = array_merge($jogadaAnterior, $jogadaAtual);
 
             Session::set('numBloq', $mergeNumBloq);
-
 
             Session::set('controlDiceRoll', null);
 
