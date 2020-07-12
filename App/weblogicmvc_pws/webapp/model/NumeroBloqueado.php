@@ -16,34 +16,20 @@ class NumeroBloqueado
         $flag = true;
 
         $somaLocal = array_sum($numArray);
-        //$_SESSION['sum'] = $somaLocal;
         Session::set('sum', $somaLocal);
 
         if($somaLocal != $somaDados) {
             if($somaLocal > $somaDados) {
-                //$_SESSION['sum'] = 0;
-               // $_SESSION['local'] = null;
                 Session::set('sum', 0);
                 Session::set('local', null);
-
             }
             $flag = false;
         } else if($somaLocal == $somaDados){
-            //!Session::has('numBloq')
-            if(!isset($_SESSION['numBloq'])) {
-                //$_SESSION['numBloq'] = [];
-            }
             foreach ($numArray as $num) {
-                //array_push($_SESSION['numBloq'], $num);
-                $numAr[] = $num;
-
-                //Session::set('numBloq', $num);
                 $_SESSION['numBloq'][] = $num;
-
             }
 
             Session::set('controlDiceRoll', null);
-            //$_SESSION['controlDiceRoll'] = null;
 
             $this->numerosBloqueados = $_SESSION['numBloq']; /*Session::get('numBloq');*/
             $flag = true;
@@ -54,47 +40,10 @@ class NumeroBloqueado
     }
 
     public function checkFinalJogada($numArray, $diceSum) {
-
-        /*$local = array();
-
-        // Substituir por iteração. 2 For loops, a percorrer o array e a somar.
-        function extractList($numArray, &$local, $temp = array()) {
-            if (count($temp) > 0 && !in_array($temp, $local))
-                $local[] = $temp;
-            for($i = 0; $i < count($numArray); $i++) {
-                $copy = $numArray;
-                $elem = array_splice($copy, $i, 1);
-                if (count($copy) > 0) {
-                    $add = array_merge($temp, array($elem[0]));
-                    sort($add);
-                    extractList($copy, $local, $add);
-                } else {
-                    $add = array_merge($temp, array($elem[0]));
-                    sort($add);
-                    if (!in_array($temp, $local)) {
-                        $local[] = $add;
-                    }
-                }
-            }
-        }
-
-        extractList($numArray, $local);
-
-        $local = array_filter($local, function($v) use ($diceSum) {
-            return(array_sum($v) == $diceSum);
-        });
-
-        return $local;*/
-
-
-
-
-
         //For loop a percorrer o array dos numeros livres e a somar, de forma a retornar o resultado de todas as possíveis somas
 
         //array de numeros livres
         \Tracy\Debugger::barDump($numArray);
-
         //soma dos dados
         \Tracy\Debugger::barDump($diceSum);
 
@@ -153,13 +102,6 @@ class NumeroBloqueado
                 }
             }
         }
-
-        //procurar no array de somas se alguma soma == somaDados
-        /*if(in_array($diceSum, $sumResults)){
-            $flag = true;
-        } else {
-            $flag = false;
-        }*/
 
         \Tracy\Debugger::barDump($sumResults);
         return $flag;
