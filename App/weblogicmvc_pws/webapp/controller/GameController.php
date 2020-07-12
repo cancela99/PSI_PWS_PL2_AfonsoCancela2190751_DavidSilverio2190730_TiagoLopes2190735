@@ -232,12 +232,7 @@ class GameController extends BaseController
         }else{
             $partida->vencedor = 'P';
         }
-
-        /*if($points == 0) {
-            $partida->vencedor = 'G';
-        } else {
-            $partida->vencedor = 'P';
-        }*/
+        
 
         $userData = Session::get('userData');
         $partida->user_id = $userData->id;
