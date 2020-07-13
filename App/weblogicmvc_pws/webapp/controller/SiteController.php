@@ -49,7 +49,7 @@ class SiteController extends BaseController
     public function Game() {
         //Verifica se o utilizador tem login feito, se tiver devolve a vista do jogo
         if(Session::has('userData')){
-            return View::make('stbox.gamepage', ["valorDado" => array(6, 6), "numArray" => array()]);
+            return View::make('stbox.gamepage');
         }else{
             //Senão a função devolve a vista de login com um aviso
             Session::set('notLoggedIn','Faça login para jogar');
@@ -77,7 +77,7 @@ class SiteController extends BaseController
 
             $user = Session::get('userData');
             //Finder dinâmico para filtrar os dados da BD
-            $matches = Match::find('all', array('conditions' => array('user_id = ?', $user->id)));
+            $matches = Match::find('all', array('conditions' => array('user_id = ?', $user->id), 'order' => 'data desc'));
 
             $totalPartidas = count($matches);
 

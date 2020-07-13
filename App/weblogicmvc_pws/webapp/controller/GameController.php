@@ -41,7 +41,7 @@ class GameController extends BaseController
                 if(Session::has('finalJogo')){
                     URL::toRoute('game/iniciarJogo');
                 }else {
-                    return View::make('stbox.gamepage', ['valorDado' => array(6, 6), 'status' => $status, 'clickedGate' => Session::get('gameEngine'), "statusGate" => "disabled"]);
+                    return View::make('stbox.gamepage', ['status' => $status, "statusGate" => "disabled"]);
                 }
 
         }else{
@@ -71,13 +71,18 @@ class GameController extends BaseController
         $numerosBloqueados = new NumeroBloqueado();
         $numerosBloqueados->iniciar();
 
+        $gameEngine = Session::get('gameEngine');
+
+        $valorDado = [$gameEngine->tabuleiro->valorDado1, $gameEngine->tabuleiro->valorDado2];
+
+        $somaDados = $gameEngine->tabuleiro->valorDado1 + $gameEngine->tabuleiro->valorDado2;
+
         if (Post::has('portoes')) {
             $flag = 1;
         }
 
         // Operador ternário que realiza a verificação de dados no post;
         $flag == 1 ? $numero = Post::get('portoes') : $numero = 0;
-
 
         if(Session::get('local') == null ) {
             Session::set('local', []);
@@ -107,7 +112,7 @@ class GameController extends BaseController
             Session::set('sum', $remove);
         }
 
-        $isTrue = $numerosBloqueados->bloquearNumero(Session::get('local'), Session::get('somaDados'));
+        $isTrue = $numerosBloqueados->bloquearNumero(Session::get('local'), $somaDados);
 
         if($isTrue == true) {
             // Os numeros foram bloqueados e adicionados ao array de numerosBloqueados.
@@ -125,20 +130,19 @@ class GameController extends BaseController
         Session::set('primeiraJogada', true);
 
 
-        return View::make('stbox.gamepage', ['valorDado' => Session::get('valorDado'), 'status' => "enabled", 'clickedGate' => Session::get('gameEngine'), "statusGate" => "enabled"]);
+        return View::make('stbox.gamepage', ['status' => "enabled", "statusGate" => "enabled"]);
     }
 
     public function clear() {
 
         Session::set('local', null);
         Session::set('sum', null);
-        Session::set('valorDado', null);
-        Session::set('somaDados', null);
+        //Session::set('valorDado', null);
         Session::set('numerosBloqueados', null);
         Session::set('checkFinal', null);
         Session::set('primeiraJogada', null);
         Session::set('numBloq', null);
-        Session::set('FLAG', null);
+        //Session::set('FLAG', null);
         Session::set('controlDiceRoll', null);
 
     }
@@ -165,14 +169,15 @@ class GameController extends BaseController
         $valorDado = array($resultado1, $resultado2);
 
         Session::set('valorDado', $valorDado);
-        Session::set('somaDados', $resultado1 + $resultado2);
+        //Session::set('somaDados', $resultado1 + $resultado2);
+        $somaDados = $resultado1 + $resultado2;
         Session::set('controlDiceRoll', 'Fim de turno');
         Session::set('disableSegur', 'enable');
 
 
         if (Session::get('primeiraJogada') == true) {
             if ($estadoAtual == 1) {
-                $checkFinal = $tabuleiro->checkFinalJogadaP1(Session::get('somaDados'));
+                $checkFinal = $tabuleiro->checkFinalJogadaP1($somaDados);
 
                 Session::set('checkFinal', $checkFinal);
                 if($checkFinal != true) {
@@ -186,7 +191,7 @@ class GameController extends BaseController
                 Session::set('sum', null);
 
             } else if($estadoAtual == 2) {
-                $checkFinal = $tabuleiro->checkFinalJogadaP2(Session::get('somaDados'));
+                $checkFinal = $tabuleiro->checkFinalJogadaP2($somaDados);
                 Session::set('checkFinal', $checkFinal);
 
                 if($checkFinal != true) {
@@ -213,7 +218,7 @@ class GameController extends BaseController
             }
         }
 
-        return View::make('stbox.gamepage', ['valorDado' => $valorDado, 'status' => "enabled", 'clickedGate' => Session::get('gameEngine'), "statusGate" => "enabled"]);
+        return View::make('stbox.gamepage', ['status' => "enabled", "statusGate" => "enabled"]);
     }
 
     public function insertDataBD($points, $vencedor) {

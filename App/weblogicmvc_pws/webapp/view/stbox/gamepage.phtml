@@ -13,14 +13,12 @@ if(Session::has('userData')){
     Layout::includeLayout('headerNotLoggedIn');
 }
 
-$valorDado = Data::get('valorDado');
-//$numArray = Data::get('numArray');
 $status = Data::get('status');
 $statusGate = Data::get('statusGate');
-$clickedGate = Data::get('clickedGate');
 
+$gameEngine = Session::get('gameEngine');
 
-\Tracy\Debugger::barDump($clickedGate, "SESSION");
+\Tracy\Debugger::barDump($gameEngine, "SESSION");
 ?>
 <h2 style="margin-top: 5%" class="text-center">Shut the Box</h2>
 <div style="background-color: #e0e0ca; border: 1px solid #8A7B52; width: 55%;" class="container mt-4 rounded">
@@ -73,10 +71,10 @@ $clickedGate = Data::get('clickedGate');
         <div style="background-color: #3c763d; border: 1px solid #8A7B52; height: 235px; margin: 20px;" class="rollDices">
             <div style="height: 80%;" class="col-xs-1 text-center">
 
-                <?php if($valorDado != null){ ?>
+                <?php if($gameEngine->tabuleiro->valorDado1 != null && $gameEngine->tabuleiro->valorDado2 != null){ ?>
 
-                    <img class="img-fluid rounded mt-5" id="dado1" src="<?= Asset::image('dado'.$valorDado[0].'.png')?>" alt="" height="85" width="85">
-                    <img class="img-fluid rounded mt-5" id="dado2" src="<?= Asset::image('dado'.$valorDado[1].'.png')?>" alt="" height="85" width="85">
+                    <img class="img-fluid rounded mt-5" id="dado1" src="<?= Asset::image('dado'.$gameEngine->tabuleiro->valorDado1.'.png')?>" alt="" height="85" width="85">
+                    <img class="img-fluid rounded mt-5" id="dado2" src="<?= Asset::image('dado'.$gameEngine->tabuleiro->valorDado2.'.png')?>" alt="" height="85" width="85">
 
                 <?php } else { ?>
 
